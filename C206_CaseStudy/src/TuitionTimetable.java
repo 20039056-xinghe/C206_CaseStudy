@@ -8,7 +8,7 @@ import java.util.Date;
  * 20029425, 4 Aug 2021 9:14:21 pm
  */
 
-public class TuitionTimetable {
+public class TuitionTimetable { //Done by Jerald
 
 	private int timetableID;
 	private double price;

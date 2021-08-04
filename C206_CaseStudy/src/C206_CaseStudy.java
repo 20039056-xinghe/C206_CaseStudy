@@ -365,7 +365,7 @@ public class C206_CaseStudy {
 	
 	
 	
-	public static void displayAll() {
+	public static void displayAll() { //Done by Sanjeev
 		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
 		
 		for(int i = 0; i< enquiryList.size(); i++) {
@@ -375,7 +375,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	
-	public static void displayFullfilled() {
+	public static void displayFullfilled() { //Done by Sanjeev
 		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
@@ -386,7 +386,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	
-	public static void displayNotFuillfilled() {
+	public static void displayNotFuillfilled() { //Done by Sanjeev
 		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
@@ -504,7 +504,7 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	private boolean duplicateID(int id) {
+	private boolean duplicateID(int id) { // Done by Jerald
 		boolean check = false;
 		
 		for(TuitionTimetable t : timetableList) {

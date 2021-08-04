@@ -7,7 +7,7 @@
  * 20029895, 4 Aug 2021 11:30:36 am
  */
 
-public class RegisterNewStudents { //Done by Jason
+public class Students { //Done by Jason
 	
 	private String studentName;
 	private String studentGender;
@@ -17,7 +17,7 @@ public class RegisterNewStudents { //Done by Jason
 	private String studentCountry;
 	private String studentFeedback;
 	
-	public RegisterNewStudents(String studentName,
+	public Students(String studentName,
 			String studentGender,
 			String studentMobile,
 			String studentEmail,
