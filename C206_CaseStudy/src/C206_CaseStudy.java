@@ -48,7 +48,13 @@ public class C206_CaseStudy {
 		return repeat;
 	}
 	
-	
+	private void viewAllRegistration() {
+		String output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status", "RegDateTime");
+		for (Registration x : regList) {
+			output += x.display();
+		}
+		System.out.println(output);
+	}
 	
 	public static String readString(String prompt) { // Copied from Helper and Pasted by Marcus
 		System.out.print(prompt);

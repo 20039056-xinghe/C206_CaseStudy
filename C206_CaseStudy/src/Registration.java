@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * I declare that this code was written by me.
@@ -55,7 +56,14 @@ public class Registration {
 		this.status = status;
 	}
 	
-	
+	public String display() {
+		String output = "";
+		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		//"RegID", "TimeTableID", "Student Email", "Status", "RegDateTime"
+		output += String.format("%-5d %-10d %-30s %-10s %-20s", getRegiNo(), getTimeTableID(), getEmail(), getStatus(), getRegiDateTime().format(dtFormat));
+		return output;
+		
+	}
 	
 	
 }
