@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class C206_CaseStudy {
 
 	private ArrayList<Registration> regiList = new ArrayList<Registration>();
+	private ArrayList<RegisterNewStudents> studentList = new ArrayList<>(); // done by Jason
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -92,4 +93,129 @@ public class C206_CaseStudy {
 		return input;
 	}
 	
+	public void studentRegistrationStart() {// done by Jason
+		
+		int option = -1;
+
+		while (option != 7) {
+			studentRegistrationMenu();
+			option = readInt("Enter choice > ");
+
+			if (option == 1) {
+				viewAllStudents();
+			} else if (option == 2) {
+				addNewStudent();
+			} else if (option == 3) {
+				deleteStudent();
+			} else if (option == 4) {
+				System.out.println("GoodBye");
+			}
+		}
+	}
+
+	private void studentRegistrationMenu() { //Done by Jason
+		System.out.println("1) View all students\n2) Register new student\n3) Delete a student");
+		
+	}
+
+	private void viewAllStudents() { // Done by Jason
+
+		String view = String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s","Student name", "Gender", "Email", "DOB", "Country", "Feedback");
+		for(int i = 0; i < studentList.size(); i++) {
+			RegisterNewStudents r = studentList.get(i);
+			view += String.format("%-10d %-20s %-15s %-10s\n"
+					, r.getStudentName()
+					, r.getStudentGender()
+					, r.getStudentEmail()
+					, r.getStudentDOB()
+					, r.getStudentCountry()
+					, r.getStudentFeedback());
+		}
+		System.out.println(view);			
+	}
+		
+	private void addNewStudent() { //Done by Jason
+		System.out.println("Resgister a new Student");
+		String newName = readString("Name> ");
+		String newGender = readString("Gender> ");
+		String newMobile = readString("Mobile number> ");
+		String newEmail = readString("Email> ");
+		String newDOB = readString("Date of birth> ");
+		String newCountry = readString("Country of residence> ");
+		String newFeedback = readString("Feedback> ");
+		
+		for(RegisterNewStudents r : studentList) {
+			
+			if(studentList.contains(r)) {
+				System.out.println(r.getStudentName() + "already have this email: " + r.getStudentEmail());
+			}
+			else{
+				studentList.add(new RegisterNewStudents(newName, newGender, newMobile, newEmail, newDOB, newCountry, newFeedback));
+				System.out.println("Student has been registered successfully!");
+			}	
+			
+		}
+	}
+
+	private static boolean removeStudent(ArrayList<RegisterNewStudents> studentList, String studentDelete) { //Done by Jason
+		boolean removeStudent = false;
+		for (int i = 0; i < studentList.size(); i++) {
+			if (studentDelete == studentList.get(i).getStudentEmail()) {    
+				removeStudent = true;						
+				studentList.remove(i);
+			}
+		}
+		return removeStudent;
+	}
+	
+	private void deleteStudent() { //Done by Jason
+		System.out.println("DELETE A GUEST");
+
+		String studentDelete = readString("Enter student's email to delete student> ");
+		
+		String studentDetails = C206_CaseStudy.getStudentByEmail(studentList, studentDelete);
+
+		if (!studentDetails.isEmpty()) {
+			System.out.println(studentDetails);
+			String toDelete = readString("Do you wish to delete this student?(y/n) > ");
+
+			if (toDelete == "y" || toDelete == "Y") {
+				boolean deleted = C206_CaseStudy.removeStudent(studentList, studentDelete);
+
+				if (deleted == true) {
+					System.out.println(String.format("The student with the email %s was deleted successfully.",
+							studentDelete));
+				} else {
+					System.out.println("Student was not deleted due to error");
+				}
+			}
+
+		} else {
+			System.out.println("This student does not exist");
+		}
+
+		
+	}
+
+	private static String getStudentByEmail(ArrayList<RegisterNewStudents> studentList, String studentDelete) { //Done by Jason
+
+		String output = "";
+
+		for (int i = 0; i < studentList.size(); i++) {
+			RegisterNewStudents r = studentList.get(i);
+
+			if (r.getStudentEmail() == studentDelete) {
+				output += String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s","Student name", "Gender", "Email", "DOB", "Country", "Feedback");
+				output += String.format("%-10d %-20s %-15s %-10s\n"
+						, r.getStudentName()
+						, r.getStudentGender()
+						, r.getStudentEmail()
+						, r.getStudentDOB()
+						, r.getStudentCountry()
+						, r.getStudentFeedback());
+				break;
+			}
+		}
+		return output;
+	}
 }
