@@ -56,7 +56,7 @@ public class Registration {
 		this.status = status;
 	}
 	
-	public String display() {
+	public String display() { //Done by Marcus
 		String output = "";
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		//"RegID", "TimeTableID", "Student Email", "Status", "RegDateTime"
