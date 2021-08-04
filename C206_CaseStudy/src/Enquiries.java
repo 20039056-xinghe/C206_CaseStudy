@@ -12,17 +12,13 @@ import java.util.Random;
 public class Enquiries {
 	
 	
-	private int enquiry_id;
-	private String enquirerName;
-	private LocalDateTime enquiry_dateTime;
-	private String status;
-	private String fllwupType;
-	
-	public Enquiries() {
+	private int enquiry_id;//Done by Sanjeev
+	private String enquirerName;//Done by Sanjeev
+	private LocalDateTime enquiry_dateTime;//Done by Sanjeev
+	private String status;//Done by Sanjeev
+	private String fllwupType;//Done by Sanjeev
 		
-	}
-	
-	public Enquiries(int enquiry_id, String personName, LocalDateTime enquiry_date, String status,
+	public Enquiries(int enquiry_id, String personName, LocalDateTime enquiry_date, String status, //Done by Sanjeev
 			String fllwupType) {
 		this.enquiry_id = enquiry_id;
 		this.enquirerName = personName;
@@ -31,57 +27,44 @@ public class Enquiries {
 		this.fllwupType = fllwupType;
 	}
 
-	public int getEnquiry_id() {
-		String alphabet = "1234567890";
-		int length = 5;
-		StringBuilder sb = new StringBuilder();
-		Random random = new Random();
-		for(int i = 0; i < length; i++) {
-		      int index = random.nextInt(alphabet.length());
-		      char randomChar = alphabet.charAt(index);
-		      sb.append(randomChar);
-		    }
-		enquiry_id = Integer.parseInt(sb.toString());
+	public int getEnquiry_id() {//Done by Sanjeev
 		return enquiry_id;
 	}
 
-	public String getPersonName() {
+	public void setEnquiry_id(int enquiry_id) {//Done by Sanjeev
+		this.enquiry_id = enquiry_id;
+	}
+
+	public String getEnquirerName() {//Done by Sanjeev
 		return enquirerName;
 	}
 
-	public String setPersonName(String personName) {
-		this.enquirerName = personName;
-		return personName;
+	public void setEnquirerName(String enquirerName) {//Done by Sanjeev
+		this.enquirerName = enquirerName;
 	}
 
-	public LocalDateTime getEnquiry_date() {
+	public LocalDateTime getEnquiry_dateTime() {//Done by Sanjeev
 		return enquiry_dateTime;
 	}
 
-	public LocalDateTime setEnquiry_date(LocalDateTime enquiry_dateTime) {
+	public void setEnquiry_dateTime(LocalDateTime enquiry_dateTime) {//Done by Sanjeev
 		this.enquiry_dateTime = enquiry_dateTime;
-		return enquiry_dateTime;
 	}
 
-	public String getStatus() {
+	public String getStatus() {//Done by Sanjeev
 		return status;
 	}
 
-	public String setStatus(String status) {
+	public void setStatus(String status) {//Done by Sanjeev
 		this.status = status;
-		return status;
 	}
 
-	public String getFllwupType() {
+	public String getFllwupType() {//Done by Sanjeev
 		return fllwupType;
 	}
 
-	public String setFllwupType(String fllwupType) {
+	public void setFllwupType(String fllwupType) {//Done by Sanjeev
 		this.fllwupType = fllwupType;
-		return fllwupType;
 	}
 	
-	
-
-
 }
