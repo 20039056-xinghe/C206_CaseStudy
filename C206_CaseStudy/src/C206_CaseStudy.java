@@ -1,20 +1,19 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class C206_CaseStudy {
 
 	private ArrayList<Registration> regiList = new ArrayList<Registration>();
-	private ArrayList<RegisterNewStudents> enquiryList = new ArrayList<>(); // done by Jason
-	public static ArrayList<RegisterNewEnquiries> enquiry_List = new ArrayList<>(); //Done by Sanjeev
+	private ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
+	public static ArrayList<Enquiries> enquiryList = new ArrayList<Enquiries>(); //Done by Sanjeev
+	private ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>(); // Done by Jerald
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String dt = "2021-10-10 10:10:10";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); //Done by Sanjeev 
-		 LocalDateTime dt1 = LocalDateTime.parse(dt, formatter); //Done by Sanjeev
-		int enquiry_id = enquiry_List.size() + 1; //Done by Sanjeev
-		enquiry_List.add(new RegisterNewEnquiries(enquiry_id, "JJ", dt1, "fullfilled", "email")); //Done by Sanjeev
+		
+		
 	}
 
 	private void RegisterMenu() { //Done by Marcus
@@ -98,6 +97,77 @@ public class C206_CaseStudy {
 		return input;
 	}
 	
+	public static double readDouble(String prompt) { // Copied from Helper and Pasted by Jerald
+	    double input = 0;
+	    boolean valid = false;
+	    while (!valid) {
+	      try {
+	        input = Double.parseDouble(readString(prompt));
+	        valid = true;
+	      } catch (NumberFormatException e) {
+	        System.out.println("*** Please enter a double ***");
+	      }
+	    }
+	    return input;
+	}
+	
+	public static char readChar(String prompt) { // Copied from Helper and Pasted by Jerald
+	    char input = 0;
+	    boolean valid = false;
+	    while (!valid) {
+	      String temp = readString(prompt);
+	      if (temp.length() != 1) {
+	        System.out.println("*** Please enter a character ***");
+	      } else {
+	        input = temp.charAt(0);
+	        valid = true;
+	      }
+	    }
+	    return input;
+	}
+	
+	public static boolean readBoolean(String prompt) { // Copied from Helper and Pasted by Jerald
+	    boolean valid = false;
+	    while (!valid) {
+	      String input = readString(prompt);
+	      if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")
+	          || input.equalsIgnoreCase("true") || input.equalsIgnoreCase("t")) {
+	        return true;
+	      } else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")
+	          || input.equalsIgnoreCase("false") || input.equalsIgnoreCase("f")) {
+	        return false;
+	      } else {
+	        System.out.println("*** Please enter Yes/No or True/False ***");
+	      }
+	    }
+	    return false;
+	}
+	
+	public static Date readDate(String prompt) { // Copied from Helper and Pasted by Jerald
+	    java.util.Date date = null;
+	    boolean valid = false;
+	    while (!valid) {
+	      try {
+	        String input = readString(prompt).trim();
+	        if (input.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")) {
+	          int day = Integer.parseInt(input.substring(0, 2));
+	          int month = Integer.parseInt(input.substring(3, 5));
+	          int year = Integer.parseInt(input.substring(6, 10));
+	          java.util.Calendar cal = java.util.Calendar.getInstance();
+	          cal.setLenient(false);
+	          cal.set(year, month - 1, day, 0, 0, 0);
+	          date = cal.getTime();
+	          valid = true;
+	        } else {
+	          System.out.println("*** Please enter a date (DD/MM/YYYY) ***");
+	        }
+	      } catch (IllegalArgumentException e) {
+	        System.out.println("*** Please enter a date (DD/MM/YYYY) ***");
+	      }
+	    }
+	    return date;
+	}
+	
 	public void studentRegistrationStart() {// done by Jason
 		
 		int option = -1;
@@ -126,8 +196,8 @@ public class C206_CaseStudy {
 	private void viewAllStudents() { // Done by Jason
 
 		String view = String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s","Student name", "Gender", "Email", "DOB", "Country", "Feedback");
-		for(int i = 0; i < enquiryList.size(); i++) {
-			RegisterNewStudents r = enquiryList.get(i);
+		for(int i = 0; i < studentList.size(); i++) {
+			Students r = studentList.get(i);
 			view += String.format("%-10d %-20s %-15s %-10s\n"
 					, r.getStudentName()
 					, r.getStudentGender()
@@ -149,20 +219,20 @@ public class C206_CaseStudy {
 		String newCountry = readString("Country of residence> ");
 		String newFeedback = readString("Feedback> ");
 		
-		for(RegisterNewStudents r : enquiryList) {
+		for(Students r : studentList) {
 			
-			if(enquiryList.contains(r)) {
+			if(studentList.contains(r)) {
 				System.out.println(r.getStudentName() + "already have this email: " + r.getStudentEmail());
 			}
 			else{
-				enquiryList.add(new RegisterNewStudents(newName, newGender, newMobile, newEmail, newDOB, newCountry, newFeedback));
+				studentList.add(new Students(newName, newGender, newMobile, newEmail, newDOB, newCountry, newFeedback));
 				System.out.println("Student has been registered successfully!");
 			}	
 			
 		}
 	}
 
-	private static boolean removeStudent(ArrayList<RegisterNewStudents> studentList, String studentDelete) { //Done by Jason
+	private static boolean removeStudent(ArrayList<Students> studentList, String studentDelete) { //Done by Jason
 		boolean removeStudent = false;
 		for (int i = 0; i < studentList.size(); i++) {
 			if (studentDelete == studentList.get(i).getStudentEmail()) {    
@@ -178,14 +248,14 @@ public class C206_CaseStudy {
 
 		String studentDelete = readString("Enter student's email to delete student> ");
 		
-		String studentDetails = C206_CaseStudy.getStudentByEmail(enquiryList, studentDelete);
+		String studentDetails = C206_CaseStudy.getStudentByEmail(studentList, studentDelete);
 
 		if (!studentDetails.isEmpty()) {
 			System.out.println(studentDetails);
 			String toDelete = readString("Do you wish to delete this student?(y/n) > ");
 
 			if (toDelete == "y" || toDelete == "Y") {
-				boolean deleted = C206_CaseStudy.removeStudent(enquiryList, studentDelete);
+				boolean deleted = C206_CaseStudy.removeStudent(studentList, studentDelete);
 
 				if (deleted == true) {
 					System.out.println(String.format("The student with the email %s was deleted successfully.",
@@ -202,12 +272,12 @@ public class C206_CaseStudy {
 		
 	}
 
-	private static String getStudentByEmail(ArrayList<RegisterNewStudents> studentList, String studentDelete) { //Done by Jason
+	private static String getStudentByEmail(ArrayList<Students> studentList, String studentDelete) { //Done by Jason
 
 		String output = "";
 
 		for (int i = 0; i < studentList.size(); i++) {
-			RegisterNewStudents r = studentList.get(i);
+			Students r = studentList.get(i);
 
 			if (r.getStudentEmail() == studentDelete) {
 				output += String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s","Student name", "Gender", "Email", "DOB", "Country", "Feedback");
@@ -230,11 +300,11 @@ public class C206_CaseStudy {
 	 
 	 private static void searchEnquiry() { //Done by Sanjeev
 		 int eID = readInt("Enter Enquiry ID > ");
-		 for(int i = 0; i < enquiry_List.size(); i++) {
-			 RegisterNewEnquiries enquiry1 = enquiry_List.get(i);
+		 for(int i = 0; i < enquiryList.size(); i++) {
+			Enquiries enquiry1 = enquiryList.get(i);
 			if(eID == enquiry1.getEnquiry_id()) {
 				String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
-				output += String.format("\n%-10d %3s %30s %-10s %9s", enquiry1.getEnquiry_id(), enquiry1.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_dateTime()), enquiry1.getStatus(), enquiry1.getFllwupType());
+				output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry1.getEnquiry_id(), enquiry1.getPersonName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_date()), enquiry1.getStatus(), enquiry1.getFllwupType());
 				System.out.println(output);
 			 }else {
 				 System.out.println("Invalid Entry ID!");
@@ -244,58 +314,30 @@ public class C206_CaseStudy {
 	 
 	 private static void addEnquiry() { //Done by Sanjeev
 		 
-		int enquiry_id = enquiry_List.size() + 1;
 		 String eName = readString("Enter Enquirer's name > ");
 		 String dateTime = readString("Enter date & time of enquiry (yyyy-MM-dd HH:mm:ss) > ");
 		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
 		 LocalDateTime dt = LocalDateTime.parse(dateTime, formatter);
 		 String eStatus = readString("Enter enquiry status(fullfilled/unfullfilled) > ");
-		 eStatus = eStatus.toLowerCase();
 		 String fllwUpType = readString("Enter follow-up type> ");
 		 
-			for(int i = 0; i < enquiry_List.size(); i++) {
-				if(enquiry_List.get(i).getEnquirerName().equalsIgnoreCase(eName)) {
-					System.out.println("Enquiry with this name already exsists!");
-				}else {
-					enquiry_List.add(new RegisterNewEnquiries(enquiry_id, eName, dt, eStatus, fllwUpType));
-					System.out.println("Enquiry Registered successfully!");
-					break;
-				}
+			for(Enquiries r : enquiryList) {
+					enquiryList.add(new Enquiries(r.getEnquiry_id(), eName, dt, eStatus, fllwUpType));
+					System.out.println("Enquiry has been registered successfully!");
+				
 			}
 		 
-	 }
-	 
-	 private static void removeEnquiry() { //Done by Sanjeev
-		 int eId = readInt("Enter Enquiry ID > ");
-		 
-		 for(int i = 0; i < enquiry_List.size(); i++) {
-			 RegisterNewEnquiries enquiry = enquiry_List.get(i);
-			if(eId == enquiry.getEnquiry_id()) {
-					String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
-					output += String.format("\n%-10d %3s %30s %-10s %9s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
-					System.out.println(output);
-					String option = readString("Do you want to delete this(Y/N) > ");
-					if(option.equalsIgnoreCase("y")) {
-						enquiry_List.remove(i);
-						System.out.println("Enquiry Deleted!");
-					}else if(option.equalsIgnoreCase("n")) {
-						break;
-					}
-			}
-		 }
 	 }
 	
 	private static void enquiryMenu() { //Done by Sanjeev
-		line(30, "=");
+		line(20, "=");
 		System.out.println("1. Add New Enquiry");
 		System.out.println("2. View All Enquiry");
 		System.out.println("3. View All Fullfilled Enquiry");
 		System.out.println("4. View All Unfullfilled Enquiry");
 		System.out.println("5. Search Specific Enquiry");
-		System.out.println("6. Edit Enquiry");
-		System.out.println("7. Remove Enquiry");
-		System.out.println("8. Exit");
-		line(30, "=");
+		System.out.println("6. Exit");
+		line(20, "=");
 	}
 	
 	public static void startEnquiry() { //Done by Sanjeev
@@ -315,74 +357,164 @@ public class C206_CaseStudy {
 			}else if(option ==5) {
 				searchEnquiry();
 			}else if(option ==6) {
-				editEnquiry();
-			}else if(option ==7) {
-				removeEnquiry();
-			}else if(option ==8){
 				break;
-			}else {
-				System.out.println("Number not found try again.");
-
 			}
 		}
 		System.out.println("Goodbye!");
 	}
 	
-	public static void editEnquiry() {//Done by Sanjeev
-		 String oldeName = readString("Enter Current Enquirer's name > ");
-		 String neweName = readString("Enter New Enquirer's name > ");
-		 String newdateTime = readString("Enter New date & time of enquiry (yyyy-MM-dd HH:mm:ss) > ");
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
-		 LocalDateTime dt = LocalDateTime.parse(newdateTime, formatter);
-		 String eStatus = readString("Enter New enquiry status(fullfilled/unfullfilled) > ");
-		 String fllwUpType = readString("Enter New follow-up type> ");
-		 
-		 for(RegisterNewEnquiries r : enquiry_List) {
-			 if(r.getEnquirerName().equalsIgnoreCase(oldeName)) {
-				 r.setEnquirerName(neweName);;
-				 r.setEnquiry_dateTime(dt);;
-				 r.setStatus(eStatus);
-				 r.setFllwupType(fllwUpType);
-				 break;
-			 }else {
-				 System.out.println("Name not found!");
-			 }
-		 }
-	}
 	
 	
-	
-	public static void displayAll() { //Done by Sanjeev
+	public static void displayAll() {
 		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
 		
-		for(int i = 0; i< enquiry_List.size(); i++) {
-			RegisterNewEnquiries enquiry = enquiry_List.get(i);
-			output += String.format("\n%-10d %3s %30s %-10s %9s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+		for(int i = 0; i< enquiryList.size(); i++) {
+			Enquiries enquiry = enquiryList.get(i);
+			output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry.getEnquiry_id(), enquiry.getPersonName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_date()), enquiry.getStatus(), enquiry.getFllwupType());
 		}
 		System.out.println(output);
 	}
 	
-	public static void displayFullfilled() { //Done by Sanjeev
-		String output = String.format("\n%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
-		for(int i = 0; i< enquiry_List.size(); i++) {
-			RegisterNewEnquiries enquiry = enquiry_List.get(i);
+	public static void displayFullfilled() {
+		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+		for(int i = 0; i< enquiryList.size(); i++) {
+			Enquiries enquiry = enquiryList.get(i);
 			if(enquiry.getStatus().equalsIgnoreCase("fullfilled")) {
-				output += String.format("\n%-10d %3s %30s %-10s %9s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+				output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry.getEnquiry_id(), enquiry.getPersonName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_date()), enquiry.getStatus(), enquiry.getFllwupType());
 			}
 		}
 		System.out.println(output);
 	}
 	
-	public static void displayNotFuillfilled() { //Done by Sanjeev
-		String output = String.format("\n%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
-		for(int i = 0; i< enquiry_List.size(); i++) {
-			RegisterNewEnquiries enquiry = enquiry_List.get(i);
-			if(enquiry.getStatus().equalsIgnoreCase("unfullfilled")) {
-				output += String.format("\n%-10d %3s %30s %-10s %9s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+	public static void displayNotFuillfilled() {
+		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+		for(int i = 0; i< enquiryList.size(); i++) {
+			Enquiries enquiry = enquiryList.get(i);
+			if(enquiry.getStatus().equalsIgnoreCase("not fullfilled")) {
+				output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry.getEnquiry_id(), enquiry.getPersonName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_date()), enquiry.getStatus(), enquiry.getFllwupType());
 			}
 		}
 		System.out.println(output);
 	}
 	
+	private void tuitionTimetableStart() { //Done by jerald
+		
+		int option = -1;
+		
+		while(option != 4) {
+			
+			tuitionTimetableMenu();
+			option = readInt("Enter choice > ");
+			
+			if(option == 1) {
+				addTimetable();
+			}
+			else if(option == 2) {
+				viewTimetable();
+			}
+			else if(option == 3) {
+				deleteTimetable();
+			}
+			else if(option == 4) {
+				System.out.println("Goodbye!");
+			}
+			else {
+				System.out.println("Invalid option!");
+			}
+		}
+		
+	}
+
+	private void tuitionTimetableMenu() { //Done by jerald
+		line(80, "=");
+		System.out.println("1. Add a new tuition timetable");
+		System.out.println("2. View a tuition timetable");
+		System.out.println("3. Delete a tuition timetable");
+		System.out.println("4. Quit");
+		line(80, "=");
+	}
 	
+	private void addTimetable() { //Done by jerald
+		int inputID = readInt("Enter ID > ");
+		double inputPrice = readDouble("Enter Price > ");
+		Date inputStartDate = readDate("Enter Start Date (DD/MM/YYYY)> ");
+		Date inputEndDate = readDate("Enter End Date (DD/MM/YYYY)> ");
+		String inputMode = readString("Enter Mode > ");
+		
+		if(inputID > 0 && duplicateID(inputID) == false && inputPrice > 0.0 && inputStartDate != null && inputEndDate != null && inputMode != null) {
+			char proceed = readChar("Proceed on adding tuition timetable? (Y/N)> ");
+			if(proceed == 'Y') {
+				timetableList.add(new TuitionTimetable(inputID, inputPrice, inputStartDate, inputEndDate, inputMode));
+				System.out.println("New tuition timetable added!");
+			}
+			else {
+				System.out.println("Adding of new tuition timetable cancelled.");
+			}
+		}
+		else {
+			System.out.println("Required fields are empty. Please fill it in with the appropriate formats.");
+		}
+	}
+	
+	private void viewTimetable() { //Done by jerald
+		int option = readInt("Please enter the tuition timetable ID that you want to view > ");
+		String output = String.format("%-5s %-10s %-20s %-20s %-10s", "ID", "Price", "Start Date", "End Date", "Mode");
+		
+		for(TuitionTimetable t : timetableList) {
+			if(option == t.getTimetableID()) {
+				output = String.format("%-5d %-10.2f %-20t %-20t %-10s", 
+						t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
+			}
+			else {
+				System.out.println("There is no tuition timetable with ID " + option + ". Please try again.");
+			}
+		}
+		System.out.println(output);
+	}
+	
+	private void deleteTimetable() { //Done by jerald
+		String output = String.format("%-5s %-10s %-20s %-20s %-10s", "ID", "Price", "Start Date", "End Date", "Mode");
+		
+		for(TuitionTimetable t : timetableList) {
+			output = String.format("%-5d %-10.2f %-20t %-20t %-10s", 
+					t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
+		}
+		System.out.println(output);
+		line(80, "=");
+		
+		int option = readInt("\nPlease enter the tuition timetable ID that you want to delete > ");
+		
+		for(TuitionTimetable t : timetableList) {
+			if(option == t.getTimetableID()) {
+				char option2 = readChar("This record would be lost, are you sure you want to continue? (Y/N)");
+				
+				while(option2 == 'Y' || option2 == 'N') {
+					if(option2 == 'Y') {
+						timetableList.remove(t);
+						System.out.println("ID " + option + " has been deleted!");
+					}
+					else {
+						System.out.println("Please enter ‘N’ to reject or ‘Y’ to accept");
+					}
+				}
+			}
+			else {
+				System.out.println("No such tuition timetable ID!");
+			}
+		}
+	}
+	
+	private boolean duplicateID(int id) {
+		boolean check = false;
+		
+		for(TuitionTimetable t : timetableList) {
+			if(t.getTimetableID() == id) {
+				check = true;
+			}
+			else {
+				check = false;
+			}
+		}
+		return check;
+	}
 }
