@@ -48,6 +48,8 @@ public class C206_CaseStudy {
 		return repeat;
 	}
 	
+	
+	
 	public static String readString(String prompt) { // Copied from Helper and Pasted by Marcus
 		System.out.print(prompt);
 		return new java.util.Scanner(System.in).nextLine();
