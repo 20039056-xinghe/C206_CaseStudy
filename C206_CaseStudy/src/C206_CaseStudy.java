@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
-	private ArrayList<Registration> regList = new ArrayList<Registration>();
+	private ArrayList<Registration> regiList = new ArrayList<Registration>();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -17,31 +17,31 @@ public class C206_CaseStudy {
 		System.out.println("3. Delete Registration"); //Done by Marcus
 	}
 	
-	private void AddRegistration() { //Done by Marcus
+	private void addRegistration() { //Done by Marcus
 		//registration number = Registration id must be unique.
 			//	tuition timetable id
 			//	student’s email
 			//	status which is initially set to “Pending”
 			//	registration date/time
-		int regiNum = readInt("Registration ID > "); //Done by Marcus
+		int regiID = readInt("Registration ID > "); //Done by Marcus
 		int timeTabelID = readInt("Time Table ID > "); //Done by Marcus
 		String stuEmail = readString("Student's Email"); //Done by Marcus
 		
 		
-		boolean repeat = checkForDupeRegiNum(regiNum);
+		boolean repeat = checkForDupeRegiNum(regiID);
 		
 		if(repeat == false) {  //Done by Marcus
-			regList.add(new Registration(regiNum, timeTabelID, stuEmail)); //Done by Marcus
+			regiList.add(new Registration(regiID, timeTabelID, stuEmail)); //Done by Marcus
 		}else { //Done by Marcus
 			System.out.println("Please use a unique Registration ID"); //Done by Marcus
 		}
 
 	}
 
-	private boolean checkForDupeRegiNum(int regiNum) { //Done by Marcus
+	private boolean checkForDupeRegiNum(int regiID) { //Done by Marcus
 		boolean repeat = false;
-		for (Registration x : regList) {
-			if (x.getRegiNo() == regiNum) {
+		for (Registration x : regiList) {
+			if (x.getRegID() == regiID) {
 				repeat = true;
 			}
 		}
@@ -50,11 +50,28 @@ public class C206_CaseStudy {
 	
 	private void viewAllRegistration() {
 		String output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status", "RegDateTime");
-		for (Registration x : regList) {
+		for (Registration x : regiList) {
 			output += x.display();
 		}
 		System.out.println(output);
 	}
+	
+	public void deleteRegistration() {
+		
+		int regiID = readInt("Please enter the registration ID of the registration to be deleted > "); //Done by Marcus
+		boolean check = false;
+		for (Registration x : regiList) {
+			if (x.getRegID()==regiID) {
+				check = true;
+				regiList.remove(x);
+				System.out.println("Registration succesfully deleted");
+			}
+		}
+		if (check == false) {
+			System.out.println("No registration delete, invalid registration ID.");
+		}
+	}
+	
 	
 	public static String readString(String prompt) { // Copied from Helper and Pasted by Marcus
 		System.out.print(prompt);

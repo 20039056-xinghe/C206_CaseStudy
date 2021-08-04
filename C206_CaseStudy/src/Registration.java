@@ -17,23 +17,23 @@ public class Registration {
 	//	status which is initially set to “Pending”
 	//	registration date/time
 
-	private int regiNo;  //Done by Marcus
+	private int regiID;  //Done by Marcus
 	private int timeTableID; //Done by Marcus
 	private String email; //Done by Marcus
 	private String status; //Done by Marcus
 	private LocalDateTime regiDateTime; //Done by Marcus
 	
-	public Registration(int regiNo, int timeTableID, String email) { //Done by Marcus
+	public Registration(int regiID, int timeTableID, String email) { //Done by Marcus
 
-		this.regiNo = regiNo; //Done by Marcus
+		this.regiID = regiID; //Done by Marcus
 		this.timeTableID = timeTableID; //Done by Marcus
 		this.email = email; //Done by Marcus
 		this.status = "Pending"; //Done by Marcus
 		this.regiDateTime = LocalDateTime.now(); //Done by Marcus
 	}
 
-	public int getRegiNo() { //Done by Marcus
-		return regiNo;
+	public int getRegID() { //Done by Marcus
+		return regiID;
 	}
 
 	public int getTimeTableID() { //Done by Marcus
@@ -60,7 +60,7 @@ public class Registration {
 		String output = "";
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		//"RegID", "TimeTableID", "Student Email", "Status", "RegDateTime"
-		output += String.format("%-5d %-10d %-30s %-10s %-20s", getRegiNo(), getTimeTableID(), getEmail(), getStatus(), getRegiDateTime().format(dtFormat));
+		output += String.format("%-5d %-10d %-30s %-10s %-20s", getRegID(), getTimeTableID(), getEmail(), getStatus(), getRegiDateTime().format(dtFormat));
 		return output;
 		
 	}
