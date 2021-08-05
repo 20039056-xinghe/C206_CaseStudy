@@ -44,7 +44,7 @@ public class C206_CaseStudy {
 
 	private boolean checkForDupeRegiNum(int regiID) { //Done by Marcus
 		boolean repeat = false;
-		for (Registration x : regiList) {
+		for (Registration x : regiList) { //Done by Marcus
 			if (x.getRegID() == regiID) {
 				repeat = true;
 			}
@@ -52,7 +52,7 @@ public class C206_CaseStudy {
 		return repeat;
 	}
 	
-	private void viewAllRegistration() {
+	private void viewAllRegistration() { //Done by Marcus
 		String output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status", "RegDateTime");
 		for (Registration x : regiList) {
 			output += x.display();
@@ -60,7 +60,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	
-	public void deleteRegistration() {
+	public void deleteRegistration() { //Done by Marcus
 		
 		int regiID = readInt("Please enter the registration ID of the registration to be deleted > "); //Done by Marcus
 		boolean check = false;
@@ -71,7 +71,7 @@ public class C206_CaseStudy {
 				System.out.println("Registration succesfully deleted");
 			}
 		}
-		if (check == false) {
+		if (check == false) { //Done by Marcus
 			System.out.println("No registration delete, invalid registration ID.");
 		}
 	}
