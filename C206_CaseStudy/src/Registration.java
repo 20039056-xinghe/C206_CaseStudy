@@ -58,7 +58,7 @@ public class Registration {
 	
 	public String display() { //Done by Marcus
 		String output = "";
-		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); //Done by Marcus
 		//"RegID", "TimeTableID", "Student Email", "Status", "RegDateTime"
 		output += String.format("%-5d %-10d %-30s %-10s %-20s", getRegID(), getTimeTableID(), getEmail(), getStatus(), getRegiDateTime().format(dtFormat));
 		return output;

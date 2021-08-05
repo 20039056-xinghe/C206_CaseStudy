@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class C206_CaseStudy {
 
-	private ArrayList<Registration> regiList = new ArrayList<Registration>();
+	private ArrayList<Registration> regiList = new ArrayList<Registration>(); //Done by Marcus
 	private ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
 	public static ArrayList<Enquiries> enquiryList = new ArrayList<Enquiries>(); //Done by Sanjeev
 	private ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>(); // Done by Jerald
