@@ -1,6 +1,5 @@
 
 public class TuitionManager { //Done by Jerald
-
 		
 		private String managerUsername;
 		private String managerPassword;
