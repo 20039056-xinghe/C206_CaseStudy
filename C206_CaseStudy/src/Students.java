@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * I declare that this code was written by me.
@@ -14,7 +14,7 @@ public class Students { //Done by Jason
 	private String studentGender;
 	private int studentMobile;
 	private String studentEmail;
-	private Date studentDOB;
+	private LocalDate studentDOB;
 	private String studentCountry;
 	private String studentFeedback;
 	
@@ -22,7 +22,7 @@ public class Students { //Done by Jason
 			String studentGender,
 			int studentMobile,
 			String studentEmail,
-			Date studentDOB,
+			LocalDate studentDOB,
 			String studentCountry,
 			String studentFeedback){
 		
@@ -67,11 +67,11 @@ public class Students { //Done by Jason
 		this.studentEmail = studentEmail;
 	}
 
-	public Date getStudentDOB() {
+	public LocalDate getStudentDOB() {
 		return studentDOB;
 	}
 
-	public void setStudentDOB(Date studentDOB) {
+	public void setStudentDOB(LocalDate studentDOB) {
 		this.studentDOB = studentDOB;
 	}
 

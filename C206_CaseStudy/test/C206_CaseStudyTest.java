@@ -1,12 +1,10 @@
-import static org.junit.Assert.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 public class C206_CaseStudyTest {
 	
@@ -39,6 +37,8 @@ public class C206_CaseStudyTest {
 		//----------UP TO SANJEEV----------//
 		
 		
+		
+		tl1 = new TuitionTimetable(1, 123.40, 05/08/2021, 05/12/2021, "F2F");
 		
 		//----------UP TO JERALD----------//
 		

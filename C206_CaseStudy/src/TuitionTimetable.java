@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * I declare that this code was written by me.
@@ -12,18 +12,18 @@ public class TuitionTimetable { //Done by Jerald
 
 	private int timetableID;
 	private double price;
-	private Date startDate;
-	private Date endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private String mode;
 	
-	public TuitionTimetable(int timetableID, double price, Date startDate, Date endDate, String mode) {
+	public TuitionTimetable(int timetableID, double price, LocalDate startDate, LocalDate endDate, String mode) {
 		this.timetableID = timetableID;
 		this.price = price;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.mode = mode;
 	}
-	
+
 	public int getTimetableID() {
 		return timetableID;
 	}
@@ -40,19 +40,19 @@ public class TuitionTimetable { //Done by Jerald
 		this.price = price;
 	}
 	
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 	
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 	
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 	
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	

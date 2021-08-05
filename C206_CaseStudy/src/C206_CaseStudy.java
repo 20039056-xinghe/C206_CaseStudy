@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -132,9 +133,12 @@ public class C206_CaseStudy {
 		String newGender = Helper.readString("Gender> ");
 		int newMobile = Helper.readInt("Mobile number> ");
 		String newEmail = Helper.readString("Email> ");
-		Date newDOB = Helper.readDate("Date of birth> ");
+		String userDOB = Helper.readString("Date of birth> ");
 		String newCountry = Helper.readString("Country of residence> ");
 		String newFeedback = Helper.readString("Feedback> ");
+		
+		DateTimeFormatter format1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		LocalDate newDOB = LocalDate.parse(userDOB, format1);
 		
 		for(Students r : studentList) {
 			
@@ -393,11 +397,16 @@ public class C206_CaseStudy {
 	private void addTimetable() { //Done by jerald
 		int inputID = Helper.readInt("Enter ID > ");
 		double inputPrice = Helper.readDouble("Enter Price > ");
-		Date inputStartDate = Helper.readDate("Enter Start Date (DD/MM/YYYY)> ");
-		Date inputEndDate = Helper.readDate("Enter End Date (DD/MM/YYYY)> ");
+		String inputStringStartDate = Helper.readString("Enter Start Date (DD-MM-YYYY)> ");
+		String inputStringEndDate = Helper.readString("Enter End Date (DD-MM-YYYY)> ");
 		String inputMode = Helper.readString("Enter Mode > ");
 		
-		if(inputID > 0 && duplicateID(inputID) == false && inputPrice > 0.0 && inputStartDate != null && inputEndDate != null && inputMode != null) {
+		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		
+		LocalDate inputStartDate = LocalDate.parse(inputStringStartDate, formatter1);
+		LocalDate inputEndDate = LocalDate.parse(inputStringEndDate, formatter1);
+		
+		if(inputID > 0 && duplicateID(inputID) == false && inputPrice > 0.0 && inputStringStartDate != null && inputStringEndDate != null && inputMode != null) {
 			char proceed = Helper.readChar("Proceed on adding tuition timetable? (Y/N)> ");
 			if(proceed == 'Y') {
 				timetableList.add(new TuitionTimetable(inputID, inputPrice, inputStartDate, inputEndDate, inputMode));
