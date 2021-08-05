@@ -1,3 +1,4 @@
+import java.util.Date;
 
 /**
  * I declare that this code was written by me.
@@ -11,17 +12,17 @@ public class Students { //Done by Jason
 	
 	private String studentName;
 	private String studentGender;
-	private String studentMobile;
+	private int studentMobile;
 	private String studentEmail;
-	private String studentDOB;
+	private Date studentDOB;
 	private String studentCountry;
 	private String studentFeedback;
 	
 	public Students(String studentName,
 			String studentGender,
-			String studentMobile,
+			int studentMobile,
 			String studentEmail,
-			String studentDOB,
+			Date studentDOB,
 			String studentCountry,
 			String studentFeedback){
 		
@@ -50,11 +51,11 @@ public class Students { //Done by Jason
 		this.studentGender = studentGender;
 	}
 
-	public String getStudentMobile() {
+	public int getStudentMobile() {
 		return studentMobile;
 	}
 
-	public void setStudentMobile(String studentMobile) {
+	public void setStudentMobile(int studentMobile) {
 		this.studentMobile = studentMobile;
 	}
 
@@ -66,11 +67,11 @@ public class Students { //Done by Jason
 		this.studentEmail = studentEmail;
 	}
 
-	public String getStudentDOB() {
+	public Date getStudentDOB() {
 		return studentDOB;
 	}
 
-	public void setStudentDOB(String studentDOB) {
+	public void setStudentDOB(Date studentDOB) {
 		this.studentDOB = studentDOB;
 	}
 

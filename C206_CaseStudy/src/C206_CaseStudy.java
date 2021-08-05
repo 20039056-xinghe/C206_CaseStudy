@@ -27,9 +27,9 @@ public class C206_CaseStudy {
 			//	student’s email
 			//	status which is initially set to “Pending”
 			//	registration date/time
-		int regiID = readInt("Registration ID > "); //Done by Marcus
-		int timeTabelID = readInt("Time Table ID > "); //Done by Marcus
-		String stuEmail = readString("Student's Email"); //Done by Marcus
+		int regiID = Helper.readInt("Registration ID > "); //Done by Marcus
+		int timeTabelID = Helper.readInt("Time Table ID > "); //Done by Marcus
+		String stuEmail = Helper.readString("Student's Email"); //Done by Marcus
 		
 		
 		boolean repeat = checkForDupeRegiNum(regiID);
@@ -62,7 +62,7 @@ public class C206_CaseStudy {
 	
 	public void deleteRegistration() { //Done by Marcus
 		
-		int regiID = readInt("Please enter the registration ID of the registration to be deleted > "); //Done by Marcus
+		int regiID = Helper.readInt("Please enter the registration ID of the registration to be deleted > "); //Done by Marcus
 		boolean check = false;
 		for (Registration x : regiList) {
 			if (x.getRegID()==regiID) {
@@ -77,95 +77,13 @@ public class C206_CaseStudy {
 	}
 	
 	
-	public static String readString(String prompt) { // Copied from Helper and Pasted by Marcus
-		System.out.print(prompt);
-		return new java.util.Scanner(System.in).nextLine();
-	}
+
 	
-	public static int readInt(String prompt) { //Copied from Helper and Pasted by Marcus
-		int input = 0; 
-		boolean valid = false;
-		while (!valid) {
-			try {
-				input = Integer.parseInt(readString(prompt));
-				valid = true;
-			} catch (NumberFormatException e) {
-				System.out.println("*** Please enter an integer ***");
-			}
-		}
-		return input;
-	}
+
 	
-	public static double readDouble(String prompt) { // Copied from Helper and Pasted by Jerald
-	    double input = 0;
-	    boolean valid = false;
-	    while (!valid) {
-	      try {
-	        input = Double.parseDouble(readString(prompt));
-	        valid = true;
-	      } catch (NumberFormatException e) {
-	        System.out.println("*** Please enter a double ***");
-	      }
-	    }
-	    return input;
-	}
+
+
 	
-	public static char readChar(String prompt) { // Copied from Helper and Pasted by Jerald
-	    char input = 0;
-	    boolean valid = false;
-	    while (!valid) {
-	      String temp = readString(prompt);
-	      if (temp.length() != 1) {
-	        System.out.println("*** Please enter a character ***");
-	      } else {
-	        input = temp.charAt(0);
-	        valid = true;
-	      }
-	    }
-	    return input;
-	}
-	
-	public static boolean readBoolean(String prompt) { // Copied from Helper and Pasted by Jerald
-	    boolean valid = false;
-	    while (!valid) {
-	      String input = readString(prompt);
-	      if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")
-	          || input.equalsIgnoreCase("true") || input.equalsIgnoreCase("t")) {
-	        return true;
-	      } else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")
-	          || input.equalsIgnoreCase("false") || input.equalsIgnoreCase("f")) {
-	        return false;
-	      } else {
-	        System.out.println("*** Please enter Yes/No or True/False ***");
-	      }
-	    }
-	    return false;
-	}
-	
-	public static Date readDate(String prompt) { // Copied from Helper and Pasted by Jerald
-	    java.util.Date date = null;
-	    boolean valid = false;
-	    while (!valid) {
-	      try {
-	        String input = readString(prompt).trim();
-	        if (input.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")) {
-	          int day = Integer.parseInt(input.substring(0, 2));
-	          int month = Integer.parseInt(input.substring(3, 5));
-	          int year = Integer.parseInt(input.substring(6, 10));
-	          java.util.Calendar cal = java.util.Calendar.getInstance();
-	          cal.setLenient(false);
-	          cal.set(year, month - 1, day, 0, 0, 0);
-	          date = cal.getTime();
-	          valid = true;
-	        } else {
-	          System.out.println("*** Please enter a date (DD/MM/YYYY) ***");
-	        }
-	      } catch (IllegalArgumentException e) {
-	        System.out.println("*** Please enter a date (DD/MM/YYYY) ***");
-	      }
-	    }
-	    return date;
-	}
 	
 	public void studentRegistrationStart() {// done by Jason
 		
@@ -173,7 +91,7 @@ public class C206_CaseStudy {
 
 		while (option != 7) {
 			studentRegistrationMenu();
-			option = readInt("Enter choice > ");
+			option = Helper.readInt("Enter choice > ");
 
 			if (option == 1) {
 				viewAllStudents();
@@ -210,13 +128,13 @@ public class C206_CaseStudy {
 		
 	private void addNewStudent() { //Done by Jason
 		System.out.println("Resgister a new Student");
-		String newName = readString("Name> ");
-		String newGender = readString("Gender> ");
-		String newMobile = readString("Mobile number> ");
-		String newEmail = readString("Email> ");
-		String newDOB = readString("Date of birth> ");
-		String newCountry = readString("Country of residence> ");
-		String newFeedback = readString("Feedback> ");
+		String newName = Helper.readString("Name> ");
+		String newGender = Helper.readString("Gender> ");
+		int newMobile = Helper.readInt("Mobile number> ");
+		String newEmail = Helper.readString("Email> ");
+		Date newDOB = Helper.readDate("Date of birth> ");
+		String newCountry = Helper.readString("Country of residence> ");
+		String newFeedback = Helper.readString("Feedback> ");
 		
 		for(Students r : studentList) {
 			
@@ -245,13 +163,13 @@ public class C206_CaseStudy {
 	private void deleteStudent() { //Done by Jason
 		System.out.println("DELETE A GUEST");
 
-		String studentDelete = readString("Enter student's email to delete student> ");
+		String studentDelete = Helper.readString("Enter student's email to delete student> ");
 		
 		String studentDetails = C206_CaseStudy.getStudentByEmail(studentList, studentDelete);
 
 		if (!studentDetails.isEmpty()) {
 			System.out.println(studentDetails);
-			String toDelete = readString("Do you wish to delete this student?(y/n) > ");
+			String toDelete = Helper.readString("Do you wish to delete this student?(y/n) > ");
 
 			if (toDelete == "y" || toDelete == "Y") {
 				boolean deleted = C206_CaseStudy.removeStudent(studentList, studentDelete);
@@ -293,12 +211,10 @@ public class C206_CaseStudy {
 		return output;
 	}
 	
-	 public static void line(int len, String c) { //Copy pasted from Helper by Sanjeev
-		 System.out.println(String.format("%" + len + "s", " ").replaceAll(" ", c));
-	}
+
 	 
 	 private static void searchEnquiry() { //Done by Sanjeev
-		 int eID = readInt("Enter Enquiry ID > ");
+		 int eID = Helper.readInt("Enter Enquiry ID > ");
 		 for(int i = 0; i < enquiryList.size(); i++) {
 			Enquiries enquiry1 = enquiryList.get(i);
 			if(eID == enquiry1.getEnquiry_id()) {
@@ -314,12 +230,12 @@ public class C206_CaseStudy {
 	 
 	 private static void addEnquiry() { //Done by Sanjeev
 		 
-		 String eName = readString("Enter Enquirer's name > ");
-		 String dateTime = readString("Enter date & time of enquiry (yyyy-MM-dd HH:mm:ss) > ");
+		 String eName = Helper.readString("Enter Enquirer's name > ");
+		 String dateTime = Helper.readString("Enter date & time of enquiry (yyyy-MM-dd HH:mm:ss) > ");
 		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
 		 LocalDateTime dt = LocalDateTime.parse(dateTime, formatter);
-		 String eStatus = readString("Enter enquiry status(fullfilled/unfullfilled) > ");
-		 String fllwUpType = readString("Enter follow-up type> ");
+		 String eStatus = Helper.readString("Enter enquiry status(fullfilled/unfullfilled) > ");
+		 String fllwUpType = Helper.readString("Enter follow-up type> ");
 		 int enquiry_id = enquiryList.size() + 1;
 		 
 			for(int i = 0; i < enquiryList.size(); i++) {
@@ -337,7 +253,7 @@ public class C206_CaseStudy {
 	 }
 	 
 	 private static void deleteEnquiry() { //Done by Sanjeev
-		 int enquiry_id = readInt("Enter Enquiry ID > ");
+		 int enquiry_id = Helper.readInt("Enter Enquiry ID > ");
 		 
 		 for(int i = 0; i < enquiryList.size(); i++) {
 			 Enquiries enquiry = enquiryList.get(i);
@@ -345,7 +261,7 @@ public class C206_CaseStudy {
 					String output = displayHeader();
 					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 					System.out.println(output);
-					String option = readString("Do you wish to delete this enquiry? (Y/N)> ");
+					String option = Helper.readString("Do you wish to delete this enquiry? (Y/N)> ");
 					if(option.equalsIgnoreCase("y")) {
 						enquiryList.remove(i);
 						System.out.println("Enquiry has been successfully removed!");
@@ -360,7 +276,7 @@ public class C206_CaseStudy {
 	 }
 	
 	private static void enquiryMenu() { //Done by Sanjeev
-		line(25, "=");
+		Helper.line(25, "=");
 		System.out.println("1. Add New Enquiry");
 		System.out.println("2. View All Enquiry");
 		System.out.println("3. View All Fullfilled Enquiry");
@@ -368,7 +284,7 @@ public class C206_CaseStudy {
 		System.out.println("5. Search Specific Enquiry");
 		System.out.println("6. Delete Specific Enquiry");
 		System.out.println("7. Exit");
-		line(25, "=");
+		Helper.line(25, "=");
 	}
 	
 	public static void startEnquiry() { //Done by Sanjeev
@@ -376,7 +292,7 @@ public class C206_CaseStudy {
 		
 		while(option != 0) {
 			enquiryMenu();
-			option = readInt("Enter Choice > ");
+			option = Helper.readInt("Enter Choice > ");
 			if(option == 1) {
 				addEnquiry();
 			}else if(option ==2) {
@@ -400,7 +316,7 @@ public class C206_CaseStudy {
 	
 	
 	
-	public static void displayAll() { //Done by Sanjeev1
+	public static void displayAll() { //Done by Sanjeev
 		String output = displayHeader();
 		
 		for(int i = 0; i< enquiryList.size(); i++) {
@@ -444,7 +360,7 @@ public class C206_CaseStudy {
 		while(option != 4) {
 			
 			tuitionTimetableMenu();
-			option = readInt("Enter choice > ");
+			option = Helper.readInt("Enter choice > ");
 			
 			if(option == 1) {
 				addTimetable();
@@ -466,23 +382,23 @@ public class C206_CaseStudy {
 	}
 
 	private void tuitionTimetableMenu() { //Done by jerald
-		line(80, "=");
+		Helper.line(80, "=");
 		System.out.println("1. Add a new tuition timetable");
 		System.out.println("2. View a tuition timetable");
 		System.out.println("3. Delete a tuition timetable");
 		System.out.println("4. Quit");
-		line(80, "=");
+		Helper.line(80, "=");
 	}
 	
 	private void addTimetable() { //Done by jerald
-		int inputID = readInt("Enter ID > ");
-		double inputPrice = readDouble("Enter Price > ");
-		Date inputStartDate = readDate("Enter Start Date (DD/MM/YYYY)> ");
-		Date inputEndDate = readDate("Enter End Date (DD/MM/YYYY)> ");
-		String inputMode = readString("Enter Mode > ");
+		int inputID = Helper.readInt("Enter ID > ");
+		double inputPrice = Helper.readDouble("Enter Price > ");
+		Date inputStartDate = Helper.readDate("Enter Start Date (DD/MM/YYYY)> ");
+		Date inputEndDate = Helper.readDate("Enter End Date (DD/MM/YYYY)> ");
+		String inputMode = Helper.readString("Enter Mode > ");
 		
 		if(inputID > 0 && duplicateID(inputID) == false && inputPrice > 0.0 && inputStartDate != null && inputEndDate != null && inputMode != null) {
-			char proceed = readChar("Proceed on adding tuition timetable? (Y/N)> ");
+			char proceed = Helper.readChar("Proceed on adding tuition timetable? (Y/N)> ");
 			if(proceed == 'Y') {
 				timetableList.add(new TuitionTimetable(inputID, inputPrice, inputStartDate, inputEndDate, inputMode));
 				System.out.println("New tuition timetable added!");
@@ -514,16 +430,16 @@ public class C206_CaseStudy {
 					t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
 		}
 		System.out.println(output);
-		line(80, "=");
+		Helper.line(80, "=");
 		
-		int option = readInt("\nPlease enter the tuition timetable ID that you want to delete > ");
+		int option = Helper.readInt("\nPlease enter the tuition timetable ID that you want to delete > ");
 		
 		for(TuitionTimetable t : timetableList) {
 			if(option == t.getTimetableID()) {
 				char option2 = ' ';
 				
 				while(option2 != 'Y' || option2 != 'N') {
-					option2 = readChar("This record would be lost, are you sure you want to continue? (Y/N)");
+					option2 = Helper.readChar("This record would be lost, are you sure you want to continue? (Y/N)");
 					
 					if(option2 == 'Y') {
 						timetableList.remove(t);
