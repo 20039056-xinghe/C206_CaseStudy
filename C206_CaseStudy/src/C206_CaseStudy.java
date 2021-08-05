@@ -226,7 +226,7 @@ public class C206_CaseStudy {
 	
 
 	 
-	public static void searchEnquiry() { //Done by Sanjeev1
+	public static void searchEnquiry() { //Done by Sanjeev2
 		 int eID = Helper.readInt("Enter Enquiry ID > ");
 		 for(int i = 0; i < enquiryList.size(); i++) {
 			Enquiries enquiry1 = enquiryList.get(i);

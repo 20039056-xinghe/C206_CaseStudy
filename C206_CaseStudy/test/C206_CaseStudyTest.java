@@ -75,7 +75,7 @@ public class C206_CaseStudyTest {
 	//Sanjeev JUNIT TESTING BELOW
 	
 	@Test
-	public void addEnquiryTest() { //Done by Sanjeev
+	public void addEnquiryTest() { //Done by Sanjeev1
 		//Check that the arraylist is not null so enquiry object can be added into the arrayList
 		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
 		//Given a empty arraylist check that when a enquiry object is added into the arraylist, the size increases from 0 to one
