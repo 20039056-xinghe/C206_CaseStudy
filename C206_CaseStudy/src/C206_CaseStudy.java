@@ -520,9 +520,11 @@ public class C206_CaseStudy {
 		
 		for(TuitionTimetable t : timetableList) {
 			if(option == t.getTimetableID()) {
-				char option2 = readChar("This record would be lost, are you sure you want to continue? (Y/N)");
+				char option2 = ' ';
 				
-				while(option2 == 'Y' || option2 == 'N') {
+				while(option2 != 'Y' || option2 != 'N') {
+					option2 = readChar("This record would be lost, are you sure you want to continue? (Y/N)");
+					
 					if(option2 == 'Y') {
 						timetableList.remove(t);
 						System.out.println("ID " + option + " has been deleted!");
