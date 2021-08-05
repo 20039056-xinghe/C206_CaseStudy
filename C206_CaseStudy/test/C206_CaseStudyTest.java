@@ -197,6 +197,8 @@ public class C206_CaseStudyTest {
 	@Test
 	public void testAddTimetable() {
 		
+		C206_CaseStudy.timetableList.clear();
+		
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
 		assertEquals(1, C206_CaseStudy.timetableList.size());
 		
@@ -204,13 +206,14 @@ public class C206_CaseStudyTest {
 		assertEquals(2, C206_CaseStudy.timetableList.size());
 		
 		assertSame(tl2, C206_CaseStudy.timetableList.get(1));
-		C206_CaseStudy.timetableList.clear();
 		
 	}
 	@Test
 	public void testViewTimetable() {
 		
-		assertNull(C206_CaseStudy.timetableList);
+		C206_CaseStudy.timetableList.clear();
+		
+		assertEquals(0, C206_CaseStudy.timetableList.size());
 		
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl2);

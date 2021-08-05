@@ -27,17 +27,21 @@ public class C206_CaseStudy {
 			//	student’s email
 			//	status which is initially set to “Pending”
 			//	registration date/time
-		int regiID = Helper.readInt("Registration ID > "); //Done by Marcus
-		int timeTabelID = Helper.readInt("Time Table ID > "); //Done by Marcus
-		String stuEmail = Helper.readString("Student's Email"); //Done by Marcus
+		boolean repeat = true;
 		
-		
-		boolean repeat = checkForDupeRegiNum(regiID);
-		
-		if(repeat == false) {  //Done by Marcus
-			regiList.add(new Registration(regiID, timeTabelID, stuEmail)); //Done by Marcus
-		}else { //Done by Marcus
-			System.out.println("Please use a unique Registration ID"); //Done by Marcus
+		while (repeat = true) {
+			int regiID = Helper.readInt("Registration ID > "); //Done by Marcus
+			repeat = checkForDupeRegiNum(regiID);
+			
+			if(repeat == false) {  //Done by Marcus
+				int timeTabelID = Helper.readInt("Time Table ID > "); //Done by Marcus
+				String stuEmail = Helper.readString("Student's Email"); //Done by Marcus
+				
+				regiList.add(new Registration(regiID, timeTabelID, stuEmail)); //Done by Marcus
+				System.out.println("Successfully added registration");
+			}else { //Done by Marcus
+				System.out.println("Please use a unique Registration ID"); //Done by Marcus
+			}
 		}
 
 	}
@@ -53,9 +57,15 @@ public class C206_CaseStudy {
 	}
 	
 	private void viewAllRegistration() { //Done by Marcus
-		String output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status", "RegDateTime");
-		for (Registration x : regiList) {
-			output += x.display();
+		String output = "";
+		if (regiList.size() == 0) {
+			output = "No registration found";
+		}
+		else if (regiList.size() > 0) {
+			output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status", "RegDateTime");
+			for (Registration x : regiList) {
+				output += x.display();
+			}
 		}
 		System.out.println(output);
 	}
