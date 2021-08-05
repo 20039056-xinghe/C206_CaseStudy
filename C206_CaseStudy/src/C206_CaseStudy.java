@@ -208,7 +208,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
-	
+	 
 	private static boolean duplicateEmail(String email) { // Done by Jason
 		boolean check = false;
 		
