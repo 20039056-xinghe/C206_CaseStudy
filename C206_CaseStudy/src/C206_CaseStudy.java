@@ -57,9 +57,15 @@ public class C206_CaseStudy {
 	}
 	
 	private void viewAllRegistration() { //Done by Marcus
-		String output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status", "RegDateTime");
-		for (Registration x : regiList) {
-			output += x.display();
+		String output = "";
+		if (regiList.size() == 0) {
+			output = "No registration found";
+		}
+		else if (regiList.size() > 0) {
+			output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status", "RegDateTime");
+			for (Registration x : regiList) {
+				output += x.display();
+			}
 		}
 		System.out.println(output);
 	}
