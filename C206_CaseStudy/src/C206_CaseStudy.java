@@ -76,17 +76,7 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	
-
-	
-
-	
-
-
-	
-	
-	public void studentRegistrationStart() {// done by Jason
-		
+	public void studentRegistrationstart() {// Done by Jason
 		int option = -1;
 
 		while (option != 7) {
@@ -105,115 +95,131 @@ public class C206_CaseStudy {
 		}
 	}
 
-	private void studentRegistrationMenu() { //Done by Jason
-		System.out.println("1) View all students\n2) Register new student\n3) Delete a student");
-		
-	}
-
-	private void viewAllStudents() { // Done by Jason
-
-		String view = String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s","Student name", "Gender", "Email", "DOB", "Country", "Feedback");
-		for(int i = 0; i < studentList.size(); i++) {
-			Students r = studentList.get(i);
-			view += String.format("%-10d %-20s %-15s %-10s\n"
-					, r.getStudentName()
-					, r.getStudentGender()
-					, r.getStudentEmail()
-					, r.getStudentDOB()
-					, r.getStudentCountry()
-					, r.getStudentFeedback());
-		}
-		System.out.println(view);			
-	}
-		
-	private void addNewStudent() { //Done by Jason
-		System.out.println("Resgister a new Student");
-		String newName = Helper.readString("Name> ");
-		String newGender = Helper.readString("Gender> ");
-		int newMobile = Helper.readInt("Mobile number> ");
-		String newEmail = Helper.readString("Email> ");
-		String userDOB = Helper.readString("Date of birth> ");
-		String newCountry = Helper.readString("Country of residence> ");
-		String newFeedback = Helper.readString("Feedback> ");
-		
-		DateTimeFormatter format1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		LocalDate newDOB = LocalDate.parse(userDOB, format1);
-		
-		for(Students r : studentList) {
-			
-			if(studentList.contains(r)) {
-				System.out.println(r.getStudentName() + "already have this email: " + r.getStudentEmail());
-			}
-			else{
-				studentList.add(new Students(newName, newGender, newMobile, newEmail, newDOB, newCountry, newFeedback));
-				System.out.println("Student has been registered successfully!");
-			}	
+		private static void studentRegistrationMenu() { //Done by Jason
+			System.out.println("1) View all students\n2) Register new student\n3) Delete a student");
 			
 		}
-	}
 
-	private static boolean removeStudent(ArrayList<Students> studentList, String studentDelete) { //Done by Jason
-		boolean removeStudent = false;
-		for (int i = 0; i < studentList.size(); i++) {
-			if (studentDelete == studentList.get(i).getStudentEmail()) {    
-				removeStudent = true;						
-				studentList.remove(i);
-			}
-		}
-		return removeStudent;
-	}
-	
-	private void deleteStudent() { //Done by Jason
-		System.out.println("DELETE A GUEST");
+		private void viewAllStudents() { // Done by Jason
 
-		String studentDelete = Helper.readString("Enter student's email to delete student> ");
-		
-		String studentDetails = C206_CaseStudy.getStudentByEmail(studentList, studentDelete);
-
-		if (!studentDetails.isEmpty()) {
-			System.out.println(studentDetails);
-			String toDelete = Helper.readString("Do you wish to delete this student?(y/n) > ");
-
-			if (toDelete == "y" || toDelete == "Y") {
-				boolean deleted = C206_CaseStudy.removeStudent(studentList, studentDelete);
-
-				if (deleted == true) {
-					System.out.println(String.format("The student with the email %s was deleted successfully.",
-							studentDelete));
-				} else {
-					System.out.println("Student was not deleted due to error");
-				}
-			}
-
-		} else {
-			System.out.println("This student does not exist");
-		}
-
-		
-	}
-
-	private static String getStudentByEmail(ArrayList<Students> studentList, String studentDelete) { //Done by Jason
-
-		String output = "";
-
-		for (int i = 0; i < studentList.size(); i++) {
-			Students r = studentList.get(i);
-
-			if (r.getStudentEmail() == studentDelete) {
-				output += String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s","Student name", "Gender", "Email", "DOB", "Country", "Feedback");
-				output += String.format("%-10d %-20s %-15s %-10s\n"
+			String view = String.format("%-20s %-10s %-10s %-20s %-25s %-10s %-15s\n","Student name", "Gender", "Student mobile", "Email", "DOB", "Country", "Feedback");
+			for(int i = 0; i < studentList.size(); i++) {
+				Students r = studentList.get(i);
+				view += String.format("%-20s %-10s %-10d %-20s %-25s %-10s %-15ss"
 						, r.getStudentName()
 						, r.getStudentGender()
+						, r.getStudentMobile()
 						, r.getStudentEmail()
 						, r.getStudentDOB()
 						, r.getStudentCountry()
 						, r.getStudentFeedback());
-				break;
 			}
+			System.out.println(view);			
 		}
-		return output;
-	}
-	
+			
+		private void addNewStudent() { //Done by Jason
+			System.out.println("Register a new Student");
+			String studentName = Helper.readString("Name> ");
+			String studentGender = Helper.readString("Gender> ");
+			int studentMobile = Helper.readInt("Mobile number> ");
+			String studentEmail = Helper.readString("Email> ");
+			String studentDOBString = Helper.readString("Date of birth dd-MM-yyyy> ");
+			String studentCountry = Helper.readString("Country of residence> ");
+			String studentFeedback = Helper.readString("Feedback> ");
+			
+			DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			
+			LocalDate inputDOB = LocalDate.parse(studentDOBString, formatter1);
+			
+			if(duplicateEmail(studentEmail) == false) {
+				studentList.add(new Students(studentName, studentGender, studentMobile, studentEmail, inputDOB, studentCountry, studentFeedback));
+				System.out.println("Student has been registered successfully!");
+				
+			}
+			else if(duplicateEmail(studentEmail) == true) {
+				System.out.println("This email already exist");
+				
+			}
+		
+			else {
+				System.out.println("Registration has been cancelled");
+		}
+		}
+		private static boolean removeStudent(ArrayList<Students> studentList, String studentDelete) { //Done by Jason
+			boolean removeStudent = false;
+			for (int i = 0; i < studentList.size(); i++) {
+				if (studentDelete == studentList.get(i).getStudentEmail()) {    
+					removeStudent = true;						
+					studentList.remove(i);
+				}
+			}
+			return removeStudent;
+		}
+		
+		private void deleteStudent() { //Done by Jason
+			System.out.println("DELETE A STUDENT");
+
+			String studentDelete = Helper.readString("Enter student's email to delete student> ");
+			
+			String studentDetails = C206_CaseStudy.getStudentByEmail(studentList, studentDelete);
+
+			if (studentDetails.isEmpty()) {
+				System.out.println(studentDetails);
+				String toDelete = Helper.readString("Do you wish to delete this student?(y/n) > ");
+
+				if (toDelete == "y" || toDelete == "Y") {
+					boolean deleted = C206_CaseStudy.removeStudent(studentList, studentDelete);
+
+					if (deleted == true) {
+						System.out.println(String.format("The student with the email %s was deleted successfully.",
+								studentDelete));
+					} else {
+						System.out.println("Student was not deleted due to error");
+					}
+				}
+
+			} else {
+				System.out.println("This student does not exist");
+			}
+
+			
+		}
+
+		private static String getStudentByEmail(ArrayList<Students> studentList, String studentDelete) { //Done by Jason
+
+			String output = "";
+
+			for (int i = 0; i < studentList.size(); i++) {
+				Students r = studentList.get(i);
+
+				if (r.getStudentEmail() == studentDelete) {
+					output += String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s","Student name", "Gender", "Email", "DOB", "Country", "Feedback");
+					output += String.format("%-10d %-20s %-15s %-10s\n"
+							, r.getStudentName()
+							, r.getStudentGender()
+							, r.getStudentEmail()
+							, r.getStudentDOB()
+							, r.getStudentCountry()
+							, r.getStudentFeedback());
+					break;
+				}
+			}
+			return output;
+		}
+		
+		private boolean duplicateEmail(String email) { // Done by Jason
+			boolean check = false;
+			
+			for(Students s : studentList) {
+				if(s.getStudentEmail() == email) {
+					check = true;
+				}
+				else {
+					check = false;
+				}
+			}
+			return check;
+		}
 
 	 
 	public static void searchEnquiry() { //Done by Sanjeev1
