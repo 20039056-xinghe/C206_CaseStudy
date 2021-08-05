@@ -7,7 +7,7 @@
  * YU XING HE, 5 Aug 2021 8:26:48 am
  */
 
-public class Tuition {
+public class Tuition { // done by Xing He
 
 	private int tuition_code;
 	private String tuition_title;
@@ -73,6 +73,7 @@ public class Tuition {
 		this.pre_requisite = pre_requisite;
 	}
 
+	// done by Xing He
 	
 	
 }
