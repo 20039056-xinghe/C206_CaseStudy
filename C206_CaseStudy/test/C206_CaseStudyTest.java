@@ -30,6 +30,8 @@ public class C206_CaseStudyTest {
 	public void setUp() throws Exception {
 		int rne1_enquiry_id = 1;
 		int rne2_enquiry_id = 2;
+		int rne3_enquiry_id = 3;
+		int rne4_enquiry_id = 4;
 		String dt = "2021-10-10 10:10:10";
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -37,7 +39,8 @@ public class C206_CaseStudyTest {
 		
 		rne1 = new Enquiries(rne1_enquiry_id, "JJ", dt1, "fullfilled", "mail");
 		rne2 = new Enquiries(rne2_enquiry_id, "AJ", dt1, "fullfilled", "phone");
-		
+		rne3 = new Enquiries(rne3_enquiry_id, "PJ", dt1, "unfullfilled", "phone");
+		rne4 =new Enquiries(rne4_enquiry_id, "DJ", dt1, "unfullfilled", "mail");
 		enquiry_list = new ArrayList<Enquiries>();
 		
 		
@@ -109,8 +112,10 @@ public class C206_CaseStudyTest {
 		//test if the expected output string same as the list of enquiries retrieved from the C206_CaseStudy
 		String allEnquiries= C206_CaseStudy.retrieveAll(enquiry_list);
 		testOutput = C206_CaseStudy.displayHeader();
-		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne1.getEnquiry_id(), rne1.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne1.getEnquiry_dateTime()), rne1.getStatus(), rne1.getFllwupType());
-		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne2.getEnquiry_id(), rne2.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne2.getEnquiry_dateTime()), rne2.getStatus(), rne2.getFllwupType());
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne1.getEnquiry_id(), rne1.getEnquirerName(), 
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne1.getEnquiry_dateTime()), rne1.getStatus(), rne1.getFllwupType());
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne2.getEnquiry_id(), rne2.getEnquirerName(), 
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne2.getEnquiry_dateTime()), rne2.getStatus(), rne2.getFllwupType());
 		assertEquals("Test that data displayed in the enquiry list is the same as the test output", testOutput, allEnquiries);
 
 	}
@@ -164,7 +169,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void deleteEnquiryTest() { //Done by Sanjeev
+	public void deleteEnquiryTest() { //Done by Sanjeev1
 		//Check that the arraylist is not null so enquiry object can be added into the arrayList
 		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
 

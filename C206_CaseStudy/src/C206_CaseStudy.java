@@ -271,7 +271,8 @@ public class C206_CaseStudy {
 			 Enquiries enquiry = enquiryList.get(i);
 			if(enquiryId == enquiry.getEnquiry_id()) {
 					String output = displayHeader();
-					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), 
+							DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 					System.out.println(output);
 					String option = Helper.readString("Do you wish to delete this enquiry? (Y/N)> ");
 					if(option.equalsIgnoreCase("y")) {
@@ -281,7 +282,7 @@ public class C206_CaseStudy {
 						break;
 					}
 			}else {
-				System.out.println("Enquiry with the ennquiry id inputted doesn't exist!");
+				System.out.println("Enquiry with the enquiry id inputted doesn't exist!");
 				break;
 			}
 		 }
@@ -351,7 +352,8 @@ public class C206_CaseStudy {
 			output = displayHeader();
 			for(int i = 0; i < enquiryList.size(); i++) {
 				Enquiries enquiry = enquiryList.get(i);
-				output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+				output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), 
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 			}
 		}else {
 			output += "No enquiries for now :(";
@@ -374,7 +376,8 @@ public class C206_CaseStudy {
 			for(int i = 0; i< enquiryList.size(); i++) {
 				Enquiries enquiry = enquiryList.get(i);
 				if(enquiry.getStatus().equalsIgnoreCase("fullfilled")) {
-					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(),
+							DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 				}
 			}
 		}else {
@@ -396,7 +399,7 @@ public class C206_CaseStudy {
 			output = displayHeader();
 			for(int i = 0; i< enquiryList.size(); i++) {
 				Enquiries enquiry = enquiryList.get(i);
-				if(enquiry.getStatus().contains("un")) {
+				if(enquiry.getStatus().equalsIgnoreCase("unfullfilled")) {
 					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 				}
 			}
