@@ -497,17 +497,11 @@ public class C206_CaseStudy {
 	}
 	
 	private void viewTimetable() { //Done by jerald
-		int option = readInt("Please enter the tuition timetable ID that you want to view > ");
 		String output = String.format("%-5s %-10s %-20s %-20s %-10s", "ID", "Price", "Start Date", "End Date", "Mode");
 		
 		for(TuitionTimetable t : timetableList) {
-			if(option == t.getTimetableID()) {
-				output = String.format("%-5d %-10.2f %-20t %-20t %-10s", 
-						t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
-			}
-			else {
-				System.out.println("There is no tuition timetable with ID " + option + ". Please try again.");
-			}
+			output = String.format("%-5d %-10.2f %-20t %-20t %-10s", 
+					t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
 		}
 		System.out.println(output);
 	}
