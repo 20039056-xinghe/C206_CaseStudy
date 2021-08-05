@@ -12,8 +12,7 @@ public class C206_CaseStudy {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		
+
 	}
 
 	private void RegisterMenu() { //Done by Marcus
@@ -304,8 +303,9 @@ public class C206_CaseStudy {
 			Enquiries enquiry1 = enquiryList.get(i);
 			if(eID == enquiry1.getEnquiry_id()) {
 				String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
-				output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry1.getEnquiry_id(), enquiry1.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_dateTime()), enquiry1.getStatus(), enquiry1.getFllwupType());
+				output += String.format("\n%-10d %8s %25s %12s %13s", enquiry1.getEnquiry_id(), enquiry1.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_dateTime()), enquiry1.getStatus(), enquiry1.getFllwupType());
 				System.out.println(output);
+				break;
 			 }else {
 				 System.out.println("Invalid Entry ID!");
 			 }
@@ -320,13 +320,42 @@ public class C206_CaseStudy {
 		 LocalDateTime dt = LocalDateTime.parse(dateTime, formatter);
 		 String eStatus = readString("Enter enquiry status(fullfilled/unfullfilled) > ");
 		 String fllwUpType = readString("Enter follow-up type> ");
+		 int enquiry_id = enquiryList.size() + 1;
 		 
-			for(Enquiries r : enquiryList) {
-					enquiryList.add(new Enquiries(r.getEnquiry_id(), eName, dt, eStatus, fllwUpType));
+			for(int i = 0; i < enquiryList.size(); i++) {
+				if(!enquiryList.get(i).getEnquirerName().equalsIgnoreCase(eName)) {
+					enquiryList.add(new Enquiries(enquiry_id, eName, dt, eStatus, fllwUpType));
 					System.out.println("Enquiry has been registered successfully!");
+					break;
+				}else {
+					System.out.println("Enquiry with the same name already exists!");
+				}
 				
 			}
 		 
+	 }
+	 
+	 private static void deleteEnquiry() { //Done by Sanjeev
+		 int enquiry_id = readInt("Enter Enquiry ID > ");
+		 
+		 for(int i = 0; i < enquiryList.size(); i++) {
+			 Enquiries enquiry = enquiryList.get(i);
+			if(enquiry_id == enquiry.getEnquiry_id()) {
+					String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+					System.out.println(output);
+					String option = readString("Do you wish to delete this enquiry? (Y/N)> ");
+					if(option.equalsIgnoreCase("y")) {
+						enquiryList.remove(i);
+						System.out.println("Enquiry has been successfully removed!");
+					}else {
+						break;
+					}
+			}else {
+				System.out.println("Enquiry with the ennquiry id inputted doesn't exist!");
+				break;
+			}
+		 }
 	 }
 	
 	private static void enquiryMenu() { //Done by Sanjeev
@@ -336,7 +365,8 @@ public class C206_CaseStudy {
 		System.out.println("3. View All Fullfilled Enquiry");
 		System.out.println("4. View All Unfullfilled Enquiry");
 		System.out.println("5. Search Specific Enquiry");
-		System.out.println("6. Exit");
+		System.out.println("6. Delete Specific Enquiry");
+		System.out.println("7. Exit");
 		line(20, "=");
 	}
 	
@@ -357,7 +387,11 @@ public class C206_CaseStudy {
 			}else if(option ==5) {
 				searchEnquiry();
 			}else if(option ==6) {
+				deleteEnquiry();
+			}else if(option ==7) {
 				break;
+			}else {
+				System.out.println("Invalid option!");
 			}
 		}
 		System.out.println("Goodbye!");
@@ -370,7 +404,7 @@ public class C206_CaseStudy {
 		
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
-			output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+			output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 		}
 		System.out.println(output);
 	}
@@ -380,7 +414,7 @@ public class C206_CaseStudy {
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
 			if(enquiry.getStatus().equalsIgnoreCase("fullfilled")) {
-				output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+				output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 			}
 		}
 		System.out.println(output);
@@ -391,7 +425,7 @@ public class C206_CaseStudy {
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
 			if(enquiry.getStatus().equalsIgnoreCase("not fullfilled")) {
-				output += String.format("%-10d %-10s %-10s %-10s %-10s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
+				output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 			}
 		}
 		System.out.println(output);
