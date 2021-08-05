@@ -14,7 +14,7 @@ public class Tuition { // done by Xing He
 	private String subject_group_name;
 	private String tuition_description;
 	private int tuition_duration;
-	private String pre_requisite;
+	private String pre_requisite ;
 	
 	public Tuition(int tuition_code, String tuition_title,String tuition_description, int tuition_duration, String pre_requisite) {
 	this.tuition_code = tuition_code;
