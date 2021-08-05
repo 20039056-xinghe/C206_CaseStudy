@@ -24,6 +24,9 @@ public class C206_CaseStudyTest {
 	private TuitionTimetable tl1;
 	private TuitionTimetable tl2; // Jerald
 	
+	private Students student1;
+	private Students student2;// Jason
+	
 	
 
 	@Before
@@ -55,7 +58,12 @@ public class C206_CaseStudyTest {
 		
 		//----------UP TO JERALD----------//
 		
+		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		LocalDate student1DOB = LocalDate.parse("11-12-2003", formatter2);
+		LocalDate student2DOB = LocalDate.parse("11-07-2006", formatter2);
 		
+		student1 = new Students("Jake", "Male", 99998888, "Jake@gmail.com", student1DOB, "Singapore", "none");
+		student2 = new Students("Jacob", "Male", 91234567, "Jacob@gmail.com", student2DOB, "Malaysia", "none");
 		
 		//----------UP TO JASON----------//
 		
@@ -72,7 +80,7 @@ public class C206_CaseStudyTest {
 	//Sanjeev JUNIT TESTING BELOW
 	
 	@Test
-	public void addEnquiryTest() { //Done by Sanjeev
+	/*public void addEnquiryTest() { //Done by Sanjeev
 		//Check that the arraylist is not null so enquiry object can be added into the arrayList
 		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
 		//Given a empty arraylist check that when a enquiry object is added into the arraylist, the size increases from 0 to one
@@ -213,7 +221,7 @@ public class C206_CaseStudyTest {
 		
 		C206_CaseStudy.timetableList.remove(tl1);
 		assertNotSame(tl1, C206_CaseStudy.timetableList.get(0));
-		
+
 	}
 	@Test
 	public void testDeleteTimetable() {
@@ -228,9 +236,55 @@ public class C206_CaseStudyTest {
 		assertNotSame(1, C206_CaseStudy.timetableList.get(0).getTimetableID());
 		
 	}
-	
+	*/
 	
 	//Jason JUNIT TESTING BELOW
+	
+	public void testViewStudents() {
+		
+		//Check that there is a valid arrayList to view from
+		assertNull( C206_CaseStudy.studentList);
+		
+		//Test that the results that are displayed are the same ones stored within the arrayList
+		C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student1);
+		assertSame(C206_CaseStudy.studentList.get(0), student1);
+		
+		//Test that once an item has been removed using the delete function, that item can no longer be seen with the view function.
+		C206_CaseStudy.studentList.remove(student1);
+		assertNotSame(C206_CaseStudy.studentList.get(0), student1);
+	}
+	
+	public void testAddStudents() {
+		
+		//Check that there is a valid arrayList to add to
+		assertNull( C206_CaseStudy.studentList);
+		
+		//Assuming that the list is empty, test that after adding a student into the arrayList, the size of it increases by 1.
+		C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student1);
+		assertEquals(1, C206_CaseStudy.studentList.size());
+		
+		//Assuming that there are already has 1 items within the list. Test that when adding 1 more item, that item is the second item within the list
+		C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student2);
+		assertSame(student2, C206_CaseStudy.studentList.get(2));
+		
+	}
+		public void testDeleteStudents() {
+			
+			//Assuming that there are already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
+			C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student1);
+			C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student2);
+			C206_CaseStudy.deleteStudent(C206_CaseStudy.studentList, student2);
+			assertNotSame(student2,  C206_CaseStudy.studentList.get(1));
+			
+			//Check that there is a valid arrayList to delete from
+			assertNull( C206_CaseStudy.studentList);
+			
+			//Assuming that the list only has 1 item. After deleting an that item from the list, the size of the list decreases to 0.
+			C206_CaseStudy.deleteStudent(C206_CaseStudy.studentList, student1);
+			assertEquals(0, C206_CaseStudy.studentList.size());
+			
+		}
+
 
 	
 	

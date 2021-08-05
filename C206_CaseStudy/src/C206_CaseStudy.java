@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class C206_CaseStudy {
 
 	private ArrayList<Registration> regiList = new ArrayList<Registration>(); //Done by Marcus
-	private ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
+	public static ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
 	public static ArrayList<Enquiries> enquiryList = new ArrayList<Enquiries>(); //Done by Sanjeev
 	public static ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>(); // Done by Jerald
 	
@@ -77,14 +77,6 @@ public class C206_CaseStudy {
 	}
 	
 	
-
-	
-
-	
-
-
-	
-	
 	public void studentRegistrationStart() {// done by Jason
 		
 		int option = -1;
@@ -96,9 +88,9 @@ public class C206_CaseStudy {
 			if (option == 1) {
 				viewAllStudents();
 			} else if (option == 2) {
-				addNewStudent();
+				addNewStudent(studentList,null);
 			} else if (option == 3) {
-				deleteStudent();
+				deleteStudent(studentList,null);
 			} else if (option == 4) {
 				System.out.println("GoodBye");
 			}
@@ -126,31 +118,34 @@ public class C206_CaseStudy {
 		System.out.println(view);			
 	}
 		
-	private void addNewStudent() { //Done by Jason
-		System.out.println("Resgister a new Student");
-		String newName = Helper.readString("Name> ");
-		String newGender = Helper.readString("Gender> ");
-		int newMobile = Helper.readInt("Mobile number> ");
-		String newEmail = Helper.readString("Email> ");
-		String userDOB = Helper.readString("Date of birth> ");
-		String newCountry = Helper.readString("Country of residence> ");
-		String newFeedback = Helper.readString("Feedback> ");
+	public static void addNewStudent(ArrayList<Students> studentList, Students student1) { //Done by Jason
+		System.out.println("Register a new Student");
+		String studentName = Helper.readString("Name> ");
+		String studentGender = Helper.readString("Gender> ");
+		int studentMobile = Helper.readInt("Mobile number> ");
+		String studentEmail = Helper.readString("Email> ");
+		String studentDOBString = Helper.readString("Date of birth dd-MM-yyyy> ");
+		String studentCountry = Helper.readString("Country of residence> ");
+		String studentFeedback = Helper.readString("Feedback> ");
 		
-		DateTimeFormatter format1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		LocalDate newDOB = LocalDate.parse(userDOB, format1);
+		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		
-		for(Students r : studentList) {
-			
-			if(studentList.contains(r)) {
-				System.out.println(r.getStudentName() + "already have this email: " + r.getStudentEmail());
-			}
-			else{
-				studentList.add(new Students(newName, newGender, newMobile, newEmail, newDOB, newCountry, newFeedback));
-				System.out.println("Student has been registered successfully!");
-			}	
+		LocalDate inputDOB = LocalDate.parse(studentDOBString, formatter1);
+		
+		if(duplicateEmail(studentEmail) == false) {
+			studentList.add(new Students(studentName, studentGender, studentMobile, studentEmail, inputDOB, studentCountry, studentFeedback));
+			System.out.println("Student has been registered successfully!");
 			
 		}
+		else if(duplicateEmail(studentEmail) == true) {
+			System.out.println("This email already exist");
+			
+		}
+	
+		else {
+			System.out.println("Registration has been cancelled");
 	}
+}
 
 	private static boolean removeStudent(ArrayList<Students> studentList, String studentDelete) { //Done by Jason
 		boolean removeStudent = false;
@@ -163,8 +158,8 @@ public class C206_CaseStudy {
 		return removeStudent;
 	}
 	
-	private void deleteStudent() { //Done by Jason
-		System.out.println("DELETE A GUEST");
+	public static void deleteStudent(ArrayList<Students> studentList, Students student1) { //Done by Jason
+		System.out.println("DELETE A STUDENT");
 
 		String studentDelete = Helper.readString("Enter student's email to delete student> ");
 		
@@ -212,6 +207,20 @@ public class C206_CaseStudy {
 			}
 		}
 		return output;
+	}
+	
+	private static boolean duplicateEmail(String email) { // Done by Jason
+		boolean check = false;
+		
+		for(Students s : studentList) {
+			if(s.getStudentEmail() == email) {
+				check = true;
+			}
+			else {
+				check = false;
+			}
+		}
+		return check;
 	}
 	
 
