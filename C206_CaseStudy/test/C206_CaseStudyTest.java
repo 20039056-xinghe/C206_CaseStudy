@@ -9,10 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
+	
 	private Enquiries rne1;
 	private Enquiries rne2;
+	private ArrayList<Enquiries> enquiry_list; // Sanjeev
 	
-	private ArrayList<Enquiries> enquiry_list;
+	private TuitionTimetable tl1;
+	private TuitionTimetable tl2;
+	private TuitionTimetable tl3;
+	private ArrayList<TuitionTimetable> timetableList; // Jerald
+	
+	
 
 	@Before
 	public void setUp() throws Exception {
@@ -27,6 +34,26 @@ public class C206_CaseStudyTest {
 		rne2 = new Enquiries(rne2_enquiry_id, "AJ", dt1, "fullfilled", "phone");
 		
 		enquiry_list = new ArrayList<Enquiries>();
+		
+		
+		//----------UP TO SANJEEV----------//
+		
+		
+		
+		//----------UP TO JERALD----------//
+		
+		
+		
+		//----------UP TO JASON----------//
+		
+		
+		
+		//----------UP TO MARCUS----------//
+		
+		
+		
+		//----------UP TO XING HE----------//
+		
 	}
 	
 	//Sanjeev JUNIT TESTING BELOW
@@ -35,7 +62,7 @@ public class C206_CaseStudyTest {
 	
 	
 	//Jerald JUNIT TESTING BELOW
-
+	
 	
 	
 	
