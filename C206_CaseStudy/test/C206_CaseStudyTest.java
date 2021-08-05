@@ -28,76 +28,39 @@ public class C206_CaseStudyTest {
 		
 		enquiry_list = new ArrayList<Enquiries>();
 	}
-
-	@After
-	public void tearDown() throws Exception {
-		
-	}
-
-	@Test
-	public void c206_test() {
-		//fail("Not yet implemented"); 
-		assertTrue("C206_CaseStudy_SampleTest ",true);
-	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//Sanjeev JUNIT TESTING BELOW
 	
+	
+	
+	
+	//Jerald JUNIT TESTING BELOW
+
+	
+	
+	
+	//Jason JUNIT TESTING BELOW
+
+	
+	
+	
+	//Marcus JUNIT TESTING BELOW
+
+	
+	
+	
+	//Xing He JUNIT TESTING BELOW
+	
+	
+	
+	
+	
+	
+	
+	
+	@After
+	public void tearDown() throws Exception {
+		rne1 = null;
+		rne2 = null;
+	}
 }
