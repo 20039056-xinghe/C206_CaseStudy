@@ -19,10 +19,9 @@ public class TuitionAdministrator { //done by Marcus
 	public String getUsername() { //done by Marcus
 		return username;
 	}
-
+	
 	public String getPassword() { //done by Marcus
 		return password;
 	}
-
 	
 }
