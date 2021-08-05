@@ -9,7 +9,7 @@ import java.util.Random;
  * 20029934, Aug 4, 2021 5:01:13 PM
  */
 
-public class Enquiries { // Done by Sanjeev1
+public class Enquiries { // Done by Sanjeev2
 	
 	
 	private int enquiry_id;//Done by Sanjeev

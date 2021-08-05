@@ -302,7 +302,7 @@ public class C206_CaseStudy {
 		 for(int i = 0; i < enquiryList.size(); i++) {
 			Enquiries enquiry1 = enquiryList.get(i);
 			if(eID == enquiry1.getEnquiry_id()) {
-				String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+				String output = displayHeader();
 				output += String.format("\n%-10d %8s %25s %12s %13s", enquiry1.getEnquiry_id(), enquiry1.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_dateTime()), enquiry1.getStatus(), enquiry1.getFllwupType());
 				System.out.println(output);
 				break;
@@ -323,7 +323,8 @@ public class C206_CaseStudy {
 		 int enquiry_id = enquiryList.size() + 1;
 		 
 			for(int i = 0; i < enquiryList.size(); i++) {
-				if(!enquiryList.get(i).getEnquirerName().equalsIgnoreCase(eName)) {
+				Enquiries enquiries = enquiryList.get(i);
+				if(!enquiries.getEnquirerName().equalsIgnoreCase(eName)) {
 					enquiryList.add(new Enquiries(enquiry_id, eName, dt, eStatus, fllwUpType));
 					System.out.println("Enquiry has been registered successfully!");
 					break;
@@ -341,7 +342,7 @@ public class C206_CaseStudy {
 		 for(int i = 0; i < enquiryList.size(); i++) {
 			 Enquiries enquiry = enquiryList.get(i);
 			if(enquiry_id == enquiry.getEnquiry_id()) {
-					String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+					String output = displayHeader();
 					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(), enquiry.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()), enquiry.getStatus(), enquiry.getFllwupType());
 					System.out.println(output);
 					String option = readString("Do you wish to delete this enquiry? (Y/N)> ");
@@ -359,7 +360,7 @@ public class C206_CaseStudy {
 	 }
 	
 	private static void enquiryMenu() { //Done by Sanjeev
-		line(20, "=");
+		line(25, "=");
 		System.out.println("1. Add New Enquiry");
 		System.out.println("2. View All Enquiry");
 		System.out.println("3. View All Fullfilled Enquiry");
@@ -367,7 +368,7 @@ public class C206_CaseStudy {
 		System.out.println("5. Search Specific Enquiry");
 		System.out.println("6. Delete Specific Enquiry");
 		System.out.println("7. Exit");
-		line(20, "=");
+		line(25, "=");
 	}
 	
 	public static void startEnquiry() { //Done by Sanjeev
@@ -399,8 +400,8 @@ public class C206_CaseStudy {
 	
 	
 	
-	public static void displayAll() { //Done by Sanjeev
-		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+	public static void displayAll() { //Done by Sanjeev1
+		String output = displayHeader();
 		
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
@@ -408,9 +409,14 @@ public class C206_CaseStudy {
 		}
 		System.out.println(output);
 	}
+
+	public static String displayHeader() {
+		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+		return output;
+	}
 	
 	public static void displayFullfilled() { //Done by Sanjeev
-		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+		String output = displayHeader();
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
 			if(enquiry.getStatus().equalsIgnoreCase("fullfilled")) {
@@ -421,7 +427,7 @@ public class C206_CaseStudy {
 	}
 	
 	public static void displayNotFuillfilled() { //Done by Sanjeev
-		String output = String.format("%-10s %-10s %-10s %-10s %-10s", "ENQUIRY ID.", "ENQUIRER NAME", "ENQUIRY DATE & TIME", "ENQUIRY STATUS", "FOLLOW-UP TYPE");
+		String output = displayHeader();
 		for(int i = 0; i< enquiryList.size(); i++) {
 			Enquiries enquiry = enquiryList.get(i);
 			if(enquiry.getStatus().equalsIgnoreCase("not fullfilled")) {
