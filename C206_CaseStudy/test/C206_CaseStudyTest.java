@@ -278,7 +278,7 @@ public class C206_CaseStudyTest {
 	}
 		public void testDeleteStudents() {
 			
-			//Assuming that there are already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
+			//Assuming that there aree already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
 			C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student1);
 			C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student2);
 			C206_CaseStudy.deleteStudent(C206_CaseStudy.studentList, student2);
