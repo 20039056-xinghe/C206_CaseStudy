@@ -27,6 +27,10 @@ public class C206_CaseStudyTest {
 	private Students student1;
 	private Students student2;// Jason
 	
+	private Registration registration1; // done by Marcus
+	private Registration registration2; // done by Marcus
+	private ArrayList<Registration> regiList; // done by Marcus
+	
 	 
 
 	@Before
@@ -70,9 +74,11 @@ public class C206_CaseStudyTest {
 		
 		//----------UP TO JASON----------//
 		
-		
+		registration1 = new Registration(1, tl1.getTimetableID(), "reg1@mail.com");
+		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com");
 		
 		//----------UP TO MARCUS----------//
+		
 		
 		
 		
@@ -298,8 +304,69 @@ public class C206_CaseStudyTest {
 	
 	
 	//Marcus JUNIT TESTING BELOW
-
+		
+		public void addRegistrationTest() {
+			// Test if the registration ArrayList is empty not null - boundary
+			assertNotNull("Check if there is valid Registration arraylist to add to", regiList);
+			
+			//Test that given an empty ArrayList, after adding 1 item, the size of the list is 1 - normal
+			
+			C206_CaseStudy.addRegistration(registration1);
+			assertEquals("Check that Registration arraylist size is 1", 1, regiList.size());
+			assertSame("Check that Registration is added", registration1, regiList.get(0));
+			
+			//Add another item. test The size of the list is 2? -normal
+			//The item just added is as same as the second item of the list
+			C206_CaseStudy.addRegistration(regiList, registration2);
+			assertEquals("Check that Registration arraylist size is 2", 2, regiList.size());
+			assertSame("Check that Registration is added", registration2, regiList.get(1));
+		}
 	
+		public void viewAllRegistrationTest() {
+			// Test if Item list is not null but empty -boundary
+			assertNotNull("Test if there is valid Registration arraylist to retrieve item", regiList);
+			
+			//test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
+			String allCamcorder= C206_CaseStudy.retrieveAllRegistration(regiList);
+			String testOutput = "";
+			assertEquals("Check that ViewAllCamcorderlist", testOutput, allCamcorder);
+			
+			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+			C206_CaseStudy.addCamcorder(regiList, Registration1);
+			C206_CaseStudy.addCamcorder(regiList, Registration2	);
+			assertEquals("Test that Registration arraylist size is 2", 2, regiList.size());
+			
+			//test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
+			allRegistration= C206_CaseStudy.ViewAllRegistration(regiList);
+			testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0011", "Nikon HDSLR", "Yes", "", "40");
+			testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0012", "Sony DSC-RX100M7", "Yes", "", "20" );
+		
+			assertEquals("Test that ViewAllRegistration", testOutput, allCamcorder);
+			
+		}
+		
+		public void deleteRegistrationTest() { //Done by Marcus
+			
+			//Check that the arraylist is not null so Registration object can be added into the arrayList
+			assertNotNull("Check if there is a valid Registration arrayList", regiList);
+
+			//Given an empty list, after adding 2 items, test if after adding an item, the item can be deleted
+			//The second element is almost the same as the first one
+			C206_CaseStudy.addRegistration(regiList, rne1);
+			C206_CaseStudy.addRegistration(regiList, rne2);
+			
+			assertEquals("Test that Enquiry arraylist size is 2", 2, regiList.size());
+			assertSame("Test that the first Registration is added", rne1, regiList.get(0));		
+			assertSame("Test that the second Registration is added", rne2, regiList.get(1));
+			
+			
+			//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
+			C206_CaseStudy.deleteRegistration(regiList, rne1.getEnquiry_id());;
+			C206_CaseStudy.deleteRegistration(regiList, rne2.getEnquiry_id());
+			
+			assertEquals("Test that Registration arraylist size is 0", 0, regiList.size());
+
+		}
 	
 	
 	//Xing He JUNIT TESTING BELOW

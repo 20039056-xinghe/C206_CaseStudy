@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
-	private ArrayList<Registration> regiList = new ArrayList<Registration>(); //Done by Marcus
+	private static ArrayList<Registration> regiList = new ArrayList<Registration>(); //Done by Marcus
 	public static ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
 	public static ArrayList<Enquiries> enquiryList = new ArrayList<Enquiries>(); //Done by Sanjeev
 	public static ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>(); // Done by Jerald
@@ -21,7 +21,7 @@ public class C206_CaseStudy {
 		System.out.println("3. Delete Registration"); //Done by Marcus
 	}
 	
-	private void addRegistration() { //Done by Marcus
+	protected static void addRegistration(Registration registration1) { //Done by Marcus
 		//registration number = Registration id must be unique.
 			//	tuition timetable id
 			//	student’s email
@@ -46,7 +46,7 @@ public class C206_CaseStudy {
 
 	}
 
-	private boolean checkForDupeRegiNum(int regiID) { //Done by Marcus
+	private static boolean checkForDupeRegiNum(int regiID) { //Done by Marcus
 		boolean repeat = false;
 		for (Registration x : regiList) { //Done by Marcus
 			if (x.getRegID() == regiID) {
@@ -56,7 +56,7 @@ public class C206_CaseStudy {
 		return repeat;
 	}
 	
-	private void viewAllRegistration() { //Done by Marcus
+	protected void viewAllRegistration() { //Done by Marcus
 		String output = "";
 		if (regiList.size() == 0) {
 			output = "No registration found";
@@ -70,7 +70,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	
-	public void deleteRegistration() { //Done by Marcus
+	protected void deleteRegistration() { //Done by Marcus
 		
 		int regiID = Helper.readInt("Please enter the registration ID of the registration to be deleted > "); //Done by Marcus
 		boolean check = false;
