@@ -1,21 +1,28 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 public class C206_CaseStudyTest {
 	
 	private Enquiries rne1;
 	private Enquiries rne2;
+	private Enquiries rne3;
+	private Enquiries rne4;
 	private ArrayList<Enquiries> enquiry_list; // Sanjeev
 	
 	private TuitionTimetable tl1;
-	private TuitionTimetable tl2;
-	private TuitionTimetable tl3;
-	private ArrayList<TuitionTimetable> timetableList; // Jerald
+	private TuitionTimetable tl2; // Jerald
 	
 	
 
@@ -36,9 +43,15 @@ public class C206_CaseStudyTest {
 		
 		//----------UP TO SANJEEV----------//
 		
+		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		LocalDate startDate1 = LocalDate.parse("05-08-2021", formatter1);
+		LocalDate endDate1 = LocalDate.parse("05-12-2021", formatter1);
+		LocalDate startDate2 = LocalDate.parse("01-10-2021", formatter1);
+		LocalDate endDate2 = LocalDate.parse("01-11-2021", formatter1);
 		
+		tl1 = new TuitionTimetable(1, 123.40, startDate1, endDate1, "F2F");
+		tl2 = new TuitionTimetable(2, 246.80, startDate2, endDate2, "Zoom");
 		
-		tl1 = new TuitionTimetable(1, 123.40, 05/08/2021, 05/12/2021, "F2F");
 		
 		//----------UP TO JERALD----------//
 		
@@ -58,12 +71,163 @@ public class C206_CaseStudyTest {
 	
 	//Sanjeev JUNIT TESTING BELOW
 	
+	@Test
+	public void addEnquiryTest() { //Done by Sanjeev
+		//Check that the arraylist is not null so enquiry object can be added into the arrayList
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		//Given a empty arraylist check that when a enquiry object is added into the arraylist, the size increases from 0 to one
+		C206_CaseStudy.addEnquiry(enquiry_list, rne1);
+		
+		assertEquals("Test that Enquiry arraylist size is 1", 1, enquiry_list.size());
+		assertSame("Test that Enquiry is added", rne1, enquiry_list.get(0));
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2
+		//The second element is almost the same as the first one
+		C206_CaseStudy.addEnquiry(enquiry_list, rne2);
+		
+		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
+		assertSame("Test that the first Enquiry is added", rne2, enquiry_list.get(1));
+		
+	}
 	
+	@Test
+	public void retrieveAllEnquiryTest() { //Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test that if the arraylist is empty a message stating no enquiries for now :( would be displayed
+		String allEnquiry = C206_CaseStudy.retrieveAll(enquiry_list);
+		String testOutput = "No enquiries for now :(";
+		assertEquals("Test that the retrieved enquiryList displays the expected testOutput", testOutput, allEnquiry);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 
+		C206_CaseStudy.addEnquiry(enquiry_list, rne1);
+		C206_CaseStudy.addEnquiry(enquiry_list, rne2);
+
+		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
+		
+		//test if the expected output string same as the list of enquiries retrieved from the C206_CaseStudy
+		String allEnquiries= C206_CaseStudy.retrieveAll(enquiry_list);
+		testOutput = C206_CaseStudy.displayHeader();
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne1.getEnquiry_id(), rne1.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne1.getEnquiry_dateTime()), rne1.getStatus(), rne1.getFllwupType());
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne2.getEnquiry_id(), rne2.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne2.getEnquiry_dateTime()), rne2.getStatus(), rne2.getFllwupType());
+		assertEquals("Test that data displayed in the enquiry list is the same as the test output", testOutput, allEnquiries);
+
+	}
+	
+	@Test
+	public void retrieveAllFullfilledTest() { //Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test that if the arraylist is empty a message stating no enquiries for now :) would be displayed
+		String allEnquiry = C206_CaseStudy.retrieveFullfilled(enquiry_list);
+		String testOutput = "No fullfilled enquiries for now :(";
+		assertEquals("Test that the retrieved enquiryList displays the expected testOutput", testOutput, allEnquiry);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 
+		C206_CaseStudy.addEnquiry(enquiry_list, rne1);
+		C206_CaseStudy.addEnquiry(enquiry_list, rne2);
+
+		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
+		
+		//test if the expected output string same as the list of enquiries retrieved from the C206_CaseStudy
+		String allFullfilledEnquiries= C206_CaseStudy.retrieveAll(enquiry_list);
+		testOutput = C206_CaseStudy.displayHeader();
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne1.getEnquiry_id(), rne1.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne1.getEnquiry_dateTime()), rne1.getStatus(), rne1.getFllwupType());
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne2.getEnquiry_id(), rne2.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne2.getEnquiry_dateTime()), rne2.getStatus(), rne2.getFllwupType());
+		assertEquals("Test that only fullfilled enquiries are displayed from the enquirylist the same format as the testOutput", testOutput, allFullfilledEnquiries);
+	}
+	
+	@Test 
+	public void retrieveAllNotFullfilledTest() { //Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test that if the arraylist is empty a message stating no enquiries for now :( would be displayed
+		String allEnquiry = C206_CaseStudy.retrieveNotFuillfilled(enquiry_list);
+		String testOutput =  "No unfullfilled enquiries :)";
+		assertEquals("Test that the retrieved enquiryList displays the expected testOutput", testOutput, allEnquiry);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 
+		C206_CaseStudy.addEnquiry(enquiry_list, rne3);
+		C206_CaseStudy.addEnquiry(enquiry_list, rne4);
+
+		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
+		
+		//test if the expected output string same as the list of enquiries retrieved from the C206_CaseStudy
+		String allNotfilledEnquiries= C206_CaseStudy.retrieveNotFuillfilled(enquiry_list);
+		testOutput = C206_CaseStudy.displayHeader();
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne3.getEnquiry_id(), rne3.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne3.getEnquiry_dateTime()), rne3.getStatus(), rne3.getFllwupType());
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne4.getEnquiry_id(), rne4.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne4.getEnquiry_dateTime()), rne4.getStatus(), rne4.getFllwupType());
+		assertEquals("Test that only unfullfilled enquiries are displayed from the enquirylist the same format as the testOutput", testOutput, allNotfilledEnquiries);
+	}
+	
+	@Test
+	public void deleteEnquiryTest() { //Done by Sanjeev
+		//Check that the arraylist is not null so enquiry object can be added into the arrayList
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+
+		//Given an empty list, after adding 2 items, test if the size of the list is 2
+		//The second element is almost the same as the first one
+		C206_CaseStudy.addEnquiry(enquiry_list, rne1);
+		C206_CaseStudy.addEnquiry(enquiry_list, rne2);
+		
+		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
+		assertSame("Test that the first Enquiry is added", rne1, enquiry_list.get(0));		
+		assertSame("Test that the first Enquiry is added", rne2, enquiry_list.get(1));
+		
+		
+		//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
+		C206_CaseStudy.deleteEnquiry(enquiry_list, rne1.getEnquiry_id());;
+		C206_CaseStudy.deleteEnquiry(enquiry_list, rne2.getEnquiry_id());
+		
+		assertEquals("Test that Enquiry arraylist size is 0", 0, enquiry_list.size());
+
+	}
 	
 	
 	//Jerald JUNIT TESTING BELOW
 	
-	
+	@Test
+	public void testAddTimetable() {
+		
+		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
+		assertEquals(1, C206_CaseStudy.timetableList.size());
+		
+		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl2);
+		assertEquals(2, C206_CaseStudy.timetableList.size());
+		
+		assertSame(tl2, C206_CaseStudy.timetableList.get(1));
+		C206_CaseStudy.timetableList.clear();
+		
+	}
+	@Test
+	public void testViewTimetable() {
+		
+		assertNull(C206_CaseStudy.timetableList);
+		
+		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
+		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl2);
+		assertEquals(2, C206_CaseStudy.timetableList.size());
+		
+		C206_CaseStudy.timetableList.remove(tl1);
+		assertNotSame(tl1, C206_CaseStudy.timetableList.get(0));
+		
+	}
+	@Test
+	public void testDeleteTimetable() {
+		
+		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
+		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl2);
+		assertSame(1, C206_CaseStudy.timetableList.get(0).getTimetableID());
+		
+		C206_CaseStudy.timetableList.remove(tl1);
+		assertEquals(1, C206_CaseStudy.timetableList.size());
+		
+		assertNotSame(1, C206_CaseStudy.timetableList.get(0).getTimetableID());
+		
+	}
 	
 	
 	//Jason JUNIT TESTING BELOW
@@ -89,5 +253,9 @@ public class C206_CaseStudyTest {
 	public void tearDown() throws Exception {
 		rne1 = null;
 		rne2 = null;
+		rne3 = null;
+		rne4 = null;
+		tl1 = null;
+		tl2 = null;
 	}
 }
