@@ -213,12 +213,15 @@ public class C206_CaseStudyTest {
 		
 		C206_CaseStudy.timetableList.clear();
 		
+		//Test that given an empty list, after adding one object, the size of the list is 1 
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
 		assertEquals(1, C206_CaseStudy.timetableList.size());
 		
+		//Test that after adding another object, the size of the list is 2 
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl2);
 		assertEquals(2, C206_CaseStudy.timetableList.size());
 		
+		//Test that the object just added is the same as the 2nd object of the list after adding
 		assertSame(tl2, C206_CaseStudy.timetableList.get(1));
 		
 	}
@@ -227,12 +230,15 @@ public class C206_CaseStudyTest {
 		
 		C206_CaseStudy.timetableList.clear();
 		
+		//Test that the list of tuition timetables is empty without adding any timetables 
 		assertEquals(0, C206_CaseStudy.timetableList.size());
 		
+		//Test that the number of objects in the displayed is 2 after adding an object 
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl2);
 		assertEquals(2, C206_CaseStudy.timetableList.size());
 		
+		//Test that when the object is removed, the object will not be found in the list anymore 
 		C206_CaseStudy.timetableList.remove(tl1);
 		assertNotSame(tl1, C206_CaseStudy.timetableList.get(0));
 
@@ -240,13 +246,16 @@ public class C206_CaseStudyTest {
 	@Test
 	public void testDeleteTimetable() {
 		
+		//Test that the object is present for removal 
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl1);
 		C206_CaseStudy.addTimetable(C206_CaseStudy.timetableList, tl2);
 		assertSame(1, C206_CaseStudy.timetableList.get(0).getTimetableID());
 		
+		//Test that the recently deleted object is removed from the list of tuition timetables 
 		C206_CaseStudy.timetableList.remove(tl1);
 		assertEquals(1, C206_CaseStudy.timetableList.size());
 		
+		//Test that the object does not show up when viewing all tuition timetables 
 		assertNotSame(1, C206_CaseStudy.timetableList.get(0).getTimetableID());
 		
 	}
