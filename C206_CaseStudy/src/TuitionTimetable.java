@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * 20029425, 4 Aug 2021 9:14:21 pm
  */
 
-public class TuitionTimetable { //Done by Jerald
+public class TuitionTimetable extends Tuition { //Done by Jerald
 
 	private int timetableID;
 	private double price;
@@ -16,14 +16,15 @@ public class TuitionTimetable { //Done by Jerald
 	private LocalDate endDate;
 	private String mode;
 	
-	public TuitionTimetable(int timetableID, double price, LocalDate startDate, LocalDate endDate, String mode) {
+	public TuitionTimetable(String tuition_code, int timetableID, double price, LocalDate startDate, LocalDate endDate, String mode) {
+		super(tuition_code);
 		this.timetableID = timetableID;
 		this.price = price;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.mode = mode;
 	}
-
+	
 	public int getTimetableID() {
 		return timetableID;
 	}
