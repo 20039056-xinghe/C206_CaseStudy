@@ -17,6 +17,7 @@ public class Students { //Done by Jason
 	private LocalDate studentDOB;
 	private String studentCountry;
 	private String studentFeedback;
+	private String studentPassword;
 	
 	public Students(String studentName,
 			String studentGender,
@@ -24,7 +25,8 @@ public class Students { //Done by Jason
 			String studentEmail,
 			LocalDate studentDOB,
 			String studentCountry,
-			String studentFeedback){
+			String studentFeedback,
+			String studentPassword){
 		
 		this.studentName = studentName;
 		this.studentGender = studentGender;
@@ -32,8 +34,10 @@ public class Students { //Done by Jason
 		this.studentDOB = studentDOB;
 		this.studentCountry = studentCountry;
 		this.studentFeedback = studentFeedback;
+		this.studentPassword = studentPassword;
 		
 	}
+	
 
 	public String getStudentName() {
 		return studentName;
@@ -90,6 +94,14 @@ public class Students { //Done by Jason
 	public void setStudentFeedback(String studentFeedback) {
 		this.studentFeedback = studentFeedback;
 	}
+	public String getStudentPassword(String studentPassword) {
+		return studentPassword;
+	}
+
+	public void setStudentPassword(String studentPassword) {
+		this.studentPassword = studentPassword;
+	}
+	
 	
 	
 	
