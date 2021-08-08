@@ -486,11 +486,11 @@ public class C206_CaseStudy {
 	}
 	
 	public static void viewTimetable() { //Done by jerald
-		String output = String.format("%-5s %-10s %-20s %-20s %-10s", "ID", "Price", "Start Date", "End Date", "Mode");
+		String output = String.format("%-10s %-5s %-10s %-20s %-20s %-10s", "Tuition Code", "ID", "Price", "Start Date", "End Date", "Mode");
 		
 		for(TuitionTimetable t : timetableList) {
-			output = String.format("%-5d %-10.2f %-20s %-20s %-10s", 
-					t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
+			output = String.format("%-10s %-5d %-10.2f %-20s %-20s %-10s", 
+					t.getTuition_code(), t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
 		}
 		System.out.println(output);
 	}
@@ -507,6 +507,7 @@ public class C206_CaseStudy {
 		TuitionTimetable insertTT = null;
 		
 		while(insertTT == null) {
+			String inputTuitionCode = Helper.readString("Enter Tuition Code > ");
 			int inputID = Helper.readInt("Enter ID > ");
 			double inputPrice = Helper.readDouble("Enter Price > ");
 			String inputStringStartDate = Helper.readString("Enter Start Date (DD-MM-YYYY)> ");
@@ -518,10 +519,10 @@ public class C206_CaseStudy {
 			LocalDate inputStartDate = LocalDate.parse(inputStringStartDate, formatter1);
 			LocalDate inputEndDate = LocalDate.parse(inputStringEndDate, formatter1);
 			
-			if(inputID > 0 && duplicateIDcheck(inputID) == false && inputPrice > 0.0 && inputStringStartDate != null && inputStringEndDate != null && inputMode != null) {
+			if(inputTuitionCode != null && inputID > 0 && duplicateIDcheck(inputID) == false && inputPrice > 0.0 && inputStringStartDate != null && inputStringEndDate != null && inputMode != null) {
 				char proceed = Helper.readChar("Proceed on adding tuition timetable? (Y/N)> ");
 				if(proceed == 'Y') {
-					insertTT = new TuitionTimetable(inputID, inputPrice, inputStartDate, inputEndDate, inputMode);
+					insertTT = new TuitionTimetable(inputTuitionCode, inputID, inputPrice, inputStartDate, inputEndDate, inputMode);
 					System.out.println("New tuition timetable added!");
 				}
 				else {
@@ -540,13 +541,7 @@ public class C206_CaseStudy {
 		
 		TuitionTimetable insertTT = null;
 		
-		String output = String.format("%-5s %-10s %-20s %-20s %-10s", "ID", "Price", "Start Date", "End Date", "Mode");
-		
-		for(TuitionTimetable t : timetableList) {
-			output = String.format("%-5d %-10.2f %-20s %-20s %-10s", 
-					t.getTimetableID(), t.getPrice(), t.getStartDate(), t.getEndDate(), t.getMode());
-		}
-		System.out.println(output);
+		viewTimetable();
 		Helper.line(80, "=");
 		
 		int option = Helper.readInt("\nPlease enter the tuition timetable ID that you want to delete > ");

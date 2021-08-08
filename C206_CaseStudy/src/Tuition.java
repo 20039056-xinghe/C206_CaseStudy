@@ -9,7 +9,7 @@
 
 public class Tuition { // done by Xing He
 
-	private String tuition_code;
+	private String tuition_code;              // start with "TU" and any 4 numbers at the back eg. "TU1234" as a tuition code
 	private String tuition_title;
 	private String subject_group_name;
 	private String tuition_description;

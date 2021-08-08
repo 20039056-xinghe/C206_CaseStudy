@@ -15,6 +15,7 @@ public class TuitionTimetable extends Tuition { //Done by Jerald
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String mode;
+	private String status;
 	
 	public TuitionTimetable(String tuition_code, int timetableID, double price, LocalDate startDate, LocalDate endDate, String mode) {
 		super(tuition_code);
@@ -23,6 +24,17 @@ public class TuitionTimetable extends Tuition { //Done by Jerald
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.mode = mode;
+		status = "closed";
+	}
+	
+	public TuitionTimetable(String tuition_code, int timetableID, double price, LocalDate startDate, LocalDate endDate, String mode, String status) {
+		super(tuition_code);
+		this.timetableID = timetableID;
+		this.price = price;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.mode = mode;
+		this.status = status;
 	}
 	
 	public int getTimetableID() {
@@ -63,6 +75,14 @@ public class TuitionTimetable extends Tuition { //Done by Jerald
 	
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }
