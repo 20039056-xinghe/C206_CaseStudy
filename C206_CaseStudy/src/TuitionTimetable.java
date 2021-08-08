@@ -24,7 +24,7 @@ public class TuitionTimetable extends Tuition { //Done by Jerald
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.mode = mode;
-		status = "closed";
+		status = "Unavailable";
 	}
 	
 	public TuitionTimetable(String tuition_code, int timetableID, double price, LocalDate startDate, LocalDate endDate, String mode, String status) {
