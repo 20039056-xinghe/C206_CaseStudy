@@ -75,8 +75,12 @@ public class C206_CaseStudyTest {
 		student2 = new Students("Jacob", "Male", 91234567, "Jacob@gmail.com", student2DOB, "Malaysia", "none");
 		
 		//---------------------------------Marcus Test case---------------------------------//
-		registration1 = new Registration(1, tl1.getTimetableID(), "reg1@mail.com");
-		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com");	
+		DateTimeFormatter regiDTformat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		LocalDateTime regiDate1 = LocalDateTime.parse("04-08-2021 19:13:39",regiDTformat);
+		LocalDateTime regiDate2 = LocalDateTime.parse("30-07-2021 19:13:39",regiDTformat);
+		
+		registration1 = new Registration(1, tl1.getTimetableID(), "reg1@mail.com", regiDate1);
+		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com", regiDate2);	
 		
 		
 		//---------------------------------Xing He Test case---------------------------------//
@@ -343,8 +347,9 @@ public class C206_CaseStudyTest {
 			
 			//Test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
 			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			testOutput = String.format("%-5d %-10d %-30s %-10s %-20s", 1, tl1.getTimetableID(), "reg1@mail.com", "Pending", LocalDateTime.now());
-			testOutput += String.format("%-5d %-10d %-30s %-10s %-20s", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", LocalDateTime.now());
+			
+			testOutput = String.format("%-5d %-10d %-30s %-10s %-20s", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "04-08-2021 19:13:39");
+			testOutput += String.format("%-5d %-10d %-30s %-10s %-20s", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "30-07-2021 19:13:39");
 		
 			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
 			
