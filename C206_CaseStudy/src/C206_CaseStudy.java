@@ -750,6 +750,56 @@ public class C206_CaseStudy {
 	
 	//---------------------------------Tuition Xing He----------------------------------//
 	
+	public static void tuitionStart() { // Done by Xing He
+
+		int option = -1;
+
+		while (option != 4) {
+
+			tuitionMenu();
+			option = Helper.readInt("Enter choice > ");
+
+			if (option == 1) {
+				addTuition();
+			} else if (option == 2) {
+				viewTuition();
+			} else if (option == 3) {
+				deletetuition();
+			} else if (option == 4) {
+				System.out.println("Goodbye!");
+			} else {
+				System.out.println("Invalid option!");
+			}
+		}
+
+	}
+
+	public static void tuitionMenu() { // Done by Xing He
+		Helper.line(100, "=");
+		System.out.println("1. Add tuition");
+		System.out.println("2. View tuition");
+		System.out.println("3. Delete tuition");
+		System.out.println("4. Quit");
+		Helper.line(100, "=");
+	}
+
+	private static void addTuition() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	private static void viewTuition() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private static void deletetuition() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	
 	//---------------------------------LogIn----------------------------------//
 	
