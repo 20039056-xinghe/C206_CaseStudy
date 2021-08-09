@@ -243,7 +243,7 @@ public class C206_CaseStudy {
 		String studentDOBString = Helper.readString("Date of birth dd-MM-yyyy> ");
 		String studentCountry = Helper.readString("Country of residence> ");
 		String studentFeedback = Helper.readString("Feedback> ");
-		String studentPassword = Helper.readString("Password");
+		String studentPassword = Helper.readString("Password> ");
 
 		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -950,21 +950,23 @@ public class C206_CaseStudy {
 		}
 		
 		private static void regManager() { // Done by Marcus
-			Helper.line(70, "-");
-			System.out.println("REGISTER MANAGER ACCOUNT");
-			Helper.line(70, "-");
-			String username = Helper.readString("Enter new Username > ");
-			String password = Helper.readString("Enter new Password > ");
-			managerAccList.add(new TuitionManager(username,password));
+			Helper.line(70, "-");//Done by marcus
+			System.out.println("REGISTER MANAGER ACCOUNT");//Done by marcus
+			Helper.line(70, "-");//Done by marcus
+			String username = Helper.readString("Enter new Username > ");//Done by marcus
+			String password = Helper.readString("Enter new Password > ");//Done by marcus
+			managerAccList.add(new TuitionManager(username,password));//Done by marcus
+			System.out.println(username + " has been registered successfully!");//Done by Sanjeev
 		}
 		
 		private static void regAdmin() { // Done by Marcus
-			Helper.line(70, "-");
-			System.out.println("REGISTER ADMINISTRATOR ACCOUNT");
-			Helper.line(70, "-");
-			String username = Helper.readString("Enter new Username > ");
-			String password = Helper.readString("Enter new Password > ");
-			adminAccList.add(new TuitionAdministrator(username,password));
+			Helper.line(70, "-");//Done by marcus
+			System.out.println("REGISTER ADMINISTRATOR ACCOUNT");//Done by marcus
+			Helper.line(70, "-");//Done by marcus
+			String username = Helper.readString("Enter new Username > ");//Done by marcus
+			String password = Helper.readString("Enter new Password > ");//Done by marcus
+			adminAccList.add(new TuitionAdministrator(username,password));//Done by marcus
+			System.out.println(username + " has been registered successfully!");//Done by Sanjeev
 		}
 		
 	
