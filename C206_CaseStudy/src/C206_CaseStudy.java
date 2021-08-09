@@ -766,6 +766,7 @@ public class C206_CaseStudy {
 					if (check == true) { // Done by Marcus
 						Students stuObject = saveStuAcc(email);
 						startStuMenu(stuObject);
+						logAccOption = 4;
 					}
 					else { // Done by Marcus
 						System.out.println("Invalid Email or Password.");
@@ -776,6 +777,7 @@ public class C206_CaseStudy {
 					check = checkManagerAcc();
 					if (check == true) { // Done by Marcus
 						startManagerMenu();
+						logAccOption = 4;
 					}
 					else { // Done by Marcus
 						System.out.println("Invalid Email or Password.");
@@ -786,6 +788,7 @@ public class C206_CaseStudy {
 					check = checkAdminAcc();
 					if (check == true) { // Done by Marcus
 						startAdminMenu();
+						logAccOption = 4;
 					}
 					else { // Done by Marcus
 						System.out.println("Invalid Email or Password.");
