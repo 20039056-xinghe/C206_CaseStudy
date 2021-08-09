@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
@@ -29,7 +30,7 @@ public class C206_CaseStudyTest {
 	
 	private Registration registration1; // done by Marcus
 	private Registration registration2; // done by Marcus
-	private ArrayList<Registration> regiList; // done by Marcus
+	private ArrayList<Registration> regiList = new ArrayList<Registration>(); // done by Marcus
 	
 	 
 
@@ -70,12 +71,16 @@ public class C206_CaseStudyTest {
 		LocalDate student1DOB = LocalDate.parse("11-12-2003", formatter2);
 		LocalDate student2DOB = LocalDate.parse("11-07-2006", formatter2);
 		
-		student1 = new Students("Jake", "Male", 99998888, "Jake@gmail.com", student1DOB, "Singapore", "none");
-		student2 = new Students("Jacob", "Male", 91234567, "Jacob@gmail.com", student2DOB, "Malaysia", "none");
+		student1 = new Students("Jake", "Male", 99998888, "Jake@gmail.com", student1DOB, "Singapore", "none", "pass123");
+		student2 = new Students("Jacob", "Male", 91234567, "Jacob@gmail.com", student2DOB, "Malaysia", "none", "pass123");
 		
 		//---------------------------------Marcus Test case---------------------------------//
-		registration1 = new Registration(1, tl1.getTimetableID(), "reg1@mail.com");
-		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com");	
+		DateTimeFormatter regiDTformat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		LocalDateTime regiDate1 = LocalDateTime.parse("04-08-2021 19:13:39",regiDTformat);
+		LocalDateTime regiDate2 = LocalDateTime.parse("30-07-2021 19:13:39",regiDTformat);
+		
+		registration1 = new Registration(1, tl1.getTimetableID(), "reg1@mail.com", regiDate1);
+		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com", regiDate2);	
 		
 		
 		//---------------------------------Xing He Test case---------------------------------//
@@ -258,7 +263,7 @@ public class C206_CaseStudyTest {
 	
 	
 	//---------------------------------Jason JUnit---------------------------------//
-	
+	@Test
 	public void testViewStudents() {
 		
 		//Check that there is a valid arrayList to view from
@@ -272,7 +277,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.studentList.remove(student1);
 		assertNotSame(C206_CaseStudy.studentList.get(0), student1);
 	}
-	
+	@Test
 	public void testAddStudents() {
 		
 		//Check that there is a valid arrayList to add to
@@ -287,6 +292,7 @@ public class C206_CaseStudyTest {
 		assertSame(student2, C206_CaseStudy.studentList.get(2));
 		
 	}
+	@Test
 		public void testDeleteStudents() {
 			
 			//Assuming that there aree already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
@@ -309,6 +315,7 @@ public class C206_CaseStudyTest {
 	
 		//---------------------------------Marcus JUnit---------------------------------//
 		
+		@Test
 		public void addRegistrationTest() {
 			// Test if the registration ArrayList is empty not null - boundary
 			assertNotNull("Check if there is valid Registration arraylist to add to", regiList);
@@ -320,38 +327,41 @@ public class C206_CaseStudyTest {
 			assertSame("Check that Registration is added", registration1, regiList.get(0));
 			
 			//Add another item. test The size of the list is 2? -normal
-			//The item just added is as same as the second item of the list
 			C206_CaseStudy.addRegistration(registration2, regiList);
 			assertEquals("Check that Registration arraylist size is 2", 2, regiList.size());
+			//Test that the item just added is as same as the second item of the list
 			assertSame("Check that Registration is added", registration2, regiList.get(1));
 		}
 	
+		@Test
 		public void viewAllRegistrationTest() {
 			// Test if Item list is not null but empty -boundary
 			assertNotNull("Test if there is valid Registration arraylist to retrieve item", regiList);
 			
-			//test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
+			//Test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
 			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			String testOutput = "";
-			assertEquals("Check that ViewAllCamcorderlist", testOutput, allRegistration);
+			String emptyOutput = "No registration found";
+			assertEquals("Test that ViewAllregistration", emptyOutput, allRegistration);
 			
 			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
 			C206_CaseStudy.addRegistration(registration1, regiList);
-			C206_CaseStudy.addRegistration(registration2, regiList	);
+			C206_CaseStudy.addRegistration(registration2, regiList);
 			assertEquals("Test that Registration arraylist size is 2", 2, regiList.size());
 			
-			//test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
+			//Test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
 			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0011", "Nikon HDSLR", "Yes", "", "40");
-			testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0012", "Sony DSC-RX100M7", "Yes", "", "20" );
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Pending", "2021-08-04 19:13:39");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-07-30 19:13:39");
 		
 			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
 			
 		}
 		
+		@Test
 		public void deleteRegistrationTest() { //Done by Marcus
 			
-			//Check that the arraylist is not null so Registration object can be added into the arrayList
+			//Test that the arraylist is not null so Registration object can be added into the arrayList
 			assertNotNull("Check if there is a valid Registration arrayList", regiList);
 
 			//Given an empty list, after adding 2 items, test if after adding an item, the item can be deleted
@@ -361,15 +371,23 @@ public class C206_CaseStudyTest {
 			C206_CaseStudy.addRegistration(registration2, regiList);
 			
 			assertEquals("Test that Enquiry arraylist size is 2", 2, regiList.size());
-			assertSame("Test that the first Registration is added", rne1, regiList.get(0));		
-			assertSame("Test that the second Registration is added", rne2, regiList.get(1));
+			assertSame("Test that the first Registration is added", registration1, regiList.get(0));		
+			assertSame("Test that the second Registration is added", registration2, regiList.get(1));
 			
 			
 			//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
-			C206_CaseStudy.deleteRegistration(regiList, rne1.getEnquiry_id());;
-			C206_CaseStudy.deleteRegistration(regiList, rne2.getEnquiry_id());
+			C206_CaseStudy.deleteRegistration(regiList, registration1.getRegID());
+			assertEquals("Test that Registration arraylist size is 1", 1, regiList.size());
 			
-			assertEquals("Test that Registration arraylist size is 0", 0, regiList.size());
+			//Test if the same item that just been deleted can be deleted again.
+			boolean test = C206_CaseStudy.checkValidID(regiList, registration1.getRegID());
+			assertFalse("Test if the same item that just been deleted can be deleted again.", test);
+			
+			//Test if the non existing item can be deleted.
+			boolean test2 = C206_CaseStudy.checkValidID(regiList, 3);
+			assertFalse("Test if the non existing item can be deleted.", test2);
+			C206_CaseStudy.deleteRegistration(regiList, 3);
+			assertEquals("Test that Registration arraylist size is still 1", 1, regiList.size());
 
 		}
 	

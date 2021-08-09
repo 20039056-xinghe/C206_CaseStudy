@@ -138,16 +138,8 @@ public class C206_CaseStudy {
 	}
 	
 	protected static void addRegistration(Registration regiObject, ArrayList<Registration> regiList) { // Done by Marcus
-		boolean repeat = true;
-		
-		if (repeat == false) {
 			regiList.add(regiObject);
 			System.out.println("Successfully added registration");
-		}
-		else {
-			System.out.println("Invalid input");
-		}
-		
 	}
 
 	private static boolean checkForDupeRegiNum(int regiID) { // Done by Marcus
@@ -178,7 +170,7 @@ public class C206_CaseStudy {
 		if (regiList.size() == 0) {
 			output = "No registration found";
 		} else if (regiList.size() > 0) {
-			output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status",
+			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status",
 					"RegDateTime");
 			for (Registration x : regiList) {
 				output += x.display();
@@ -197,7 +189,7 @@ public class C206_CaseStudy {
 		if (regiList.size() == 0) {
 			output = "No registration found";
 		} else if (regiList.size() > 0) {
-			output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status",
+			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status",
 					"RegDateTime");
 			for (Registration x : regiList) {
 				if (x.getStatus().equalsIgnoreCase("Late"))
@@ -214,17 +206,30 @@ public class C206_CaseStudy {
 	
 	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
-		boolean check = false;
-		for (Registration x : regiList) {
-			if (x.getRegID() == regiID) {
-				check = true;
-				regiList.remove(x);
-				System.out.println("Registration succesfully deleted");
-			}
-		}
+		boolean check = checkValidID(regiList,regiID);
+		System.out.println("test");
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration delete, invalid registration ID.");
 		}
+		else {
+			for (Registration x : regiList) {
+				if (x.getRegID() == regiID) {
+					regiList.remove(x);
+					System.out.println("Registration succesfully deleted");
+				}
+			}
+		}
+	}
+	
+	protected static boolean checkValidID(ArrayList<Registration> regiList, int regiID) {
+		boolean valid = false;
+		for (Registration x : regiList) {
+			if (x.getRegID() == regiID) {
+				valid = true;
+			}
+		}
+		
+		return valid;
 	}
 	
 	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) {
