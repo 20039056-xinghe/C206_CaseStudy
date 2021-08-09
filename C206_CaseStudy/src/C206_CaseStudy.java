@@ -526,7 +526,7 @@ public class C206_CaseStudy {
 				//Quit
 				System.out.println("Goodbye!");
 			}else {
-				// if wrong number is entered
+				// if wrong number is entered!
 				System.out.println("Invalid option!");
 				break;
 			}
