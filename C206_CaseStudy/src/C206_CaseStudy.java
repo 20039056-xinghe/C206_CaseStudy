@@ -203,7 +203,7 @@ public class C206_CaseStudy {
 	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
 		boolean check = checkValidID(regiList,regiID); // Done by Marcus
-		System.out.println("test");
+		
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration delete, invalid registration ID."); // Done by Marcus
 		}
@@ -229,17 +229,19 @@ public class C206_CaseStudy {
 	}
 	
 	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
-		boolean check = false;
-		for (Registration x : regiList) { // Done by Marcus
-			if (x.getRegID() == regiID) { // Done by Marcus
-				check = true; // Done by Marcus
-				x.setPaymentInformation("Paid");
-				x.setStatus("Confirmed");
-				System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
-			} 
-		}
+		boolean check = checkValidID(regiList,regiID);
+		
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration updated, invalid registration ID.");
+		}
+		else {
+			for (Registration x : regiList) { // Done by Marcus
+				if (x.getRegID() == regiID) { // Done by Marcus
+					x.setPaymentInformation("Paid");
+					x.setStatus("Confirmed");
+					System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
+				} 
+			}
 		}
 		
 	}
