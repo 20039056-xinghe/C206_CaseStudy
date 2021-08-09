@@ -51,7 +51,7 @@ public class C206_CaseStudy {
 		System.out.println("4. Quit"); // Done by Marcus
 	}
 	
-	private static void startRegistration() {
+	private static void startRegistration(Students stuObject) {
 	int regiOption = -1;
 			
 		while (regiOption != 4) {
@@ -59,7 +59,7 @@ public class C206_CaseStudy {
 			regiOption = Helper.readInt("Enter choice > ");
 	
 			if (regiOption == 1) {
-				Registration regiObject = createRegiObject();
+				Registration regiObject = createRegiObject(stuObject);
 				addRegistration(regiObject, regiList);
 			} 
 			else if (regiOption == 2) {
@@ -73,7 +73,7 @@ public class C206_CaseStudy {
 		
 	}
 
-	protected static Registration createRegiObject() {
+	protected static Registration createRegiObject(Students stuObject) {
 		// registration number = Registration id must be unique.
 		// tuition timetable id
 		// student’s email
@@ -83,16 +83,28 @@ public class C206_CaseStudy {
 		boolean check = false;
 		Registration regi = null;
 
-		while (check = false) {
+		while (check == false) {
 			int regiID = Helper.readInt("Registration ID > "); // Done by Marcus
 			boolean checkID = checkForDupeRegiNum(regiID);
-			int timeTableID = Helper.readInt("Time Table ID > "); // Done by Marcus
 			
 			if (checkID == false) { // Done by Marcus
 				
-				String stuEmail = Helper.readString("Student's Email"); // Done by Marcus
-				regi = new Registration(regiID, timeTableID, stuEmail);
-				check = true;
+				boolean checkTimetable = false;
+
+				while (checkTimetable == false) { // Done by Marcus
+					int timeTableID = Helper.readInt("Time Table ID > "); // Done by Marcus
+					boolean checkTTID = checkForValidTimeTableID(timeTableID);
+	
+					if (checkTTID == true) {
+						String stuEmail = stuObject.getStudentEmail(); // Done by Marcus
+						regi = new Registration(regiID, timeTableID, stuEmail);
+						check = true;
+						checkTimetable = true;
+					}
+					else {
+						System.out.println("Please enter a valid time Table ID.");// Done by Marcus
+					}
+				}
 				
 			} else { // Done by Marcus
 				System.out.println("Please use a unique Registration ID"); // Done by Marcus
@@ -140,7 +152,7 @@ public class C206_CaseStudy {
 		return valid;
 	}
 
-	protected void viewAllRegistration() { // Done by Marcus
+	protected String retriveAllRegistration() {
 		String output = "";
 		if (regiList.size() == 0) {
 			output = "No registration found";
@@ -151,6 +163,11 @@ public class C206_CaseStudy {
 				output += x.display();
 			}
 		}
+		return output;
+	}
+	
+	protected void viewAllRegistration() { // Done by Marcus
+		String output = retriveAllRegistration();
 		System.out.println(output);
 	}
 
@@ -688,9 +705,12 @@ public class C206_CaseStudy {
 				logAccOption = Helper.readInt("Enter option > ");
 				
 				if (logAccOption == 1) { // Done by Marcus
-					check = checkStuAcc();
+					String email = Helper.readString("Enter Email > ");
+					String password = Helper.readString("Enter Password > ");
+					check = checkStuAcc(email, password);
 					if (check == true) { // Done by Marcus
-						startStuMenu();
+						Students stuObject = saveStuAcc(email);
+						startStuMenu(stuObject);
 					}
 					else { // Done by Marcus
 						System.out.println("Invalid Email or Password.");
@@ -720,9 +740,22 @@ public class C206_CaseStudy {
 			
 		}
 		
-		private static boolean checkStuAcc() { // Done by Marcus
-			String email = Helper.readString("Enter Email > ");
-			String password = Helper.readString("Enter Password > ");
+		private static Students saveStuAcc(String email) {
+			Students stuObject = null;
+			
+			for (Students x:studentList) { // Done by Marcus
+				if (email.equals(x.getStudentEmail())) {
+					stuObject = x;
+				}
+			}
+			
+		
+		return stuObject;
+	}
+
+		
+		private static boolean checkStuAcc(String email, String password) { // Done by Marcus
+
 			boolean check = false;
 			
 			for (Students x:studentList) { // Done by Marcus
@@ -781,7 +814,7 @@ public class C206_CaseStudy {
 			}
 		}
 		
-		private static void startStuMenu() { // Done by Marcus
+		private static void startStuMenu(Students stuObject) { // Done by Marcus
 			int stuOption = -1;
 			
 			while (stuOption != 5) { // Done by Marcus
@@ -789,7 +822,7 @@ public class C206_CaseStudy {
 				studentMenu();
 				stuOption = Helper.readInt("Enter option > ");
 				if (stuOption == 1) {
-					startRegistration();
+					startRegistration(stuObject);
 				}
 				else if (stuOption == 2) { // Done by Marcus
 					//update feedback waiting for jason

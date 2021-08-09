@@ -315,13 +315,13 @@ public class C206_CaseStudyTest {
 			
 			//Test that given an empty ArrayList, after adding 1 item, the size of the list is 1 - normal
 			
-			C206_CaseStudy.addRegistration(registration1);
+			C206_CaseStudy.addRegistration(registration1, regiList);
 			assertEquals("Check that Registration arraylist size is 1", 1, regiList.size());
 			assertSame("Check that Registration is added", registration1, regiList.get(0));
 			
 			//Add another item. test The size of the list is 2? -normal
 			//The item just added is as same as the second item of the list
-			C206_CaseStudy.addRegistration(regiList, registration2);
+			C206_CaseStudy.addRegistration(registration2, regiList);
 			assertEquals("Check that Registration arraylist size is 2", 2, regiList.size());
 			assertSame("Check that Registration is added", registration2, regiList.get(1));
 		}
