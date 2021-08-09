@@ -33,7 +33,31 @@ public class Registration {
 		this.email = email; //Done by Marcus
 		this.status = "Pending"; //Done by Marcus
 		this.regiDateTime = LocalDateTime.now(); //Done by Marcus
-		this.paymentInformation = "Unpaid";
+		this.paymentInformation = "Unpaid"; //Done by Marcus
+			
+		for (TuitionTimetable x: timetableList) {//Done by Marcus
+			if (x.getTimetableID() == timeTableID) {//Done by Marcus
+				int compareDate = x.getStartDate().compareTo(regiDateTime.toLocalDate());//Done by Marcus
+				if (compareDate <= 3) {
+					this.status = "Late";//Done by Marcus
+				}
+				else {
+					this.status = "Pending";//Done by Marcus
+				}
+				
+			}
+		}
+		
+	}
+	
+	public Registration(int regiID, int timeTableID, String email, LocalDateTime regiDateTime) { //Done by Marcus
+
+		this.regiID = regiID; //Done by Marcus
+		this.timeTableID = timeTableID; //Done by Marcus
+		this.email = email; //Done by Marcus
+		this.status = "Pending"; //Done by Marcus
+		this.regiDateTime = regiDateTime; //Done by Marcus
+		this.paymentInformation = "Unpaid";//Done by Marcus
 			
 		for (TuitionTimetable x: timetableList) {//Done by Marcus
 			if (x.getTimetableID() == timeTableID) {//Done by Marcus
