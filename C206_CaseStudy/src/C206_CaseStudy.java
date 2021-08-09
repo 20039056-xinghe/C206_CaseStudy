@@ -233,7 +233,8 @@ public class C206_CaseStudy {
 			if (x.getRegID() == regiID) {
 				check = true;
 				x.setPaymentInformation("Paid");
-				System.out.println("Registration's Payment information succesfully changed to 'Paid'.");
+				x.setStatus("Confirmed");
+				System.out.println("Registration's Status and Payment information succesfully updated.");
 			}
 		}
 		if (check == false) { // Done by Marcus
