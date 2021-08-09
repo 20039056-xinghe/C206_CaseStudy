@@ -60,8 +60,8 @@ public class C206_CaseStudyTest {
 		LocalDate startDate2 = LocalDate.parse("01-10-2021", formatter1);
 		LocalDate endDate2 = LocalDate.parse("01-11-2021", formatter1);
 		
-		tl1 = new TuitionTimetable(1, 123.40, startDate1, endDate1, "F2F");
-		tl2 = new TuitionTimetable(2, 246.80, startDate2, endDate2, "Zoom");
+		tl1 = new TuitionTimetable(null, 1, 123.40, startDate1, endDate1, "F2F");
+		tl2 = new TuitionTimetable(null, 2, 246.80, startDate2, endDate2, "Zoom");
 		
 
 		//---------------------------------Jason Test case---------------------------------//
