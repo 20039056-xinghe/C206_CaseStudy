@@ -166,8 +166,8 @@ public class C206_CaseStudy {
 		if (regiList.size() == 0) { // Done by Marcus
 			output = "No registration found";
 		} else if (regiList.size() > 0) {
-			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status",
-					"RegDateTime");
+			output = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status",
+					"RegDateTime", "PaymentInfo");
 			for (Registration x : regiList) { // Done by Marcus
 				output += x.display();
 			}
@@ -185,8 +185,8 @@ public class C206_CaseStudy {
 		if (regiList.size() == 0) { // Done by Marcus
 			output = "No registration found"; // Done by Marcus
 		} else if (regiList.size() > 0) {
-			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status", // Done by Marcus
-					"RegDateTime");
+			output = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status", // Done by Marcus
+					"RegDateTime", "PaymentInfo");
 			for (Registration x : regiList) { // Done by Marcus
 				if (x.getStatus().equalsIgnoreCase("Late")) // Done by Marcus
 					output += x.display(); // Done by Marcus
@@ -228,18 +228,19 @@ public class C206_CaseStudy {
 		return valid;
 	}
 	
-	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
-		boolean check = false;
-		for (Registration x : regiList) { // Done by Marcus
-			if (x.getRegID() == regiID) { // Done by Marcus
-				check = true; // Done by Marcus
-				x.setPaymentInformation("Paid");
-				x.setStatus("Confirmed");
-				System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
-			} 
-		}
+	protected static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
+		boolean check = checkValidID(regiList,regiID);
 		if (check == false) { // Done by Marcus
-			System.out.println("No registration updated, invalid registration ID.");
+			System.out.println("No registration updated, invalid registration ID."); // Done by Marcus
+		}
+		else {
+			for (Registration x : regiList) { // Done by Marcus
+				if (x.getRegID() == regiID) { // Done by Marcus
+					x.setPaymentInformation("Paid");
+					x.setStatus("Confirmed");
+					System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
+				} 
+			}
 		}
 		
 	}

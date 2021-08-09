@@ -429,11 +429,11 @@ public class C206_CaseStudyTest {
 			
 			//Test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
 			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime");
-			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "2021-08-04 19:13:39");
-			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39");
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "2021-08-04 19:13:39", "Unpaid");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39", "Unpaid");
 		
-			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
 			
 		}
 		
@@ -470,7 +470,73 @@ public class C206_CaseStudyTest {
 
 		}
 	
+		@Test
+		public void viewAllLateRegistrationTest() {
+			// Test if Item list is not null but empty -boundary
+			assertNotNull("Test if there is valid Registration arraylist to retrieve item", regiList);
+			
+			//Test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
+			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
+			String emptyOutput = "No registration found";
+			assertEquals("Test that ViewAllregistration", emptyOutput, allRegistration);
+			
+			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+			C206_CaseStudy.addRegistration(registration1, regiList);
+			C206_CaseStudy.addRegistration(registration2, regiList);
+			assertEquals("Test that Registration arraylist size is 2", 2, regiList.size());
+			
+			//Test if the expected output string same as the list of late Registration retrieved from the C206_CaseStudy	
+			allRegistration= C206_CaseStudy.retriveAllLateRegistration(regiList);
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "2021-08-04 19:13:39", "Unpaid");
+
+		
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
+			
+		}
 	
+		@Test
+		public void updateRegistrationTest() { //Done by Marcus
+			
+			//Test that the arraylist is not null so Registration object can be added into the arrayList
+			assertNotNull("Check if there is a valid Registration arrayList", regiList);
+
+			//Given an empty list, after adding 2 items, test if after adding an item, test that they have been added correctly
+			
+			C206_CaseStudy.addRegistration(registration1, regiList);
+			C206_CaseStudy.addRegistration(registration2, regiList);
+			
+			assertEquals("Test that Enquiry arraylist size is 2", 2, regiList.size());
+			assertSame("Test that the first Registration is added", registration1, regiList.get(0));		
+			assertSame("Test that the second Registration is added", registration2, regiList.get(1));
+			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
+			
+			//Given that a list with 2 items, test if an object can be update
+			C206_CaseStudy.updateRegistrationPayment(regiList, registration1.getRegID());
+			registration1.setPaymentInformation("Paid");
+			registration1.setStatus("Confirmed");
+			assertSame("Check that Registration1 has been updated", registration1, regiList.get(0));
+			
+			//Test if the update will be reflect in the viewAll
+			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Confirmed", "2021-08-04 19:13:39", "Paid");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39", "Unpaid");
+		
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
+			
+			//Test if the non existing item can be updated.
+			boolean test2 = C206_CaseStudy.checkValidID(regiList, 3);
+			assertFalse("Test if the non existing item can be updated.", test2);
+			C206_CaseStudy.updateRegistrationPayment(regiList, 3);
+			testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Confirmed", "2021-08-04 19:13:39", "Paid");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39", "Unpaid");
+		
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
+
+		}
+		
 		//---------------------------------Xing He JUnit---------------------------------//
 	
 	

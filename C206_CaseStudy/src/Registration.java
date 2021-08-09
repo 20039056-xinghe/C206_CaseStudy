@@ -113,7 +113,7 @@ public class Registration {
 		String output = "";
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); //Done by Marcus
 		//"RegID", "TimeTableID", "Student Email", "Status", "RegDateTime"
-		output += String.format("%-5d %-15d %-30s %-10s %-20s\n", getRegID(), getTimeTableID(), getEmail(), getStatus(), getRegiDateTime().format(dtFormat));
+		output += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", getRegID(), getTimeTableID(), getEmail(), getStatus(), getRegiDateTime().format(dtFormat), getPaymentInformation());
 		return output;
 		
 	}
