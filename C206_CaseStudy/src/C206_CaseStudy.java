@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class C206_CaseStudy {
+public class C206_CaseStudy implements MenuMethods {
 
 	public static ArrayList<Registration> regiList = new ArrayList<Registration>(); // Done by Marcus
 	public static ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
@@ -27,7 +27,7 @@ public class C206_CaseStudy {
 			if (logOption == 1) {
 				startLoginAcc();
 			} else if (logOption == 2) {
-				startRegistration();
+				startRegAcc();
 			} else if (logOption == 3) {
 				System.out.println("Good bye!");
 			}
@@ -46,6 +46,7 @@ public class C206_CaseStudy {
 			logAccMenu();
 			boolean check = false;
 			logAccOption = Helper.readInt("Enter option > ");
+			
 			if (logAccOption == 1) {
 				check = checkStuAcc();
 				if (check == true) {
@@ -55,11 +56,25 @@ public class C206_CaseStudy {
 					System.out.println("Invalid Email or Password.");
 				}
 			}
+			
 			else if (logAccOption == 2) {
-				regManager();
+				check = checkManagerAcc();
+				if (check == true) {
+					managerMenu();
+				}
+				else {
+					System.out.println("Invalid Email or Password.");
+				}
 			}
+			
 			else if (logAccOption == 3) {
-				regAdmin();
+				check = checkAdminAcc();
+				if (check == true) {
+					adminMenu();
+				}
+				else {
+					System.out.println("Invalid Email or Password.");
+				}
 			}
 		}
 		
@@ -79,8 +94,36 @@ public class C206_CaseStudy {
 		return check;
 		
 	}
+	private static boolean checkManagerAcc() {
+		String username = Helper.readString("Enter Username > ");
+		String password = Helper.readString("Enter Password > ");
+		boolean check = false;
+		
+		for (TuitionManager x:managerAccList) {
+			if (username.equals(x.getmanagerUsername()) && password.equals(x.getmanagerPassword())) {
+				check = true;
+			}
+		}
+		
+		return check;
+		
+	}
+	private static boolean checkAdminAcc() {
+		String username = Helper.readString("Enter Username > ");
+		String password = Helper.readString("Enter Password > ");
+		boolean check = false;
+		
+		for (TuitionAdministrator x:adminAccList) {
+			if (username.equals(x.getUsername()) && password.equals(x.getPassword())) {
+				check = true;
+			}
+		}
+		
+		return check;
+		
+	}
 	
-	private static void startRegistration() {
+	private static void startRegAcc() {
 		int regOption = -1;
 		
 		while (regOption != 4) {
@@ -95,6 +138,33 @@ public class C206_CaseStudy {
 			else if (regOption == 3) {
 				regAdmin();
 			}
+		}
+	}
+	
+	private static void startStuMenu() {
+		int stuOption = -1;
+		studentMenu();
+		
+		while (stuOption != 5) {
+			
+			studentMenu();
+			stuOption = Helper.readInt("Enter option > ");
+			if (stuOption == 1) {
+				startRegistration();
+			}
+			else if (stuOption == 2) {
+				//update feedback waiting for jason
+			}
+			else if (stuOption == 3) {
+				// view tuition waiting for xing he
+			}
+			else if (stuOption == 4) {
+				viewTimetable();
+			}
+			else if (stuOption == 5) {
+				System.out.println("Bye");
+			}
+			
 		}
 	}
 	
@@ -135,7 +205,7 @@ public class C206_CaseStudy {
 		System.out.println("2. Update Feedback");
 		System.out.println("3. View Tuition");
 		System.out.println("4. View Tuition TimeTable");
-		System.out.println("5. Quit");
+		System.out.println("5. Log Out");
 	}
 	
 	private static void adminMenu() {
@@ -145,7 +215,7 @@ public class C206_CaseStudy {
 		System.out.println("1. Student");
 		System.out.println("2. Tuition");
 		System.out.println("3. Tuition TimeTable");
-		System.out.println("4. Quit");
+		System.out.println("5. Log Out");
 	}
 	
 	private static void managerMenu() {
@@ -155,7 +225,7 @@ public class C206_CaseStudy {
 		System.out.println("1. Enquiry");
 		System.out.println("2. View Tuition");
 		System.out.println("3. View Tuition TimeTable");
-		System.out.println("4. Quit");
+		System.out.println("5. Log Out");
 	}
 	
 	private static void regManager() {
@@ -182,6 +252,10 @@ public class C206_CaseStudy {
 		System.out.println("1. Register for Tuition Timetable"); // Done by Marcus
 		System.out.println("2. View All Registration"); // Done by Marcus
 		System.out.println("3. Delete Registration"); // Done by Marcus
+	}
+	
+	private static void startRegistration() {
+		
 	}
 
 	protected static void addRegistration(Registration registration1) { // Done by Marcus
