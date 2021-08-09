@@ -35,6 +35,7 @@ public class C206_CaseStudyTest {
 
 	@Before
 	public void setUp() throws Exception {
+		//---------------------------------Sanjeev Test case---------------------------------//
 		int rne1_enquiry_id = 1;
 		int rne2_enquiry_id = 2;
 		int rne3_enquiry_id = 3;
@@ -50,8 +51,8 @@ public class C206_CaseStudyTest {
 		rne4 =new Enquiries(rne4_enquiry_id, "DJ", dt1, "unfullfilled", "mail");
 		enquiry_list = new ArrayList<Enquiries>();
 		
-		
-		//----------UP TO SANJEEV----------//
+
+		//---------------------------------Jerald Test case---------------------------------//
 		
 		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate startDate1 = LocalDate.parse("05-08-2021", formatter1);
@@ -62,8 +63,8 @@ public class C206_CaseStudyTest {
 		tl1 = new TuitionTimetable(1, 123.40, startDate1, endDate1, "F2F");
 		tl2 = new TuitionTimetable(2, 246.80, startDate2, endDate2, "Zoom");
 		
-		
-		//----------UP TO JERALD----------//
+
+		//---------------------------------Jason Test case---------------------------------//
 		
 		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate student1DOB = LocalDate.parse("11-12-2003", formatter2);
@@ -72,21 +73,16 @@ public class C206_CaseStudyTest {
 		student1 = new Students("Jake", "Male", 99998888, "Jake@gmail.com", student1DOB, "Singapore", "none");
 		student2 = new Students("Jacob", "Male", 91234567, "Jacob@gmail.com", student2DOB, "Malaysia", "none");
 		
-		//----------UP TO JASON----------//
-		
+		//---------------------------------Marcus Test case---------------------------------//
 		registration1 = new Registration(1, tl1.getTimetableID(), "reg1@mail.com");
-		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com");
-		
-		//----------UP TO MARCUS----------//
+		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com");	
 		
 		
-		
-		
-		//----------UP TO XING HE----------//
+		//---------------------------------Xing He Test case---------------------------------//
 		
 	}
 	
-	//Sanjeev JUNIT TESTING BELOW
+	//---------------------------------Sanjeev JUnit---------------------------------//
 	
 	@Test
 	public void addEnquiryTest() { //Done by Sanjeev1
@@ -206,7 +202,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	
-	//Jerald JUNIT TESTING BELOW
+	//---------------------------------Jerald JUnit---------------------------------//
 	
 	@Test
 	public void testAddTimetable() {
@@ -261,7 +257,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	
-	//Jason JUNIT TESTING BELOW
+	//---------------------------------Jason JUnit---------------------------------//
 	
 	public void testViewStudents() {
 		
@@ -311,8 +307,7 @@ public class C206_CaseStudyTest {
 
 	
 	
-	
-	//Marcus JUNIT TESTING BELOW
+		//---------------------------------Marcus JUnit---------------------------------//
 		
 		public void addRegistrationTest() {
 			// Test if the registration ArrayList is empty not null - boundary
@@ -378,7 +373,7 @@ public class C206_CaseStudyTest {
 		}
 	
 	
-	//Xing He JUNIT TESTING BELOW
+		//---------------------------------Xing He JUnit---------------------------------//
 	
 	
 	

@@ -22,7 +22,20 @@ public class C206_CaseStudy {
 			if (logOption == 1) {
 				System.out.println();
 			} else if (logOption == 2) {
-				regAccMenu();
+				
+				int regOption = -1;
+				
+				while (regOption != 4) {
+					regAccMenu();
+					regOption = Helper.readInt("Enter option > ");
+					if (regOption == 1) {
+						addNewStudent(studentList,null);
+					}
+					else if (regOption == 2) {
+						
+					}
+				}
+				
 			} else if (logOption == 3) {
 				System.out.println("Good bye!");
 			}
@@ -43,10 +56,14 @@ public class C206_CaseStudy {
 		Helper.line(70, "-");
 		System.out.println("1. Student");
 		System.out.println("2. Tuition Manager");
-		System.out.println("3. Tuition ");
+		System.out.println("3. Tuition Administrator");
 		System.out.println("4. Quit");
 	}
 
+	private static void studentMenu() {
+		
+	}
+	
 	//---------------------------------Register---------------------------------//
 	
 	private void RegisterMenu() { // Done by Marcus
