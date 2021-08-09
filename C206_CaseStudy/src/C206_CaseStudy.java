@@ -231,7 +231,7 @@ public class C206_CaseStudy {
 	protected static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 		boolean check = checkValidID(regiList,regiID);
 		if (check == false) { // Done by Marcus
-			System.out.println("No registration updated, invalid registration ID.");
+			System.out.println("No registration updated, invalid registration ID."); // Done by Marcus
 		}
 		else {
 			for (Registration x : regiList) { // Done by Marcus
