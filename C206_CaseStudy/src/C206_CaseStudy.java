@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class C206_CaseStudy {
 
@@ -396,53 +395,51 @@ public class C206_CaseStudy {
 	//---------------------------------Enquiry Sanjeev---------------------------------//
 
 	public static void searchEnquiry() { // Done by Sanjeev2
-		int eID = Helper.readInt("Enter Enquiry ID > ");
+		String name = Helper.readString("Enter Enquirer Name > ");
+		System.out.println(displayHeader());
+		String output = " ";
 		for (int i = 0; i < enquiryList.size(); i++) {
 			Enquiries enquiry1 = enquiryList.get(i);
-			if (eID == enquiry1.getEnquiry_id()) {
-				String output = displayHeader();
-				output += String.format("\n%-10d %8s %25s %12s %13s", enquiry1.getEnquiry_id(),
+			if (enquiry1.getEnquirerName().equalsIgnoreCase(name)) {
+				output += String.format("%-10d %8s %25s %12s %13s \n", enquiry1.getEnquiry_id(),
 						enquiry1.getEnquirerName(),
 						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_dateTime()),
 						enquiry1.getStatus(), enquiry1.getFllwupType());
-				System.out.println(output);
-				break;
 			} else {
-				System.out.println("Invalid Entry ID!");
+				output = "No enquiries found for the given name!";
 				break;
 			}
 		}
+		System.out.println(output);
 	}
 
-	public static Enquiries addEnquiryInputs() { // Done by Sanjeev
-		String eName = Helper.readString("Enter Enquirer's name > ");
-		String dateTime = Helper.readString("Enter date & time of enquiry (yyyy-MM-dd HH:mm:ss) > ");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		LocalDateTime dt = LocalDateTime.parse(dateTime, formatter);
-		String eStatus = Helper.readString("Enter enquiry status(fullfilled/unfullfilled) > ");
-		String fllwUpType = Helper.readString("Enter follow-up type> ");
-		int enquiry_id = enquiryList.size() + 1;
-		Enquiries e = new Enquiries(enquiry_id, eName, dt, eStatus, fllwUpType);
-		return e;
-	}
-
-	public static void addEnquiry(ArrayList<Enquiries> enquiryList, Enquiries e) { // Done by Sanjeev
-		enquiryList.add(e);
-		System.out.println("Enquiry registered successfully"); // Since enquiry can be made multiple times by the same
-																// person it need not be unique
-	}
-
-	public static void checkAddedEnquiry(Enquiries e) {
-
-		if (e.getEnquirerName().isBlank() || e.getEnquiry_dateTime().isEqual(null) || e.getStatus().isBlank()
-				|| e.getFllwupType().isBlank()) {
-			enquiryList.remove(e);
-			System.out.println("Enquiry had blank fields try again!");
-		} else {
-			addEnquiry(enquiryList, e);
-		}
-	}
-
+	 public static Enquiries addEnquiryInputs() { //Done by Sanjeev
+		 String eName = Helper.readString("Enter Enquirer's name > ");
+		 String dateTime = Helper.readString("Enter date & time of enquiry (yyyy-MM-dd HH:mm:ss) > ");
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+		 LocalDateTime dt = LocalDateTime.parse(dateTime, formatter);
+		 String eStatus = Helper.readString("Enter enquiry status(fullfilled/unfullfilled/processing) > ");
+		 String fllwUpType = Helper.readString("Enter follow-up type> ");
+		 int enquiry_id = enquiryList.size() + 1;
+		 Enquiries e = new Enquiries(enquiry_id, eName, dt, eStatus, fllwUpType);
+		 return e;
+	 }
+	 
+	 public static void addEnquiry(ArrayList<Enquiries> enquiryList, Enquiries e) { //Done by Sanjeev
+		 enquiryList.add(e);
+		 System.out.println("Enquiry registered successfully"); //Since enquiry can be made multiple times by the same person it need not be unique
+	 }
+	 
+	 public static void checkAddedEnquiry(Enquiries e) {
+		 
+		 if(e.getEnquirerName().isBlank() || e.getStatus().isBlank() || e.getFllwupType().isBlank()) {
+			 enquiryList.remove(e);
+			 System.out.println("Enquiry had blank fields try again!");
+		 }else {
+			 addEnquiry(enquiryList, e);
+		 }
+	 }
+	 
 	public static int deleteEnquiryInputs() { // Done by Sanjeev
 		int enquiry_id = Helper.readInt("Enter Enquiry ID > ");
 
@@ -480,16 +477,18 @@ public class C206_CaseStudy {
 		System.out.println("2. View All Enquiry");
 		System.out.println("3. View All Fullfilled Enquiry");
 		System.out.println("4. View All Unfullfilled Enquiry");
-		System.out.println("5. Search Specific Enquiry");
-		System.out.println("6. Delete Specific Enquiry");
-		System.out.println("7. Exit");
+		System.out.println("5. View All Processing Enquiry");
+		System.out.println("6. Search Specific Enquiry");
+		System.out.println("7. Delete Specific Enquiry");
+		System.out.println("8. Update Enquiry Status to Processing");
+		System.out.println("9. Exit");
 		Helper.line(25, "=");
 	}
 
 	public static void startEnquiry() { // Done by Sanjeev
 		int option = -1;
 
-		while (option != 7) {
+		while (option != 9) {
 			enquiryMenu();
 			option = Helper.readInt("Enter Choice > ");
 			if (option == 1) {
@@ -506,16 +505,22 @@ public class C206_CaseStudy {
 				// Display unfullfilled enquiry
 				displayNotFullfilled();
 			} else if (option == 5) {
+				//Display processsing enquiry
+				displayProcessing();
+			} else if (option == 6) {
 				// Search enquiry
 				searchEnquiry();
-			} else if (option == 6) {
+			} else if (option == 7) {
 				// Delete enquiry
 				int e = deleteEnquiryInputs();
 				deleteEnquiry(enquiryList, e);
-			} else if (option == 7) {
-				// Quit
+			}else if(option == 8) {
+				//Update status to processing
+				updateProcessingMenu();
+			}else if(option == 9){
+				//Quit
 				System.out.println("Goodbye!");
-			} else {
+			}else {
 				// if wrong number is entered
 				System.out.println("Invalid option!");
 				break;
@@ -604,6 +609,81 @@ public class C206_CaseStudy {
 		String output = retrieveNotFuillfilled(enquiryList);
 		System.out.println(output);
 
+	}
+	
+	public static void displayProcessing() { //Done by Sanjeev
+		String output = retrieveProcessing(enquiryList);
+		System.out.println(output);
+	}
+	
+	public static String retrieveProcessing(ArrayList<Enquiries> enquiryList) { //Done by Sanjeev
+		String output = "";
+		if (enquiryList.size() != 0) {
+			output = displayHeader();
+			for (int i = 0; i < enquiryList.size(); i++) {
+				Enquiries enquiry = enquiryList.get(i);
+				if (enquiry.getStatus().equalsIgnoreCase("processing")) {
+					output += String.format("\n%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(),
+							enquiry.getEnquirerName(),
+							DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()),
+							enquiry.getStatus(), enquiry.getFllwupType());
+				}
+			}
+		} else {
+			output = "No Processing enquiries :(";
+		}
+
+		return output;
+	}
+	
+	public static boolean checkStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+		
+		boolean isValid = false;
+		String setProcessing = "Processing";
+		
+		for(int i = 0; i < enquiryList.size(); i++) {
+			Enquiries enquiry = enquiryList.get(i);
+			
+			int enquiryId = enquiry.getEnquiry_id();
+			
+			if(eId == enquiryId) {
+				enquiry.setStatus(setProcessing);
+				System.out.println(enquiry.getEnquirerName() + "'s status has been changed to processing!");
+				isValid = true;
+			}
+		}
+		
+		return isValid;
+	}
+	
+	public static void updateStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+		
+		boolean isValid = checkStatustoProcessing(enquiryList, eId);
+		
+		if(isValid != true) {
+			System.out.println("Name not found in list!");
+		}
+	}
+	
+	public static void updateProcessingMenu() {
+		int enquiryId = Helper.readInt("Enter entryId > ");
+		System.out.println(displayHeader());
+		String output = "";
+		for(int i = 0; i < enquiryList.size(); i++) {
+			Enquiries enquiry = enquiryList.get(i);
+			if(enquiryId == enquiry.getEnquiry_id()) {
+				System.out.println(String.format("%-10d %8s %25s %12s %13s", enquiry.getEnquiry_id(),
+						enquiry.getEnquirerName(),
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry.getEnquiry_dateTime()),
+						enquiry.getStatus(), enquiry.getFllwupType()));
+				String option = Helper.readString("Update to preocessing? (Y/N) > ");
+				if(option.equalsIgnoreCase("Y")) {
+					updateStatustoProcessing(enquiryList, enquiryId);
+				}else if(option.equalsIgnoreCase("N")) {
+					output = "Enquiry status not changed";
+				}
+			}
+		}
 	}
 
 	//---------------------------------TimeTable Jerald---------------------------------//
