@@ -53,32 +53,32 @@ public class C206_CaseStudy {
 		System.out.println("6. Quit"); // Done by Marcus
 	}
 	
-	private static void startRegistration(Students stuObject) {
+	private static void startRegistration(Students stuObject) { // Done by Marcus
 	int regiOption = -1;
 			
-		while (regiOption != 6) {
+		while (regiOption != 6) { // Done by Marcus
 			RegisterMenu();
 			regiOption = Helper.readInt("Enter choice > ");
 	
-			if (regiOption == 1) {
+			if (regiOption == 1) { // Done by Marcus
 				Registration regiObject = createRegiObject(stuObject);
 				addRegistration(regiObject, regiList);
 			} 
-			else if (regiOption == 2) {
+			else if (regiOption == 2) { // Done by Marcus
 				viewAllRegistration(regiList);
 			} 
-			else if (regiOption == 3) {
+			else if (regiOption == 3) { // Done by Marcus
 				int regiID = Helper.readInt("Please enter the registration ID of the registration to be deleted > ");
 				deleteRegistration(regiList,regiID);
-			}
-			else if (regiOption == 4) {
+			} 
+			else if (regiOption == 4) { // Done by Marcus
 				viewAllLateRegistration(regiList);
 			}
-			else if (regiOption == 5) {
+			else if (regiOption == 5) { // Done by Marcus
 				int regiID = Helper.readInt("Please enter the registration ID of the registration's payment information to be updated > ");
 				updateRegistrationPayment(regiList,regiID);
 			}
-			else if (regiOption == 6) {
+			else if (regiOption == 6) { // Done by Marcus
 				System.out.println("Good bye!");
 			}
 				
@@ -88,26 +88,22 @@ public class C206_CaseStudy {
 	
 
 
-	public static ArrayList<TuitionTimetable> getTimetableList() {
+	public static ArrayList<TuitionTimetable> getTimetableList() { // Done by Marcus
 		return timetableList;
 	}
-
-	public static void setTimetableList(ArrayList<TuitionTimetable> timetableList) {
-		C206_CaseStudy.timetableList = timetableList;
-	}
-
-	protected static Registration createRegiObject(Students stuObject) {
+ 
+	protected static Registration createRegiObject(Students stuObject) { // Done by Marcus
 		// registration number = Registration id must be unique.
 		// tuition timetable id
 		// student’s email
 		// status which is initially set to “Pending”
 		// registration date/time
 		
-		boolean check = false;
-		Registration regi = null;
+		boolean check = false; // Done by Marcus
+		Registration regi = null; // Done by Marcus
 
-		while (check == false) {
-			int regiID = Helper.readInt("Registration ID > "); // Done by Marcus
+		while (check == false) { // Done by Marcus
+			int regiID = Helper.readInt("Registration ID > ");  // Done by Marcus
 			boolean checkID = checkForDupeRegiNum(regiID);
 			
 			if (checkID == false) { // Done by Marcus
@@ -134,12 +130,12 @@ public class C206_CaseStudy {
 			}
 		}
 		
-		return regi;
+		return regi; // Done by Marcus
 	}
 	
 	protected static void addRegistration(Registration regiObject, ArrayList<Registration> regiList) { // Done by Marcus
-			regiList.add(regiObject);
-			System.out.println("Successfully added registration");
+			regiList.add(regiObject); // Done by Marcus
+			System.out.println("Successfully added registration"); // Done by Marcus
 	}
 
 	private static boolean checkForDupeRegiNum(int regiID) { // Done by Marcus
@@ -149,83 +145,83 @@ public class C206_CaseStudy {
 				repeat = true;
 			}
 		}
-		return repeat;
+		return repeat; // Done by Marcus
 	}
 	
-	private static boolean checkForValidTimeTableID(int timeTableID) {
+	private static boolean checkForValidTimeTableID(int timeTableID) { // Done by Marcus
 		boolean valid = false;
 		
-		for (TuitionTimetable x:timetableList) {
-			if (x.getTimetableID() == timeTableID) {
+		for (TuitionTimetable x:timetableList) { // Done by Marcus
+			if (x.getTimetableID() == timeTableID) { // Done by Marcus
 				valid = true;
 			}
 		}
 		
 		
-		return valid;
+		return valid; // Done by Marcus
 	}
 
-	protected static String retriveAllRegistration(ArrayList<Registration> regiList) {
+	protected static String retriveAllRegistration(ArrayList<Registration> regiList) { // Done by Marcus
 		String output = "";
-		if (regiList.size() == 0) {
+		if (regiList.size() == 0) { // Done by Marcus
 			output = "No registration found";
 		} else if (regiList.size() > 0) {
 			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status",
 					"RegDateTime");
-			for (Registration x : regiList) {
+			for (Registration x : regiList) { // Done by Marcus
 				output += x.display();
 			}
 		}
 		System.out.println(output);
-		return output;
+		return output; // Done by Marcus
 	}
 	
 	protected static void viewAllRegistration(ArrayList<Registration> regiList) { // Done by Marcus
-		String output = retriveAllRegistration(regiList);
-		System.out.println(output);
+		String output = retriveAllRegistration(regiList); // Done by Marcus
+		System.out.println(output); // Done by Marcus
 	}
 
-	protected static String retriveAllLateRegistration(ArrayList<Registration> regiList) {
+	protected static String retriveAllLateRegistration(ArrayList<Registration> regiList) { // Done by Marcus
 		String output = "";
-		if (regiList.size() == 0) {
-			output = "No registration found";
+		if (regiList.size() == 0) { // Done by Marcus
+			output = "No registration found"; // Done by Marcus
 		} else if (regiList.size() > 0) {
-			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status",
+			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status", // Done by Marcus
 					"RegDateTime");
-			for (Registration x : regiList) {
-				if (x.getStatus().equalsIgnoreCase("Late"))
-					output += x.display();
+			for (Registration x : regiList) { // Done by Marcus
+				if (x.getStatus().equalsIgnoreCase("Late")) // Done by Marcus
+					output += x.display(); // Done by Marcus
 			}
 		}
 		return output;
 	}
 	
 	protected static void viewAllLateRegistration(ArrayList<Registration> regiList) { // Done by Marcus
-		String output = retriveAllLateRegistration(regiList);
-		System.out.println(output);
+		String output = retriveAllLateRegistration(regiList); // Done by Marcus
+		System.out.println(output); // Done by Marcus
 	}
 	
 	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
-		boolean check = checkValidID(regiList,regiID);
+		boolean check = checkValidID(regiList,regiID); // Done by Marcus
 		System.out.println("test");
 		if (check == false) { // Done by Marcus
-			System.out.println("No registration delete, invalid registration ID.");
+			System.out.println("No registration delete, invalid registration ID."); // Done by Marcus
 		}
 		else {
-			for (Registration x : regiList) {
-				if (x.getRegID() == regiID) {
+			for (Registration x : regiList) { // Done by Marcus
+				if (x.getRegID() == regiID) { // Done by Marcus
 					regiList.remove(x);
-					System.out.println("Registration succesfully deleted");
+					System.out.println("Registration succesfully deleted"); // Done by Marcus
 				}
 			}
 		}
 	}
 	
-	protected static boolean checkValidID(ArrayList<Registration> regiList, int regiID) {
+	protected static boolean checkValidID(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 		boolean valid = false;
-		for (Registration x : regiList) {
-			if (x.getRegID() == regiID) {
+		for (Registration x : regiList) { // Done by Marcus
+			if (x.getRegID() == regiID) { // Done by Marcus
 				valid = true;
 			}
 		}
@@ -233,15 +229,15 @@ public class C206_CaseStudy {
 		return valid;
 	}
 	
-	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) {
+	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 		boolean check = false;
-		for (Registration x : regiList) {
-			if (x.getRegID() == regiID) {
-				check = true;
+		for (Registration x : regiList) { // Done by Marcus
+			if (x.getRegID() == regiID) { // Done by Marcus
+				check = true; // Done by Marcus
 				x.setPaymentInformation("Paid");
 				x.setStatus("Confirmed");
-				System.out.println("Registration's Status and Payment information succesfully updated.");
-			}
+				System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
+			} 
 		}
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration updated, invalid registration ID.");
