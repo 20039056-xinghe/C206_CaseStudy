@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
@@ -366,9 +367,19 @@ public class C206_CaseStudyTest {
 			
 			
 			//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
-			C206_CaseStudy.deleteRegistration(regiList, rne1.getEnquiry_id());;
-			C206_CaseStudy.deleteRegistration(regiList, rne2.getEnquiry_id());
+			C206_CaseStudy.deleteRegistration(regiList, rne1.getEnquiry_id());
+			assertEquals("Test that Registration arraylist size is 1", 1, regiList.size());
 			
+			//Test if the same item that just been deleted can be deleted again.
+			boolean test = C206_CaseStudy.checkValidID(regiList, rne1.getEnquiry_id());
+			assertFalse("Test if the same item that just been deleted can be deleted again.", test);
+			
+			//Test if the non existing item can be deleted.
+			boolean test2 = C206_CaseStudy.checkValidID(regiList, rne1.getEnquiry_id());
+			assertFalse("Test if the non existing item can be deleted.", test2);
+			
+			//test if the size of the list decreases when all item is deleted
+			C206_CaseStudy.deleteRegistration(regiList, rne2.getEnquiry_id());
 			assertEquals("Test that Registration arraylist size is 0", 0, regiList.size());
 
 		}
