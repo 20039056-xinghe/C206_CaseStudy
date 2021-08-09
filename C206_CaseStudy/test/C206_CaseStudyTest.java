@@ -215,7 +215,7 @@ public class C206_CaseStudyTest {
 		assertSame("Test that the second Enquiry is added", rne2, enquiry_list.get(1));
 		
 		
-		//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
+		//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted.
 		C206_CaseStudy.deleteEnquiry(enquiry_list, rne1.getEnquiry_id());;
 		C206_CaseStudy.deleteEnquiry(enquiry_list, rne2.getEnquiry_id());
 		
