@@ -91,7 +91,7 @@ public class C206_CaseStudy {
 	public static ArrayList<TuitionTimetable> getTimetableList() { // Done by Marcus
 		return timetableList;
 	}
- 
+	
 	protected static Registration createRegiObject(Students stuObject) { // Done by Marcus
 		// registration number = Registration id must be unique.
 		// tuition timetable id
