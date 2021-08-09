@@ -71,8 +71,8 @@ public class C206_CaseStudyTest {
 		LocalDate student1DOB = LocalDate.parse("11-12-2003", formatter2);
 		LocalDate student2DOB = LocalDate.parse("11-07-2006", formatter2);
 		
-		student1 = new Students("Jake", "Male", 99998888, "Jake@gmail.com", student1DOB, "Singapore", "none");
-		student2 = new Students("Jacob", "Male", 91234567, "Jacob@gmail.com", student2DOB, "Malaysia", "none");
+		student1 = new Students("Jake", "Male", 99998888, "Jake@gmail.com", student1DOB, "Singapore", "none", "pass123");
+		student2 = new Students("Jacob", "Male", 91234567, "Jacob@gmail.com", student2DOB, "Malaysia", "none", "pass123");
 		
 		//---------------------------------Marcus Test case---------------------------------//
 		DateTimeFormatter regiDTformat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
