@@ -314,6 +314,7 @@ public class C206_CaseStudyTest {
 	
 		//---------------------------------Marcus JUnit---------------------------------//
 		
+		@Test
 		public void addRegistrationTest() {
 			// Test if the registration ArrayList is empty not null - boundary
 			assertNotNull("Check if there is valid Registration arraylist to add to", regiList);
@@ -331,6 +332,7 @@ public class C206_CaseStudyTest {
 			assertSame("Check that Registration is added", registration2, regiList.get(1));
 		}
 	
+		@Test
 		public void viewAllRegistrationTest() {
 			// Test if Item list is not null but empty -boundary
 			assertNotNull("Test if there is valid Registration arraylist to retrieve item", regiList);
@@ -355,6 +357,7 @@ public class C206_CaseStudyTest {
 			
 		}
 		
+		@Test
 		public void deleteRegistrationTest() { //Done by Marcus
 			
 			//Test that the arraylist is not null so Registration object can be added into the arrayList
