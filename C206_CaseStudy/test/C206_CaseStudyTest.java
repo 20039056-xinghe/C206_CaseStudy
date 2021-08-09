@@ -212,7 +212,7 @@ public class C206_CaseStudyTest {
 		
 		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
 		assertSame("Test that the first Enquiry is added", rne1, enquiry_list.get(0));		
-		assertSame("Test that the first Enquiry is added", rne2, enquiry_list.get(1));
+		assertSame("Test that the second Enquiry is added", rne2, enquiry_list.get(1));
 		
 		
 		//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
