@@ -76,6 +76,16 @@ public class C206_CaseStudy {
 		}
 		
 	}
+	
+	
+
+	public static ArrayList<TuitionTimetable> getTimetableList() {
+		return timetableList;
+	}
+
+	public static void setTimetableList(ArrayList<TuitionTimetable> timetableList) {
+		C206_CaseStudy.timetableList = timetableList;
+	}
 
 	protected static Registration createRegiObject(Students stuObject) {
 		// registration number = Registration id must be unique.
