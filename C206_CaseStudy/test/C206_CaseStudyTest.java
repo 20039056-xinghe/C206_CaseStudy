@@ -24,6 +24,7 @@ public class C206_CaseStudyTest {
 	
 	private TuitionTimetable tl1;
 	private TuitionTimetable tl2; // Jerald
+	private static ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>();
 	
 	private Students student1;
 	private Students student2;// Jason
@@ -64,6 +65,8 @@ public class C206_CaseStudyTest {
 		tl1 = new TuitionTimetable(null, 1, 123.40, startDate1, endDate1, "F2F");
 		tl2 = new TuitionTimetable(null, 2, 246.80, startDate2, endDate2, "Zoom");
 		
+		timetableList.add(tl1);
+		timetableList.add(tl2);
 
 		//---------------------------------Jason Test case---------------------------------//
 		
@@ -77,10 +80,12 @@ public class C206_CaseStudyTest {
 		//---------------------------------Marcus Test case---------------------------------//
 		DateTimeFormatter regiDTformat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		LocalDateTime regiDate1 = LocalDateTime.parse("04-08-2021 19:13:39",regiDTformat);
-		LocalDateTime regiDate2 = LocalDateTime.parse("30-07-2021 19:13:39",regiDTformat);
+		LocalDateTime regiDate2 = LocalDateTime.parse("20-06-2021 19:13:39",regiDTformat);
 		
 		registration1 = new Registration(1, tl1.getTimetableID(), "reg1@mail.com", regiDate1);
 		registration2 = new Registration(2, tl2.getTimetableID(), "reg2@mail.com", regiDate2);	
+		
+		
 		
 		
 		//---------------------------------Xing He Test case---------------------------------//
@@ -89,6 +94,12 @@ public class C206_CaseStudyTest {
 	
 	//---------------------------------Sanjeev JUnit---------------------------------//
 	
+	
+	
+	public static ArrayList<TuitionTimetable> getTimetableList() {
+		return timetableList;
+	}
+
 	@Test
 	public void addEnquiryTest() { //Done by Sanjeev1
 		//Check that the arraylist is not null so enquiry object can be added into the arrayList
@@ -263,7 +274,7 @@ public class C206_CaseStudyTest {
 	
 	
 	//---------------------------------Jason JUnit---------------------------------//
-	@Test
+	
 	public void testViewStudents() {
 		
 		//Check that there is a valid arrayList to view from
@@ -277,7 +288,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.studentList.remove(student1);
 		assertNotSame(C206_CaseStudy.studentList.get(0), student1);
 	}
-	@Test
+	
 	public void testAddStudents() {
 		
 		//Check that there is a valid arrayList to add to
@@ -292,7 +303,7 @@ public class C206_CaseStudyTest {
 		assertSame(student2, C206_CaseStudy.studentList.get(2));
 		
 	}
-	@Test
+	
 		public void testDeleteStudents() {
 			
 			//Assuming that there aree already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
@@ -351,8 +362,8 @@ public class C206_CaseStudyTest {
 			//Test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
 			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
 			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime");
-			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Pending", "2021-08-04 19:13:39");
-			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-07-30 19:13:39");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "2021-08-04 19:13:39");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39");
 		
 			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
 			
