@@ -203,7 +203,7 @@ public class C206_CaseStudy {
 	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
 		boolean check = checkValidID(regiList,regiID); // Done by Marcus
-		
+		System.out.println("test");
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration delete, invalid registration ID."); // Done by Marcus
 		}
@@ -229,19 +229,17 @@ public class C206_CaseStudy {
 	}
 	
 	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
-		boolean check = checkValidID(regiList,regiID);
-		
+		boolean check = false;
+		for (Registration x : regiList) { // Done by Marcus
+			if (x.getRegID() == regiID) { // Done by Marcus
+				check = true; // Done by Marcus
+				x.setPaymentInformation("Paid");
+				x.setStatus("Confirmed");
+				System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
+			} 
+		}
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration updated, invalid registration ID.");
-		}
-		else {
-			for (Registration x : regiList) { // Done by Marcus
-				if (x.getRegID() == regiID) { // Done by Marcus
-					x.setPaymentInformation("Paid");
-					x.setStatus("Confirmed");
-					System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
-				} 
-			}
 		}
 		
 	}
@@ -251,7 +249,7 @@ public class C206_CaseStudy {
 
 	public static void studentRegistrationStart() {// done by Jason
 
-		int option = -1;
+		int option = -1; 
 
 		while (option != 7) {
 			studentRegistrationMenu();
@@ -265,6 +263,8 @@ public class C206_CaseStudy {
 				deleteStudent(studentList, null);
 			} else if (option == 4) {
 				searchStudent();
+			} else if (option == 5) {
+				updateStudentFeedback();
 			} else
 				System.out.println("GoodBye");
 		}
@@ -273,19 +273,19 @@ public class C206_CaseStudy {
 
 
 	private static void studentRegistrationMenu() { // Done by Jason
-		System.out.println("1) View all students\n2) Register new student\n3) Delete a student");
+		System.out.println("1) View all students\n2) Register new student\n3) Delete a student\n4) Search for student's upcoming tuitions\n5) Student feeback update\n6) Quit");
 
 	}
 
 	private static void viewAllStudents() { // Done by Jason
 
 		//Password cannot be viewed
-		String view = String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s", "Student name", "Gender", "Email",
+		String view = String.format("%-10s %-10s %-10s ", "Student name", "Gender", "Email",
 				"DOB", "Country", "Feedback");
 		for (int i = 0; i < studentList.size(); i++) {
 			Students r = studentList.get(i);
 			view += String.format("%-10d %-20s %-15s %-10s\n", r.getStudentName(), r.getStudentGender(),
-					r.getStudentEmail(), r.getStudentDOB(), r.getStudentCountry(), r.getStudentFeedback());
+					r.getStudentEmail(),r.getStudentFeedback());
 		}
 		System.out.println(view);
 	}
@@ -391,8 +391,47 @@ public class C206_CaseStudy {
 	}
 	
 	private static void searchStudent() { //Done by Jason
-		
-		
+
+		Helper.line(70, "-");
+		System.out.println("SEARCH STUDENT UPCOMING TUITION");
+		Helper.line(70, "-");
+
+		String ask = Helper.readString("Enter student's email for upcoming tuitions > ");
+
+		String view = String.format("%-20s %-10s %-10s\n", "Student name", "Email" , "Upcoming Tuition");
+		for (int i = 0; i < studentList.size(); i++) {
+			if (studentList.get(i).getStudentEmail().equalsIgnoreCase(ask)) {
+				Students r = studentList.get(i);
+				Tuition t = tuitionList.get(i);
+				view += String.format("%-20s %-10s %-10d\n", r.getStudentName(), r.getStudentEmail(), t.getTuition_title());
+			}
+			System.out.println(view);
+		}
+	}
+	
+	private static void updateStudentFeedback() { //Done by Jason
+
+		Helper.line(70, "-");
+		System.out.println("STUDENT FEEDBACK UPDATE");
+		Helper.line(70, "-");
+
+		String askEmail = Helper.readString("Enter student's email for feeback> ");
+
+		boolean isUpdated = false;
+
+		for (Students i : studentList) {
+			if (i.getStudentEmail().equals(askEmail)) {
+				String feedbackUpdate = Helper.readString("Enter new feedback> ");
+				i.setStudentFeedback(feedbackUpdate);
+				isUpdated = true;
+				System.out.println("Email updated");
+
+			} else {
+				if (isUpdated == false) {
+					System.out.println("***Invalid Student Email!");
+				}
+			}
+		}
 	}
 	
 	//---------------------------------Enquiry Sanjeev---------------------------------//
@@ -1018,7 +1057,7 @@ public class C206_CaseStudy {
 					startRegistration(stuObject);
 				}
 				else if (stuOption == 2) { // Done by Marcus
-					//update feedback waiting for jason
+					updateStudentFeedback();
 				}
 				else if (stuOption == 3) { // Done by Marcus
 					// view tuition waiting for xing he
