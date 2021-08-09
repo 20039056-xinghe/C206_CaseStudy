@@ -166,8 +166,8 @@ public class C206_CaseStudy {
 		if (regiList.size() == 0) { // Done by Marcus
 			output = "No registration found";
 		} else if (regiList.size() > 0) {
-			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status",
-					"RegDateTime");
+			output = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status",
+					"RegDateTime", "PaymentInfo");
 			for (Registration x : regiList) { // Done by Marcus
 				output += x.display();
 			}
@@ -185,8 +185,8 @@ public class C206_CaseStudy {
 		if (regiList.size() == 0) { // Done by Marcus
 			output = "No registration found"; // Done by Marcus
 		} else if (regiList.size() > 0) {
-			output = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status", // Done by Marcus
-					"RegDateTime");
+			output = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status", // Done by Marcus
+					"RegDateTime", "PaymentInfo");
 			for (Registration x : regiList) { // Done by Marcus
 				if (x.getStatus().equalsIgnoreCase("Late")) // Done by Marcus
 					output += x.display(); // Done by Marcus
@@ -228,18 +228,19 @@ public class C206_CaseStudy {
 		return valid;
 	}
 	
-	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
-		boolean check = false;
-		for (Registration x : regiList) { // Done by Marcus
-			if (x.getRegID() == regiID) { // Done by Marcus
-				check = true; // Done by Marcus
-				x.setPaymentInformation("Paid");
-				x.setStatus("Confirmed");
-				System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
-			} 
-		}
+	protected static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
+		boolean check = checkValidID(regiList,regiID);
 		if (check == false) { // Done by Marcus
-			System.out.println("No registration updated, invalid registration ID.");
+			System.out.println("No registration updated, invalid registration ID."); // Done by Marcus
+		}
+		else {
+			for (Registration x : regiList) { // Done by Marcus
+				if (x.getRegID() == regiID) { // Done by Marcus
+					x.setPaymentInformation("Paid");
+					x.setStatus("Confirmed");
+					System.out.println("Registration's Status and Payment information succesfully updated."); // Done by Marcus
+				} 
+			}
 		}
 		
 	}
@@ -436,23 +437,25 @@ public class C206_CaseStudy {
 	
 	//---------------------------------Enquiry Sanjeev---------------------------------//
 
-	public static void searchEnquiry() { // Done by Sanjeev2
-		String name = Helper.readString("Enter Enquirer Name > ");
+	public static boolean searchEnquiry(ArrayList<Enquiries> enquiryList, String enquirer_name) { // Done by Sanjeev2
 		System.out.println(displayHeader());
+		boolean isFound = false;
 		String output = " ";
 		for (int i = 0; i < enquiryList.size(); i++) {
 			Enquiries enquiry1 = enquiryList.get(i);
-			if (enquiry1.getEnquirerName().equalsIgnoreCase(name)) {
+			if (enquiry1.getEnquirerName().equalsIgnoreCase(enquirer_name)) {
 				output += String.format("%-10d %8s %25s %12s %13s \n", enquiry1.getEnquiry_id(),
 						enquiry1.getEnquirerName(),
 						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_dateTime()),
 						enquiry1.getStatus(), enquiry1.getFllwupType());
+						isFound = true;
 			} else {
 				output = "No enquiries found for the given name!";
 				break;
 			}
 		}
 		System.out.println(output);
+		return isFound;
 	}
 
 	 public static Enquiries addEnquiryInputs() { //Done by Sanjeev
@@ -472,7 +475,7 @@ public class C206_CaseStudy {
 		 System.out.println("Enquiry registered successfully"); //Since enquiry can be made multiple times by the same person it need not be unique
 	 }
 	 
-	 public static void checkAddedEnquiry(Enquiries e) {
+	 public static void checkAddedEnquiry(Enquiries e) { //Done by Sanjeev
 		 
 		 if(e.getEnquirerName().isBlank() || e.getStatus().isBlank() || e.getFllwupType().isBlank()) {
 			 enquiryList.remove(e);
@@ -551,7 +554,8 @@ public class C206_CaseStudy {
 				displayProcessing();
 			} else if (option == 6) {
 				// Search enquiry
-				searchEnquiry();
+				String enquirer_name = Helper.readString("Enter Enquirer Name > ");
+				searchEnquiry(enquiryList, enquirer_name);
 			} else if (option == 7) {
 				// Delete enquiry
 				int e = deleteEnquiryInputs();
@@ -678,7 +682,7 @@ public class C206_CaseStudy {
 		return output;
 	}
 	
-	public static boolean checkStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+	public static boolean checkStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) { //Done by Sanjeev
 		
 		boolean isValid = false;
 		String setProcessing = "Processing";
@@ -698,7 +702,7 @@ public class C206_CaseStudy {
 		return isValid;
 	}
 	
-	public static void updateStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+	public static void updateStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) { //Done by Sanjeev
 		
 		boolean isValid = checkStatustoProcessing(enquiryList, eId);
 		
@@ -707,7 +711,7 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	public static void updateProcessingMenu() {
+	public static void updateProcessingMenu() { //Done by Sanjeev
 		int enquiryId = Helper.readInt("Enter entryId > ");
 		System.out.println(displayHeader());
 		String output = "";
@@ -726,6 +730,7 @@ public class C206_CaseStudy {
 				}
 			}
 		}
+		System.out.println(output);
 	}
 
 	//---------------------------------TimeTable Jerald---------------------------------//

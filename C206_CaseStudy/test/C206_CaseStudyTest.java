@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,8 @@ public class C206_CaseStudyTest {
 	private Enquiries rne2;
 	private Enquiries rne3;
 	private Enquiries rne4;
+	private Enquiries rne5;
+	private Enquiries rne6;
 	private ArrayList<Enquiries> enquiry_list; // Sanjeev
 	
 	private TuitionTimetable tl1;
@@ -44,6 +47,7 @@ public class C206_CaseStudyTest {
 		int rne2_enquiry_id = 2;
 		int rne3_enquiry_id = 3;
 		int rne4_enquiry_id = 4;
+		int rne5_enquiry_id = 5;
 		String dt = "2021-10-10 10:10:10";
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -53,6 +57,8 @@ public class C206_CaseStudyTest {
 		rne2 = new Enquiries(rne2_enquiry_id, "AJ", dt1, "fullfilled", "phone");
 		rne3 = new Enquiries(rne3_enquiry_id, "PJ", dt1, "unfullfilled", "phone");
 		rne4 =new Enquiries(rne4_enquiry_id, "DJ", dt1, "unfullfilled", "mail");
+		rne5 = new Enquiries(rne5_enquiry_id, "NJ", dt1, "Processing", "mail");
+		rne6 = new Enquiries(rne5_enquiry_id, "CJ", dt1, "Processing", "mail");
 		enquiry_list = new ArrayList<Enquiries>();
 		
 
@@ -208,14 +214,76 @@ public class C206_CaseStudyTest {
 		
 		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
 		assertSame("Test that the first Enquiry is added", rne1, enquiry_list.get(0));		
-		assertSame("Test that the first Enquiry is added", rne2, enquiry_list.get(1));
+		assertSame("Test that the second Enquiry is added", rne2, enquiry_list.get(1));
 		
 		
-		//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
+		//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted.
 		C206_CaseStudy.deleteEnquiry(enquiry_list, rne1.getEnquiry_id());;
 		C206_CaseStudy.deleteEnquiry(enquiry_list, rne2.getEnquiry_id());
 		
 		assertEquals("Test that Enquiry arraylist size is 0", 0, enquiry_list.size());
+
+	}
+	
+	@Test
+	public void retrieveProcessedTest() { //Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test that if the arraylist is empty a message stating No Processing enquiries :( would be displayed
+		String allEnquiry = C206_CaseStudy.retrieveProcessing(enquiry_list);
+		String testOutput =  "No Processing enquiries :(";
+		assertEquals("Test that the retrieved enquiryList displays the expected testOutput", testOutput, allEnquiry);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 
+		C206_CaseStudy.addEnquiry(enquiry_list, rne5);
+		C206_CaseStudy.addEnquiry(enquiry_list, rne6);
+
+		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
+		
+		//test if the expected output string same as the list of enquiries retrieved from the C206_CaseStudy
+		String allProcessingEnquiries= C206_CaseStudy.retrieveProcessing(enquiry_list);
+		testOutput = C206_CaseStudy.displayHeader();
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne5.getEnquiry_id(), rne5.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne5.getEnquiry_dateTime()), rne5.getStatus(), rne5.getFllwupType());
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne6.getEnquiry_id(), rne6.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne6.getEnquiry_dateTime()), rne6.getStatus(), rne6.getFllwupType());
+		assertEquals("Test that only unfullfilled enquiries are displayed from the enquirylist the same format as the testOutput", testOutput, allProcessingEnquiries);
+	}
+	
+	@Test
+	public void checkStatustoProcessingTest() {//Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test that if Enquiry object's status is updated to processing, when checked in the arrayList the status should be displayed as "Processing"
+		enquiry_list.add(rne1);
+		C206_CaseStudy.checkStatustoProcessing(enquiry_list, rne1.getEnquiry_id());
+		assertEquals("Test that the status has changed to 'Processing'", "Processing", rne1.getStatus());
+		
+		//Test that if another Enquiry object's status is updated to processing, when checked in the arrayList the status should be displayed as "Processing"
+		enquiry_list.add(rne2);
+		C206_CaseStudy.checkStatustoProcessing(enquiry_list, rne2.getEnquiry_id());
+		assertEquals("Test that the status has changed to 'Processing'", "Processing", rne2.getStatus());
+
+		//Test that if the enquiry id entered is not found in the arraylist "Name not found in list!"
+		boolean isFound = C206_CaseStudy.checkStatustoProcessing(enquiry_list, rne3.getEnquiry_id());
+		assertFalse("Test that the error message, name not found in list, is displayed if the enquiry object is not in arrayList", isFound);
+		
+
+	}
+	
+	@Test
+	public void searchEnquiryTest() {//Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test if Enquiry Object can be foudn in the arraylist
+		C206_CaseStudy.addEnquiry(enquiry_list, rne6);
+		Boolean isFound = C206_CaseStudy.searchEnquiry(enquiry_list, rne6.getEnquirerName());
+		assertTrue("Test if enquirer name can be found", isFound);
+		
+		//Test that a name not in the arraylist can be searched
+		Boolean isFalse = C206_CaseStudy.searchEnquiry(enquiry_list, rne5.getEnquirerName());
+		assertFalse("Test that the name can be found in the arrayList", isFalse);
 
 	}
 	
@@ -363,11 +431,11 @@ public class C206_CaseStudyTest {
 			
 			//Test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
 			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime");
-			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "2021-08-04 19:13:39");
-			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39");
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "2021-08-04 19:13:39", "Unpaid");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39", "Unpaid");
 		
-			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
 			
 		}
 		
@@ -404,7 +472,73 @@ public class C206_CaseStudyTest {
 
 		}
 	
+		@Test
+		public void viewAllLateRegistrationTest() {
+			// Test if Item list is not null but empty -boundary
+			assertNotNull("Test if there is valid Registration arraylist to retrieve item", regiList);
+			
+			//Test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
+			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
+			String emptyOutput = "No registration found";
+			assertEquals("Test that ViewAllregistration", emptyOutput, allRegistration);
+			
+			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+			C206_CaseStudy.addRegistration(registration1, regiList);
+			C206_CaseStudy.addRegistration(registration2, regiList);
+			assertEquals("Test that Registration arraylist size is 2", 2, regiList.size());
+			
+			//Test if the expected output string same as the list of late Registration retrieved from the C206_CaseStudy	
+			allRegistration= C206_CaseStudy.retriveAllLateRegistration(regiList);
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "2021-08-04 19:13:39", "Unpaid");
+
+		
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
+			
+		}
 	
+		@Test
+		public void updateRegistrationTest() { //Done by Marcus
+			
+			//Test that the arraylist is not null so Registration object can be added into the arrayList
+			assertNotNull("Check if there is a valid Registration arrayList", regiList);
+
+			//Given an empty list, after adding 2 items, test if after adding an item, test that they have been added correctly
+			
+			C206_CaseStudy.addRegistration(registration1, regiList);
+			C206_CaseStudy.addRegistration(registration2, regiList);
+			
+			assertEquals("Test that Enquiry arraylist size is 2", 2, regiList.size());
+			assertSame("Test that the first Registration is added", registration1, regiList.get(0));		
+			assertSame("Test that the second Registration is added", registration2, regiList.get(1));
+			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
+			
+			//Given that a list with 2 items, test if an object can be update
+			C206_CaseStudy.updateRegistrationPayment(regiList, registration1.getRegID());
+			registration1.setPaymentInformation("Paid");
+			registration1.setStatus("Confirmed");
+			assertSame("Check that Registration1 has been updated", registration1, regiList.get(0));
+			
+			//Test if the update will be reflect in the viewAll
+			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Confirmed", "2021-08-04 19:13:39", "Paid");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39", "Unpaid");
+		
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
+			
+			//Test if the non existing item can be updated.
+			boolean test2 = C206_CaseStudy.checkValidID(regiList, 3);
+			assertFalse("Test if the non existing item can be updated.", test2);
+			C206_CaseStudy.updateRegistrationPayment(regiList, 3);
+			testOutput = String.format("%-5s %-15s %-30s %-10s %-20s %-10s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime", "PaymentInfo");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Confirmed", "2021-08-04 19:13:39", "Paid");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s %-10s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-06-20 19:13:39", "Unpaid");
+		
+			assertEquals("Test that ViewAllRegistration output matches", testOutput, allRegistration);
+
+		}
+		
 		//---------------------------------Xing He JUnit---------------------------------//
 	
 	
