@@ -263,7 +263,7 @@ public class C206_CaseStudyTest {
 	
 	
 	//---------------------------------Jason JUnit---------------------------------//
-	
+	@Test
 	public void testViewStudents() {
 		
 		//Check that there is a valid arrayList to view from
@@ -277,7 +277,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.studentList.remove(student1);
 		assertNotSame(C206_CaseStudy.studentList.get(0), student1);
 	}
-	
+	@Test
 	public void testAddStudents() {
 		
 		//Check that there is a valid arrayList to add to
@@ -292,6 +292,7 @@ public class C206_CaseStudyTest {
 		assertSame(student2, C206_CaseStudy.studentList.get(2));
 		
 	}
+	@Test	
 		public void testDeleteStudents() {
 			
 			//Assuming that there aree already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
