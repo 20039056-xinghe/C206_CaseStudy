@@ -33,6 +33,7 @@ public class Registration {
 		this.email = email; //Done by Marcus
 		this.status = "Pending"; //Done by Marcus
 		this.regiDateTime = LocalDateTime.now(); //Done by Marcus
+		this.paymentInformation = "Unpaid";
 			
 		for (TuitionTimetable x: timetableList) {//Done by Marcus
 			if (x.getTimetableID() == timeTableID) {//Done by Marcus
@@ -73,6 +74,14 @@ public class Registration {
 		this.status = status;
 	}
 	
+	public String getPaymentInformation() {
+		return paymentInformation;
+	}
+
+	public void setPaymentInformation(String paymentInformation) {
+		this.paymentInformation = paymentInformation;
+	}
+
 	public String display() { //Done by Marcus
 		String output = "";
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); //Done by Marcus

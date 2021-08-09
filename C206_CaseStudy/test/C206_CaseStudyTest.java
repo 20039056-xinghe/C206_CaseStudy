@@ -391,5 +391,7 @@ public class C206_CaseStudyTest {
 		rne4 = null;
 		tl1 = null;
 		tl2 = null;
+		registration1 = null;
+		registration2 = null;
 	}
 }

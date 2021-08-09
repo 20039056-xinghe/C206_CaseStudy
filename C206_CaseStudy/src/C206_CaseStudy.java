@@ -48,13 +48,15 @@ public class C206_CaseStudy {
 		System.out.println("1. Register for Tuition Timetable"); // Done by Marcus
 		System.out.println("2. View All Registration"); // Done by Marcus
 		System.out.println("3. Delete Registration"); // Done by Marcus
-		System.out.println("4. Quit"); // Done by Marcus
+		System.out.println("4. View Late Registration"); // Done by Marcus
+		System.out.println("5. Update Payment Information"); // Done by Marcus
+		System.out.println("6. Quit"); // Done by Marcus
 	}
 	
 	private static void startRegistration(Students stuObject) {
 	int regiOption = -1;
 			
-		while (regiOption != 4) {
+		while (regiOption != 6) {
 			RegisterMenu();
 			regiOption = Helper.readInt("Enter choice > ");
 	
@@ -63,13 +65,20 @@ public class C206_CaseStudy {
 				addRegistration(regiObject, regiList);
 			} 
 			else if (regiOption == 2) {
-				
+				viewAllRegistration(regiList);
 			} 
 			else if (regiOption == 3) {
 				int regiID = Helper.readInt("Please enter the registration ID of the registration to be deleted > ");
 				deleteRegistration(regiList,regiID);
 			}
 			else if (regiOption == 4) {
+				viewAllLateRegistration(regiList);
+			}
+			else if (regiOption == 5) {
+				int regiID = Helper.readInt("Please enter the registration ID of the registration's payment information to be updated > ");
+				updateRegistrationPayment(regiList,regiID);
+			}
+			else if (regiOption == 6) {
 				System.out.println("Good bye!");
 			}
 				
@@ -77,7 +86,7 @@ public class C206_CaseStudy {
 		
 	}
 	
-	
+
 
 	public static ArrayList<TuitionTimetable> getTimetableList() {
 		return timetableList;
@@ -109,13 +118,13 @@ public class C206_CaseStudy {
 					int timeTableID = Helper.readInt("Time Table ID > "); // Done by Marcus
 					boolean checkTTID = checkForValidTimeTableID(timeTableID);
 	
-					if (checkTTID == true) {
+					if (checkTTID == true) { // Done by Marcus
 						String stuEmail = stuObject.getStudentEmail(); // Done by Marcus
 						regi = new Registration(regiID, timeTableID, stuEmail);
 						check = true;
 						checkTimetable = true;
 					}
-					else {
+					else { // Done by Marcus
 						System.out.println("Please enter a valid time Table ID.");// Done by Marcus
 					}
 				}
@@ -130,8 +139,6 @@ public class C206_CaseStudy {
 	
 	protected static void addRegistration(Registration regiObject, ArrayList<Registration> regiList) { // Done by Marcus
 		boolean repeat = true;
-		
-		
 		
 		if (repeat == false) {
 			regiList.add(regiObject);
@@ -185,6 +192,26 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
+	protected static String retriveAllLateRegistration(ArrayList<Registration> regiList) {
+		String output = "";
+		if (regiList.size() == 0) {
+			output = "No registration found";
+		} else if (regiList.size() > 0) {
+			output = String.format("%-5s %-10s %-30s %-10s %-20s", "RegID", "TimeTableID", "Student Email", "Status",
+					"RegDateTime");
+			for (Registration x : regiList) {
+				if (x.getStatus().equalsIgnoreCase("Late"))
+					output += x.display();
+			}
+		}
+		return output;
+	}
+	
+	protected static void viewAllLateRegistration(ArrayList<Registration> regiList) { // Done by Marcus
+		String output = retriveAllLateRegistration(regiList);
+		System.out.println(output);
+	}
+	
 	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
 		boolean check = false;
@@ -198,6 +225,21 @@ public class C206_CaseStudy {
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration delete, invalid registration ID.");
 		}
+	}
+	
+	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) {
+		boolean check = false;
+		for (Registration x : regiList) {
+			if (x.getRegID() == regiID) {
+				check = true;
+				x.setPaymentInformation("Paid");
+				System.out.println("Registration's Payment information succesfully changed to 'Paid'.");
+			}
+		}
+		if (check == false) { // Done by Marcus
+			System.out.println("No registration updated, invalid registration ID.");
+		}
+		
 	}
 	
 	
