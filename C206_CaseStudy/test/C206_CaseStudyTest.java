@@ -320,9 +320,9 @@ public class C206_CaseStudyTest {
 			assertSame("Check that Registration is added", registration1, regiList.get(0));
 			
 			//Add another item. test The size of the list is 2? -normal
-			//The item just added is as same as the second item of the list
 			C206_CaseStudy.addRegistration(registration2, regiList);
 			assertEquals("Check that Registration arraylist size is 2", 2, regiList.size());
+			//Test that the item just added is as same as the second item of the list
 			assertSame("Check that Registration is added", registration2, regiList.get(1));
 		}
 	
@@ -330,7 +330,7 @@ public class C206_CaseStudyTest {
 			// Test if Item list is not null but empty -boundary
 			assertNotNull("Test if there is valid Registration arraylist to retrieve item", regiList);
 			
-			//test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
+			//Test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
 			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
 			String testOutput = "";
 			assertEquals("Check that ViewAllCamcorderlist", testOutput, allRegistration);
@@ -340,10 +340,10 @@ public class C206_CaseStudyTest {
 			C206_CaseStudy.addRegistration(registration2, regiList	);
 			assertEquals("Test that Registration arraylist size is 2", 2, regiList.size());
 			
-			//test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
+			//Test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
 			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0011", "Nikon HDSLR", "Yes", "", "40");
-			testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0012", "Sony DSC-RX100M7", "Yes", "", "20" );
+			testOutput = String.format("%-5d %-10d %-30s %-10s %-20s", 1, tl1.getTimetableID(), "reg1@mail.com", "Pending", LocalDateTime.now());
+			testOutput += String.format("%-5d %-10d %-30s %-10s %-20s", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", LocalDateTime.now());
 		
 			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
 			
@@ -351,7 +351,7 @@ public class C206_CaseStudyTest {
 		
 		public void deleteRegistrationTest() { //Done by Marcus
 			
-			//Check that the arraylist is not null so Registration object can be added into the arrayList
+			//Test that the arraylist is not null so Registration object can be added into the arrayList
 			assertNotNull("Check if there is a valid Registration arrayList", regiList);
 
 			//Given an empty list, after adding 2 items, test if after adding an item, the item can be deleted
