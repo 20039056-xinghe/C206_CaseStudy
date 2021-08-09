@@ -30,7 +30,7 @@ public class C206_CaseStudyTest {
 	
 	private Registration registration1; // done by Marcus
 	private Registration registration2; // done by Marcus
-	private ArrayList<Registration> regiList; // done by Marcus
+	private ArrayList<Registration> regiList = new ArrayList<Registration>(); // done by Marcus
 	
 	 
 
@@ -263,7 +263,7 @@ public class C206_CaseStudyTest {
 	
 	
 	//---------------------------------Jason JUnit---------------------------------//
-	@Test
+	
 	public void testViewStudents() {
 		
 		//Check that there is a valid arrayList to view from
@@ -277,7 +277,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.studentList.remove(student1);
 		assertNotSame(C206_CaseStudy.studentList.get(0), student1);
 	}
-	@Test
+	
 	public void testAddStudents() {
 		
 		//Check that there is a valid arrayList to add to
@@ -292,7 +292,7 @@ public class C206_CaseStudyTest {
 		assertSame(student2, C206_CaseStudy.studentList.get(2));
 		
 	}
-	@Test	
+		
 		public void testDeleteStudents() {
 			
 			//Assuming that there aree already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
@@ -340,19 +340,19 @@ public class C206_CaseStudyTest {
 			
 			//Test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
 			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			String testOutput = "";
-			assertEquals("Check that ViewAllCamcorderlist", testOutput, allRegistration);
+			String emptyOutput = "No registration found";
+			assertEquals("Test that ViewAllregistration", emptyOutput, allRegistration);
 			
 			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
 			C206_CaseStudy.addRegistration(registration1, regiList);
-			C206_CaseStudy.addRegistration(registration2, regiList	);
+			C206_CaseStudy.addRegistration(registration2, regiList);
 			assertEquals("Test that Registration arraylist size is 2", 2, regiList.size());
 			
 			//Test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
 			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
-			
-			testOutput = String.format("%-5d %-10d %-30s %-10s %-20s", 1, tl1.getTimetableID(), "reg1@mail.com", "Late", "04-08-2021 19:13:39");
-			testOutput += String.format("%-5d %-10d %-30s %-10s %-20s", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "30-07-2021 19:13:39");
+			String testOutput = String.format("%-5s %-15s %-30s %-10s %-20s\n", "RegID", "TimeTableID", "Student Email", "Status","RegDateTime");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 1, tl1.getTimetableID(), "reg1@mail.com", "Pending", "2021-08-04 19:13:39");
+			testOutput += String.format("%-5d %-15d %-30s %-10s %-20s\n", 2, tl2.getTimetableID(), "reg2@mail.com", "Pending", "2021-07-30 19:13:39");
 		
 			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
 			
@@ -371,24 +371,24 @@ public class C206_CaseStudyTest {
 			C206_CaseStudy.addRegistration(registration2, regiList);
 			
 			assertEquals("Test that Enquiry arraylist size is 2", 2, regiList.size());
-			assertSame("Test that the first Registration is added", rne1, regiList.get(0));		
-			assertSame("Test that the second Registration is added", rne2, regiList.get(1));
+			assertSame("Test that the first Registration is added", registration1, regiList.get(0));		
+			assertSame("Test that the second Registration is added", registration2, regiList.get(1));
 			
 			
 			//Given that a list with 2 items, test if the size of the list decreases when 1 item is deleted
-			C206_CaseStudy.deleteRegistration(regiList, rne1.getEnquiry_id());
+			C206_CaseStudy.deleteRegistration(regiList, registration1.getRegID());
 			assertEquals("Test that Registration arraylist size is 1", 1, regiList.size());
 			
 			//Test if the same item that just been deleted can be deleted again.
-			boolean test = C206_CaseStudy.checkValidID(regiList, rne1.getEnquiry_id());
+			boolean test = C206_CaseStudy.checkValidID(regiList, registration1.getRegID());
 			assertFalse("Test if the same item that just been deleted can be deleted again.", test);
 			
 			//Test if the non existing item can be deleted.
-			boolean test2 = C206_CaseStudy.checkValidID(regiList, rne1.getEnquiry_id());
+			boolean test2 = C206_CaseStudy.checkValidID(regiList, registration1.getRegID());
 			assertFalse("Test if the non existing item can be deleted.", test2);
 			
 			//test if the size of the list decreases when all item is deleted
-			C206_CaseStudy.deleteRegistration(regiList, rne2.getEnquiry_id());
+			C206_CaseStudy.deleteRegistration(regiList, registration2.getRegID());
 			assertEquals("Test that Registration arraylist size is 0", 0, regiList.size());
 
 		}
