@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,8 @@ public class C206_CaseStudyTest {
 	private Enquiries rne2;
 	private Enquiries rne3;
 	private Enquiries rne4;
+	private Enquiries rne5;
+	private Enquiries rne6;
 	private ArrayList<Enquiries> enquiry_list; // Sanjeev
 	
 	private TuitionTimetable tl1;
@@ -42,6 +45,7 @@ public class C206_CaseStudyTest {
 		int rne2_enquiry_id = 2;
 		int rne3_enquiry_id = 3;
 		int rne4_enquiry_id = 4;
+		int rne5_enquiry_id = 5;
 		String dt = "2021-10-10 10:10:10";
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -51,6 +55,8 @@ public class C206_CaseStudyTest {
 		rne2 = new Enquiries(rne2_enquiry_id, "AJ", dt1, "fullfilled", "phone");
 		rne3 = new Enquiries(rne3_enquiry_id, "PJ", dt1, "unfullfilled", "phone");
 		rne4 =new Enquiries(rne4_enquiry_id, "DJ", dt1, "unfullfilled", "mail");
+		rne5 = new Enquiries(rne5_enquiry_id, "NJ", dt1, "Processing", "mail");
+		rne6 = new Enquiries(rne5_enquiry_id, "CJ", dt1, "Processing", "mail");
 		enquiry_list = new ArrayList<Enquiries>();
 		
 
@@ -214,6 +220,68 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.deleteEnquiry(enquiry_list, rne2.getEnquiry_id());
 		
 		assertEquals("Test that Enquiry arraylist size is 0", 0, enquiry_list.size());
+
+	}
+	
+	@Test
+	public void retrieveProcessedTest() { //Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test that if the arraylist is empty a message stating No Processing enquiries :( would be displayed
+		String allEnquiry = C206_CaseStudy.retrieveProcessing(enquiry_list);
+		String testOutput =  "No Processing enquiries :(";
+		assertEquals("Test that the retrieved enquiryList displays the expected testOutput", testOutput, allEnquiry);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2 
+		C206_CaseStudy.addEnquiry(enquiry_list, rne5);
+		C206_CaseStudy.addEnquiry(enquiry_list, rne6);
+
+		assertEquals("Test that Enquiry arraylist size is 2", 2, enquiry_list.size());
+		
+		//test if the expected output string same as the list of enquiries retrieved from the C206_CaseStudy
+		String allProcessingEnquiries= C206_CaseStudy.retrieveProcessing(enquiry_list);
+		testOutput = C206_CaseStudy.displayHeader();
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne5.getEnquiry_id(), rne5.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne5.getEnquiry_dateTime()), rne5.getStatus(), rne5.getFllwupType());
+		testOutput += String.format("\n%-10d %8s %25s %12s %13s", rne6.getEnquiry_id(), rne6.getEnquirerName(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(rne6.getEnquiry_dateTime()), rne6.getStatus(), rne6.getFllwupType());
+		assertEquals("Test that only unfullfilled enquiries are displayed from the enquirylist the same format as the testOutput", testOutput, allProcessingEnquiries);
+	}
+	
+	@Test
+	public void checkStatustoProcessingTest() {//Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test that if Enquiry object's status is updated to processing, when checked in the arrayList the status should be displayed as "Processing"
+		enquiry_list.add(rne1);
+		C206_CaseStudy.checkStatustoProcessing(enquiry_list, rne1.getEnquiry_id());
+		assertEquals("Test that the status has changed to 'Processing'", "Processing", rne1.getStatus());
+		
+		//Test that if another Enquiry object's status is updated to processing, when checked in the arrayList the status should be displayed as "Processing"
+		enquiry_list.add(rne2);
+		C206_CaseStudy.checkStatustoProcessing(enquiry_list, rne2.getEnquiry_id());
+		assertEquals("Test that the status has changed to 'Processing'", "Processing", rne2.getStatus());
+
+		//Test that if the enquiry id entered is not found in the arraylist "Name not found in list!"
+		boolean isFound = C206_CaseStudy.checkStatustoProcessing(enquiry_list, rne3.getEnquiry_id());
+		assertFalse("Test that the error message, name not found in list, is displayed if the enquiry object is not in arrayList", isFound);
+		
+
+	}
+	
+	@Test
+	public void searchEnquiryTest() {//Done by Sanjeev
+		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
+		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
+		
+		//Test if Enquiry Object can be foudn in the arraylist
+		C206_CaseStudy.addEnquiry(enquiry_list, rne6);
+		Boolean isFound = C206_CaseStudy.searchEnquiry(enquiry_list, rne6.getEnquirerName());
+		assertTrue("Test if enquirer name can be found", isFound);
+		
+		//Test that a name not in the arraylist can be searched
+		Boolean isFalse = C206_CaseStudy.searchEnquiry(enquiry_list, rne5.getEnquirerName());
+		assertFalse("Test that the name can be found in the arrayList", isFalse);
 
 	}
 	

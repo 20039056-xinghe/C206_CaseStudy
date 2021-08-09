@@ -437,23 +437,25 @@ public class C206_CaseStudy {
 	
 	//---------------------------------Enquiry Sanjeev---------------------------------//
 
-	public static void searchEnquiry() { // Done by Sanjeev2
-		String name = Helper.readString("Enter Enquirer Name > ");
+	public static boolean searchEnquiry(ArrayList<Enquiries> enquiryList, String enquirer_name) { // Done by Sanjeev2
 		System.out.println(displayHeader());
+		boolean isFound = false;
 		String output = " ";
 		for (int i = 0; i < enquiryList.size(); i++) {
 			Enquiries enquiry1 = enquiryList.get(i);
-			if (enquiry1.getEnquirerName().equalsIgnoreCase(name)) {
+			if (enquiry1.getEnquirerName().equalsIgnoreCase(enquirer_name)) {
 				output += String.format("%-10d %8s %25s %12s %13s \n", enquiry1.getEnquiry_id(),
 						enquiry1.getEnquirerName(),
 						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(enquiry1.getEnquiry_dateTime()),
 						enquiry1.getStatus(), enquiry1.getFllwupType());
+						isFound = true;
 			} else {
 				output = "No enquiries found for the given name!";
 				break;
 			}
 		}
 		System.out.println(output);
+		return isFound;
 	}
 
 	 public static Enquiries addEnquiryInputs() { //Done by Sanjeev
@@ -473,7 +475,7 @@ public class C206_CaseStudy {
 		 System.out.println("Enquiry registered successfully"); //Since enquiry can be made multiple times by the same person it need not be unique
 	 }
 	 
-	 public static void checkAddedEnquiry(Enquiries e) {
+	 public static void checkAddedEnquiry(Enquiries e) { //Done by Sanjeev
 		 
 		 if(e.getEnquirerName().isBlank() || e.getStatus().isBlank() || e.getFllwupType().isBlank()) {
 			 enquiryList.remove(e);
@@ -552,7 +554,8 @@ public class C206_CaseStudy {
 				displayProcessing();
 			} else if (option == 6) {
 				// Search enquiry
-				searchEnquiry();
+				String enquirer_name = Helper.readString("Enter Enquirer Name > ");
+				searchEnquiry(enquiryList, enquirer_name);
 			} else if (option == 7) {
 				// Delete enquiry
 				int e = deleteEnquiryInputs();
@@ -679,7 +682,7 @@ public class C206_CaseStudy {
 		return output;
 	}
 	
-	public static boolean checkStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+	public static boolean checkStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) { //Done by Sanjeev
 		
 		boolean isValid = false;
 		String setProcessing = "Processing";
@@ -699,7 +702,7 @@ public class C206_CaseStudy {
 		return isValid;
 	}
 	
-	public static void updateStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+	public static void updateStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) { //Done by Sanjeev
 		
 		boolean isValid = checkStatustoProcessing(enquiryList, eId);
 		
@@ -708,7 +711,7 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	public static void updateProcessingMenu() {
+	public static void updateProcessingMenu() { //Done by Sanjeev
 		int enquiryId = Helper.readInt("Enter entryId > ");
 		System.out.println(displayHeader());
 		String output = "";
@@ -727,6 +730,7 @@ public class C206_CaseStudy {
 				}
 			}
 		}
+		System.out.println(output);
 	}
 
 	//---------------------------------TimeTable Jerald---------------------------------//
