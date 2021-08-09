@@ -49,7 +49,10 @@ public class C206_CaseStudy {
 			if (logAccOption == 1) {
 				check = checkStuAcc();
 				if (check == true) {
-					
+					studentMenu();
+				}
+				else {
+					System.out.println("Invalid Email or Password.");
 				}
 			}
 			else if (logAccOption == 2) {
@@ -62,14 +65,14 @@ public class C206_CaseStudy {
 		
 	}
 	
-	private boolean checkStuAcc() {
-		String email = Helper.readString("Enter new Username > ");
-		String password = Helper.readString("Enter new Password > ");
+	private static boolean checkStuAcc() {
+		String email = Helper.readString("Enter Email > ");
+		String password = Helper.readString("Enter Password > ");
 		boolean check = false;
 		
 		for (Students x:studentList) {
 			if (email.equals(x.getStudentEmail()) && password.equals(x.getStudentPassword())) {
-				
+				check = true;
 			}
 		}
 		
