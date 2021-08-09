@@ -25,6 +25,7 @@ public class Registration {
 	private LocalDateTime regiDateTime; //Done by Marcus
 	private String paymentInformation; //Done by Marcus
 	public static ArrayList<TuitionTimetable> timetableList = C206_CaseStudy.getTimetableList();
+	public static ArrayList<TuitionTimetable> timetableListTest = C206_CaseStudyTest.getTimetableList();
 	
 	public Registration(int regiID, int timeTableID, String email) { //Done by Marcus
 
@@ -59,9 +60,11 @@ public class Registration {
 		this.regiDateTime = regiDateTime; //Done by Marcus
 		this.paymentInformation = "Unpaid";//Done by Marcus
 			
-		for (TuitionTimetable x: timetableList) {//Done by Marcus
+		for (TuitionTimetable x: timetableListTest) {//Done by Marcus
 			if (x.getTimetableID() == timeTableID) {//Done by Marcus
+
 				int compareDate = x.getStartDate().compareTo(regiDateTime.toLocalDate());//Done by Marcus
+	
 				if (compareDate <= 3) {
 					this.status = "Late";//Done by Marcus
 				}
