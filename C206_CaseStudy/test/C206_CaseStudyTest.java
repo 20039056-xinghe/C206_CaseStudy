@@ -28,6 +28,8 @@ public class C206_CaseStudyTest {
 	
 	private Students student1;
 	private Students student2;// Jason
+	public static ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
+
 	
 	private Registration registration1; // done by Marcus
 	private Registration registration2; // done by Marcus
@@ -274,36 +276,36 @@ public class C206_CaseStudyTest {
 	
 	
 	//---------------------------------Jason JUnit---------------------------------//
-	
+	@Test
 	public void testViewStudents() {
 		
 		//Check that there is a valid arrayList to view from
-		assertNull( C206_CaseStudy.studentList);
+		assertNull( studentList);
 		
 		//Test that the results that are displayed are the same ones stored within the arrayList
-		C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student1);
-		assertSame(C206_CaseStudy.studentList.get(0), student1);
+		C206_CaseStudy.addNewStudent(studentList, student1);
+		assertSame(studentList.get(0), student1);
 		
 		//Test that once an item has been removed using the delete function, that item can no longer be seen with the view function.
-		C206_CaseStudy.studentList.remove(student1);
-		assertNotSame(C206_CaseStudy.studentList.get(0), student1);
+		studentList.remove(student1);
+		assertNotSame(studentList.get(0), student1);
 	}
-	
+	@Test
 	public void testAddStudents() {
 		
 		//Check that there is a valid arrayList to add to
-		assertNull( C206_CaseStudy.studentList);
+		assertNull( studentList);
 		
 		//Assuming that the list is empty, test that after adding a student into the arrayList, the size of it increases by 1.
-		C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student1);
-		assertEquals(1, C206_CaseStudy.studentList.size());
+		C206_CaseStudy.addNewStudent(studentList, student1);
+		assertEquals(1, studentList.size());
 		
 		//Assuming that there are already has 1 items within the list. Test that when adding 1 more item, that item is the second item within the list
-		C206_CaseStudy.addNewStudent(C206_CaseStudy.studentList, student2);
+		C206_CaseStudy.addNewStudent(studentList, student2);
 		assertSame(student2, C206_CaseStudy.studentList.get(2));
 		
 	}
-	
+	@Test
 		public void testDeleteStudents() {
 			
 			//Assuming that there aree already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
@@ -422,5 +424,7 @@ public class C206_CaseStudyTest {
 		tl2 = null;
 		registration1 = null;
 		registration2 = null;
+		student1 = null;
+		student2 = null;
 	}
 }

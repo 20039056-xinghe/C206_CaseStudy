@@ -409,7 +409,7 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	private static void updateStudentFeedback() { //Done by Jason
+	public static void updateStudentFeedback() { //Done by Jason
 
 		Helper.line(70, "-");
 		System.out.println("STUDENT FEEDBACK UPDATE");
