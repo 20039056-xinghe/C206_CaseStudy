@@ -215,17 +215,30 @@ public class C206_CaseStudy {
 	
 	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
-		boolean check = false;
-		for (Registration x : regiList) {
-			if (x.getRegID() == regiID) {
-				check = true;
-				regiList.remove(x);
-				System.out.println("Registration succesfully deleted");
-			}
-		}
+		boolean check = checkValidID(regiList,regiID);
+		
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration delete, invalid registration ID.");
 		}
+		else {
+			for (Registration x : regiList) {
+				if (x.getRegID() == regiID) {
+					regiList.remove(x);
+					System.out.println("Registration succesfully deleted");
+				}
+			}
+		}
+	}
+	
+	protected static boolean checkValidID(ArrayList<Registration> regiList, int regiID) {
+		boolean valid = false;
+		for (Registration x : regiList) {
+			if (x.getRegID() == regiID) {
+				valid = true;
+			}
+		}
+		
+		return valid;
 	}
 	
 	private static void updateRegistrationPayment(ArrayList<Registration> regiList, int regiID) {
