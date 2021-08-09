@@ -5,10 +5,15 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
-	private static ArrayList<Registration> regiList = new ArrayList<Registration>(); // Done by Marcus
+	public static ArrayList<Registration> regiList = new ArrayList<Registration>(); // Done by Marcus
 	public static ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
 	public static ArrayList<Enquiries> enquiryList = new ArrayList<Enquiries>(); // Done by Sanjeev
 	public static ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>(); // Done by Jerald
+	
+	public static ArrayList<TuitionAdministrator> adminAccList = new ArrayList<TuitionAdministrator>();
+	public static ArrayList<TuitionManager> managerAccList = new ArrayList<TuitionManager>();
+	
+	public static int accVersion = 0;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -20,22 +25,9 @@ public class C206_CaseStudy {
 			logOption = Helper.readInt("Enter choice > ");
 
 			if (logOption == 1) {
-				System.out.println();
+				startLoginAcc();
 			} else if (logOption == 2) {
-				
-				int regOption = -1;
-				
-				while (regOption != 4) {
-					regAccMenu();
-					regOption = Helper.readInt("Enter option > ");
-					if (regOption == 1) {
-						addNewStudent(studentList,null);
-					}
-					else if (regOption == 2) {
-						
-					}
-				}
-				
+				startRegistration();
 			} else if (logOption == 3) {
 				System.out.println("Good bye!");
 			}
@@ -43,9 +35,50 @@ public class C206_CaseStudy {
 			
 		}
 	}
+	
 
 	//---------------------------------LogIn----------------------------------//
+	
+	private static void startLoginAcc() {
+		int logAccOption = -1;
+		
+		while (logAccOption != 4) {
+			logAccMenu();
+			logAccOption = Helper.readInt("Enter option > ");
+			if (logAccOption == 1) {
+				addNewStudent(studentList,null);
+			}
+			else if (logAccOption == 2) {
+				regManager();
+			}
+			else if (logAccOption == 3) {
+				regAdmin();
+			}
+		}
+		
+	}
+	
+	private static void startRegistration() {
+		int regOption = -1;
+		
+		while (regOption != 4) {
+			regAccMenu();
+			regOption = Helper.readInt("Enter option > ");
+			if (regOption == 1) {
+				addNewStudent(studentList,null);
+			}
+			else if (regOption == 2) {
+				regManager();
+			}
+			else if (regOption == 3) {
+				regAdmin();
+			}
+		}
+	}
+	
 	private static void loginMenu() {
+		Helper.line(70, "-");
+		System.out.println("START MENU");
 		Helper.line(70, "-");
 		System.out.println("1. Login");
 		System.out.println("2. Register an Account");
@@ -54,6 +87,18 @@ public class C206_CaseStudy {
 	
 	private static void regAccMenu() {
 		Helper.line(70, "-");
+		System.out.println("REGISTER ACCOUNT MENU");
+		Helper.line(70, "-");
+		System.out.println("1. Student");
+		System.out.println("2. Tuition Manager");
+		System.out.println("3. Tuition Administrator");
+		System.out.println("4. Quit");
+	}
+	
+	private static void logAccMenu() {
+		Helper.line(70, "-");
+		System.out.println("LOGIN ACCOUNT MENU");
+		Helper.line(70, "-");
 		System.out.println("1. Student");
 		System.out.println("2. Tuition Manager");
 		System.out.println("3. Tuition Administrator");
@@ -61,7 +106,52 @@ public class C206_CaseStudy {
 	}
 
 	private static void studentMenu() {
-		
+		Helper.line(70, "-");
+		System.out.println("STUDENT MENU");
+		Helper.line(70, "-");
+		System.out.println("1. Registration");
+		System.out.println("2. Update Feedback");
+		System.out.println("3. View Tuition");
+		System.out.println("4. View Tuition TimeTable");
+		System.out.println("5. Quit");
+	}
+	
+	private static void adminMenu() {
+		Helper.line(70, "-");
+		System.out.println("ADMIN MENU");
+		Helper.line(70, "-");
+		System.out.println("1. Student");
+		System.out.println("2. Tuition");
+		System.out.println("3. Tuition TimeTable");
+		System.out.println("4. Quit");
+	}
+	
+	private static void managerMenu() {
+		Helper.line(70, "-");
+		System.out.println("TUITION MANAGER MENU");
+		Helper.line(70, "-");
+		System.out.println("1. Enquiry");
+		System.out.println("2. View Tuition");
+		System.out.println("3. View Tuition TimeTable");
+		System.out.println("4. Quit");
+	}
+	
+	private static void regManager() {
+		Helper.line(70, "-");
+		System.out.println("REGISTER MANAGER ACCOUNT");
+		Helper.line(70, "-");
+		String username = Helper.readString("Enter new Username > ");
+		String password = Helper.readString("Enter new Password > ");
+		managerAccList.add(new TuitionManager(username,password));
+	}
+	
+	private static void regAdmin() {
+		Helper.line(70, "-");
+		System.out.println("REGISTER ADMINISTRATOR ACCOUNT");
+		Helper.line(70, "-");
+		String username = Helper.readString("Enter new Username > ");
+		String password = Helper.readString("Enter new Password > ");
+		adminAccList.add(new TuitionAdministrator(username,password));
 	}
 	
 	//---------------------------------Register---------------------------------//
