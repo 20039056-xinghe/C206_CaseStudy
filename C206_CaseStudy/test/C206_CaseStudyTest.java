@@ -248,7 +248,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void checkStatustoProcessingTest() {
+	public void checkStatustoProcessingTest() {//Done by Sanjeev
 		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
 		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
 		
@@ -270,7 +270,7 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
-	public void searchEnquiryTest() {
+	public void searchEnquiryTest() {//Done by Sanjeev
 		//Check that the arraylist is not null so enquiry objects can be retrieved from the arraylist
 		assertNotNull("Check if there is a valid Enquiries arrayList", enquiry_list);
 		

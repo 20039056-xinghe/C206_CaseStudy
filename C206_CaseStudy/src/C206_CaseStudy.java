@@ -474,7 +474,7 @@ public class C206_CaseStudy {
 		 System.out.println("Enquiry registered successfully"); //Since enquiry can be made multiple times by the same person it need not be unique
 	 }
 	 
-	 public static void checkAddedEnquiry(Enquiries e) {
+	 public static void checkAddedEnquiry(Enquiries e) { //Done by Sanjeev
 		 
 		 if(e.getEnquirerName().isBlank() || e.getStatus().isBlank() || e.getFllwupType().isBlank()) {
 			 enquiryList.remove(e);
@@ -681,7 +681,7 @@ public class C206_CaseStudy {
 		return output;
 	}
 	
-	public static boolean checkStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+	public static boolean checkStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) { //Done by Sanjeev
 		
 		boolean isValid = false;
 		String setProcessing = "Processing";
@@ -701,7 +701,7 @@ public class C206_CaseStudy {
 		return isValid;
 	}
 	
-	public static void updateStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) {
+	public static void updateStatustoProcessing(ArrayList<Enquiries> enquiryList, int eId) { //Done by Sanjeev
 		
 		boolean isValid = checkStatustoProcessing(enquiryList, eId);
 		
@@ -710,7 +710,7 @@ public class C206_CaseStudy {
 		}
 	}
 	
-	public static void updateProcessingMenu() {
+	public static void updateProcessingMenu() { //Done by Sanjeev
 		int enquiryId = Helper.readInt("Enter entryId > ");
 		System.out.println(displayHeader());
 		String output = "";
