@@ -263,7 +263,7 @@ public class C206_CaseStudyTest {
 	
 	
 	//---------------------------------Jason JUnit---------------------------------//
-	
+	@Test
 	public void testViewStudents() {
 		
 		//Check that there is a valid arrayList to view from
@@ -277,7 +277,7 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.studentList.remove(student1);
 		assertNotSame(C206_CaseStudy.studentList.get(0), student1);
 	}
-	
+	@Test
 	public void testAddStudents() {
 		
 		//Check that there is a valid arrayList to add to
@@ -292,7 +292,7 @@ public class C206_CaseStudyTest {
 		assertSame(student2, C206_CaseStudy.studentList.get(2));
 		
 	}
-		
+	@Test
 		public void testDeleteStudents() {
 			
 			//Assuming that there aree already has 2 items within the list. Test that when deleting 1 item, that item is no longer the second item within the list
@@ -384,12 +384,10 @@ public class C206_CaseStudyTest {
 			assertFalse("Test if the same item that just been deleted can be deleted again.", test);
 			
 			//Test if the non existing item can be deleted.
-			boolean test2 = C206_CaseStudy.checkValidID(regiList, registration1.getRegID());
+			boolean test2 = C206_CaseStudy.checkValidID(regiList, 3);
 			assertFalse("Test if the non existing item can be deleted.", test2);
-			
-			//test if the size of the list decreases when all item is deleted
-			C206_CaseStudy.deleteRegistration(regiList, registration2.getRegID());
-			assertEquals("Test that Registration arraylist size is 0", 0, regiList.size());
+			C206_CaseStudy.deleteRegistration(regiList, 3);
+			assertEquals("Test that Registration arraylist size is still 1", 1, regiList.size());
 
 		}
 	

@@ -208,7 +208,7 @@ public class C206_CaseStudy {
 	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
 		boolean check = checkValidID(regiList,regiID);
-		
+		System.out.println("test");
 		if (check == false) { // Done by Marcus
 			System.out.println("No registration delete, invalid registration ID.");
 		}
