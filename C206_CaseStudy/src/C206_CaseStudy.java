@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class C206_CaseStudy implements MenuMethods {
+public class C206_CaseStudy {
 
 	public static ArrayList<Registration> regiList = new ArrayList<Registration>(); // Done by Marcus
 	public static ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
@@ -36,217 +36,7 @@ public class C206_CaseStudy implements MenuMethods {
 		}
 	}
 	
-
-	//---------------------------------LogIn----------------------------------//
-	
-	private static void startLoginAcc() {
-		int logAccOption = -1;
-		
-		while (logAccOption != 4) {
-			logAccMenu();
-			boolean check = false;
-			logAccOption = Helper.readInt("Enter option > ");
-			
-			if (logAccOption == 1) {
-				check = checkStuAcc();
-				if (check == true) {
-					studentMenu();
-				}
-				else {
-					System.out.println("Invalid Email or Password.");
-				}
-			}
-			
-			else if (logAccOption == 2) {
-				check = checkManagerAcc();
-				if (check == true) {
-					managerMenu();
-				}
-				else {
-					System.out.println("Invalid Email or Password.");
-				}
-			}
-			
-			else if (logAccOption == 3) {
-				check = checkAdminAcc();
-				if (check == true) {
-					adminMenu();
-				}
-				else {
-					System.out.println("Invalid Email or Password.");
-				}
-			}
-		}
-		
-	}
-	
-	private static boolean checkStuAcc() {
-		String email = Helper.readString("Enter Email > ");
-		String password = Helper.readString("Enter Password > ");
-		boolean check = false;
-		
-		for (Students x:studentList) {
-			if (email.equals(x.getStudentEmail()) && password.equals(x.getStudentPassword())) {
-				check = true;
-			}
-		}
-		
-		return check;
-		
-	}
-	private static boolean checkManagerAcc() {
-		String username = Helper.readString("Enter Username > ");
-		String password = Helper.readString("Enter Password > ");
-		boolean check = false;
-		
-		for (TuitionManager x:managerAccList) {
-			if (username.equals(x.getmanagerUsername()) && password.equals(x.getmanagerPassword())) {
-				check = true;
-			}
-		}
-		
-		return check;
-		
-	}
-	private static boolean checkAdminAcc() {
-		String username = Helper.readString("Enter Username > ");
-		String password = Helper.readString("Enter Password > ");
-		boolean check = false;
-		
-		for (TuitionAdministrator x:adminAccList) {
-			if (username.equals(x.getUsername()) && password.equals(x.getPassword())) {
-				check = true;
-			}
-		}
-		
-		return check;
-		
-	}
-	
-	private static void startRegAcc() {
-		int regOption = -1;
-		
-		while (regOption != 4) {
-			regAccMenu();
-			regOption = Helper.readInt("Enter option > ");
-			if (regOption == 1) {
-				addNewStudent(studentList,null);
-			}
-			else if (regOption == 2) {
-				regManager();
-			}
-			else if (regOption == 3) {
-				regAdmin();
-			}
-		}
-	}
-	
-	private static void startStuMenu() {
-		int stuOption = -1;
-		studentMenu();
-		
-		while (stuOption != 5) {
-			
-			studentMenu();
-			stuOption = Helper.readInt("Enter option > ");
-			if (stuOption == 1) {
-				startRegistration();
-			}
-			else if (stuOption == 2) {
-				//update feedback waiting for jason
-			}
-			else if (stuOption == 3) {
-				// view tuition waiting for xing he
-			}
-			else if (stuOption == 4) {
-				viewTimetable();
-			}
-			else if (stuOption == 5) {
-				System.out.println("Bye");
-			}
-			
-		}
-	}
-	
-	private static void loginMenu() {
-		Helper.line(70, "-");
-		System.out.println("START MENU");
-		Helper.line(70, "-");
-		System.out.println("1. Login");
-		System.out.println("2. Register an Account");
-		System.out.println("3. Quit");
-	}
-	
-	private static void regAccMenu() {
-		Helper.line(70, "-");
-		System.out.println("REGISTER ACCOUNT MENU");
-		Helper.line(70, "-");
-		System.out.println("1. Student");
-		System.out.println("2. Tuition Manager");
-		System.out.println("3. Tuition Administrator");
-		System.out.println("4. Quit");
-	}
-	
-	private static void logAccMenu() {
-		Helper.line(70, "-");
-		System.out.println("LOGIN ACCOUNT MENU");
-		Helper.line(70, "-");
-		System.out.println("1. Student");
-		System.out.println("2. Tuition Manager");
-		System.out.println("3. Tuition Administrator");
-		System.out.println("4. Quit");
-	}
-
-	private static void studentMenu() {
-		Helper.line(70, "-");
-		System.out.println("STUDENT MENU");
-		Helper.line(70, "-");
-		System.out.println("1. Registration");
-		System.out.println("2. Update Feedback");
-		System.out.println("3. View Tuition");
-		System.out.println("4. View Tuition TimeTable");
-		System.out.println("5. Log Out");
-	}
-	
-	private static void adminMenu() {
-		Helper.line(70, "-");
-		System.out.println("ADMIN MENU");
-		Helper.line(70, "-");
-		System.out.println("1. Student");
-		System.out.println("2. Tuition");
-		System.out.println("3. Tuition TimeTable");
-		System.out.println("5. Log Out");
-	}
-	
-	private static void managerMenu() {
-		Helper.line(70, "-");
-		System.out.println("TUITION MANAGER MENU");
-		Helper.line(70, "-");
-		System.out.println("1. Enquiry");
-		System.out.println("2. View Tuition");
-		System.out.println("3. View Tuition TimeTable");
-		System.out.println("5. Log Out");
-	}
-	
-	private static void regManager() {
-		Helper.line(70, "-");
-		System.out.println("REGISTER MANAGER ACCOUNT");
-		Helper.line(70, "-");
-		String username = Helper.readString("Enter new Username > ");
-		String password = Helper.readString("Enter new Password > ");
-		managerAccList.add(new TuitionManager(username,password));
-	}
-	
-	private static void regAdmin() {
-		Helper.line(70, "-");
-		System.out.println("REGISTER ADMINISTRATOR ACCOUNT");
-		Helper.line(70, "-");
-		String username = Helper.readString("Enter new Username > ");
-		String password = Helper.readString("Enter new Password > ");
-		adminAccList.add(new TuitionAdministrator(username,password));
-	}
-	
-	//---------------------------------Register---------------------------------//
+	//---------------------------------Register Marcus---------------------------------//
 	
 	private void RegisterMenu() { // Done by Marcus
 		System.out.println("1. Register for Tuition Timetable"); // Done by Marcus
@@ -323,9 +113,9 @@ public class C206_CaseStudy implements MenuMethods {
 		}
 	}
 	
-	//---------------------------------Student---------------------------------//
+	//---------------------------------Student Jason---------------------------------//
 
-	public void studentRegistrationStart() {// done by Jason
+	public static void studentRegistrationStart() {// done by Jason
 
 		int option = -1;
 
@@ -348,12 +138,12 @@ public class C206_CaseStudy implements MenuMethods {
 
 
 
-	private void studentRegistrationMenu() { // Done by Jason
+	private static void studentRegistrationMenu() { // Done by Jason
 		System.out.println("1) View all students\n2) Register new student\n3) Delete a student");
 
 	}
 
-	private void viewAllStudents() { // Done by Jason
+	private static void viewAllStudents() { // Done by Jason
 
 		//Password cannot be viewed
 		String view = String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s", "Student name", "Gender", "Email",
@@ -466,12 +256,12 @@ public class C206_CaseStudy implements MenuMethods {
 		return check;
 	}
 	
-	private void searchStudent() { //Done by Jason
+	private static void searchStudent() { //Done by Jason
 		
 		
 	}
 	
-	//---------------------------------Enquiry---------------------------------//
+	//---------------------------------Enquiry Sanjeev---------------------------------//
 
 	public static void searchEnquiry() { // Done by Sanjeev2
 		int eID = Helper.readInt("Enter Enquiry ID > ");
@@ -684,7 +474,7 @@ public class C206_CaseStudy implements MenuMethods {
 
 	}
 
-	//---------------------------------TimeTable---------------------------------//
+	//---------------------------------TimeTable Jerald---------------------------------//
 	
 	public static void tuitionTimetableStart() { // Done by jerald
 
@@ -825,4 +615,263 @@ public class C206_CaseStudy implements MenuMethods {
 		}
 		return check;
 	}
-}
+	
+	//---------------------------------Tuition Xing He----------------------------------//
+	
+	
+	//---------------------------------LogIn----------------------------------//
+	
+		private static void startLoginAcc() { // Done by Marcus
+			int logAccOption = -1;
+			
+			while (logAccOption != 4) { // Done by Marcus
+				logAccMenu();
+				boolean check = false;
+				logAccOption = Helper.readInt("Enter option > ");
+				
+				if (logAccOption == 1) { // Done by Marcus
+					check = checkStuAcc();
+					if (check == true) { // Done by Marcus
+						startStuMenu();
+					}
+					else { // Done by Marcus
+						System.out.println("Invalid Email or Password.");
+					}
+				}
+				
+				else if (logAccOption == 2) { // Done by Marcus
+					check = checkManagerAcc();
+					if (check == true) { // Done by Marcus
+						startManagerMenu();
+					}
+					else { // Done by Marcus
+						System.out.println("Invalid Email or Password.");
+					}
+				}
+				
+				else if (logAccOption == 3) { // Done by Marcus
+					check = checkAdminAcc();
+					if (check == true) { // Done by Marcus
+						startAdminMenu();
+					}
+					else { // Done by Marcus
+						System.out.println("Invalid Email or Password.");
+					}
+				}
+			}
+			
+		}
+		
+		private static boolean checkStuAcc() { // Done by Marcus
+			String email = Helper.readString("Enter Email > ");
+			String password = Helper.readString("Enter Password > ");
+			boolean check = false;
+			
+			for (Students x:studentList) { // Done by Marcus
+				if (email.equals(x.getStudentEmail()) && password.equals(x.getStudentPassword())) {
+					check = true;
+				}
+			}
+			
+			return check;
+			
+		}
+		private static boolean checkManagerAcc() { // Done by Marcus
+			String username = Helper.readString("Enter Username > ");
+			String password = Helper.readString("Enter Password > ");
+			boolean check = false;
+			
+			for (TuitionManager x:managerAccList) { // Done by Marcus
+				if (username.equals(x.getmanagerUsername()) && password.equals(x.getmanagerPassword())) {
+					check = true;
+				}
+			}
+			
+			return check;
+			
+		}
+		private static boolean checkAdminAcc() { // Done by Marcus
+			String username = Helper.readString("Enter Username > ");
+			String password = Helper.readString("Enter Password > ");
+			boolean check = false;
+			
+			for (TuitionAdministrator x:adminAccList) { // Done by Marcus
+				if (username.equals(x.getUsername()) && password.equals(x.getPassword())) { // Done by Marcus
+					check = true;
+				}
+			}
+			
+			return check;
+			
+		}
+		
+		private static void startRegAcc() { // Done by Marcus
+			int regOption = -1;
+			
+			while (regOption != 4) { // Done by Marcus
+				regAccMenu();
+				regOption = Helper.readInt("Enter option > ");
+				if (regOption == 1) { // Done by Marcus
+					addNewStudent(studentList,null);
+				}
+				else if (regOption == 2) { // Done by Marcus
+					regManager();
+				}
+				else if (regOption == 3) { // Done by Marcus
+					regAdmin();
+				}
+			}
+		}
+		
+		private static void startStuMenu() { // Done by Marcus
+			int stuOption = -1;
+			
+			while (stuOption != 5) { // Done by Marcus
+				
+				studentMenu();
+				stuOption = Helper.readInt("Enter option > ");
+				if (stuOption == 1) {
+					startRegistration();
+				}
+				else if (stuOption == 2) { // Done by Marcus
+					//update feedback waiting for jason
+				}
+				else if (stuOption == 3) { // Done by Marcus
+					// view tuition waiting for xing he
+				}
+				else if (stuOption == 4) { // Done by Marcus
+					viewTimetable();
+				}
+				else if (stuOption == 5) { // Done by Marcus
+					System.out.println("Bye");
+				}
+				
+			}
+		}
+		
+		private static void startManagerMenu() { // Done by Marcus
+			int stuOption = -1;
+			
+			while (stuOption != 4) { // Done by Marcus
+				
+				managerMenu();
+				stuOption = Helper.readInt("Enter option > ");
+				if (stuOption == 1) { // Done by Marcus
+					startEnquiry();
+				}
+				else if (stuOption == 2) { // Done by Marcus
+					//view tuition waiting for xing he
+				}
+				else if (stuOption == 3) { // Done by Marcus
+					viewTimetable();
+				}
+				else if (stuOption == 4) { // Done by Marcus
+					System.out.println("Bye");
+				}
+				
+			}
+		}
+		
+		private static void startAdminMenu() { // Done by Marcus
+			int stuOption = -1;
+			
+			while (stuOption != 4) { // Done by Marcus
+				
+				adminMenu();
+				stuOption = Helper.readInt("Enter option > ");
+				if (stuOption == 1) {
+					studentRegistrationStart();
+				}
+				else if (stuOption == 2) { // Done by Marcus
+					//starttuition
+				}
+				else if (stuOption == 3) { // Done by Marcus
+					tuitionTimetableStart();
+				}
+				else if (stuOption == 4) { // Done by Marcus
+					System.out.println("Bye");
+				}
+				
+			}
+		}
+		
+		private static void loginMenu() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("START MENU");
+			Helper.line(70, "-");
+			System.out.println("1. Login");
+			System.out.println("2. Register an Account");
+			System.out.println("3. Quit");
+		}
+		
+		private static void regAccMenu() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("REGISTER ACCOUNT MENU");
+			Helper.line(70, "-");
+			System.out.println("1. Student");
+			System.out.println("2. Tuition Manager");
+			System.out.println("3. Tuition Administrator");
+			System.out.println("4. Quit");
+		}
+		
+		private static void logAccMenu() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("LOGIN ACCOUNT MENU");
+			Helper.line(70, "-");
+			System.out.println("1. Student");
+			System.out.println("2. Tuition Manager");
+			System.out.println("3. Tuition Administrator");
+			System.out.println("4. Quit");
+		}
+
+		private static void studentMenu() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("STUDENT MENU");
+			Helper.line(70, "-");
+			System.out.println("1. Registration");
+			System.out.println("2. Update Feedback");
+			System.out.println("3. View Tuition");
+			System.out.println("4. View Tuition TimeTable");
+			System.out.println("5. Log Out");
+		}
+		
+		private static void adminMenu() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("ADMIN MENU");
+			Helper.line(70, "-");
+			System.out.println("1. Student");
+			System.out.println("2. Tuition");
+			System.out.println("3. Tuition TimeTable");
+			System.out.println("4. Log Out");
+		}
+		
+		private static void managerMenu() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("TUITION MANAGER MENU");
+			Helper.line(70, "-");
+			System.out.println("1. Enquiry");
+			System.out.println("2. View Tuition");
+			System.out.println("3. View Tuition TimeTable");
+			System.out.println("4. Log Out");
+		}
+		
+		private static void regManager() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("REGISTER MANAGER ACCOUNT");
+			Helper.line(70, "-");
+			String username = Helper.readString("Enter new Username > ");
+			String password = Helper.readString("Enter new Password > ");
+			managerAccList.add(new TuitionManager(username,password));
+		}
+		
+		private static void regAdmin() { // Done by Marcus
+			Helper.line(70, "-");
+			System.out.println("REGISTER ADMINISTRATOR ACCOUNT");
+			Helper.line(70, "-");
+			String username = Helper.readString("Enter new Username > ");
+			String password = Helper.readString("Enter new Password > ");
+			adminAccList.add(new TuitionAdministrator(username,password));
+		}
+		
+	
+}// last bracket please never remove this 
