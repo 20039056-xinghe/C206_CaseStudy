@@ -10,9 +10,10 @@ public class C206_CaseStudy {
 	public static ArrayList<Students> studentList = new ArrayList<Students>(); // done by Jason
 	public static ArrayList<Enquiries> enquiryList = new ArrayList<Enquiries>(); // Done by Sanjeev
 	public static ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>(); // Done by Jerald
-	
 	public static ArrayList<TuitionAdministrator> adminAccList = new ArrayList<TuitionAdministrator>();// Done by Marcus
 	public static ArrayList<TuitionManager> managerAccList = new ArrayList<TuitionManager>();// Done by Jerald
+	
+	public static ArrayList<Tuition> tuitionList = new ArrayList<Tuition>(); // Done by Xing He
 	
 	public static int accVersion = 0;
 
