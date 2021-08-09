@@ -65,6 +65,10 @@ public class C206_CaseStudy {
 			else if (regiOption == 2) {
 				
 			} 
+			else if (regiOption == 3) {
+				int regiID = Helper.readInt("Please enter the registration ID of the registration to be deleted > ");
+				deleteRegistration(regiList,regiID);
+			}
 			else if (regiOption == 4) {
 				System.out.println("Good bye!");
 			}
@@ -152,7 +156,7 @@ public class C206_CaseStudy {
 		return valid;
 	}
 
-	protected String retriveAllRegistration() {
+	protected static String retriveAllRegistration(ArrayList<Registration> regiList) {
 		String output = "";
 		if (regiList.size() == 0) {
 			output = "No registration found";
@@ -166,14 +170,13 @@ public class C206_CaseStudy {
 		return output;
 	}
 	
-	protected void viewAllRegistration() { // Done by Marcus
-		String output = retriveAllRegistration();
+	protected static void viewAllRegistration(ArrayList<Registration> regiList) { // Done by Marcus
+		String output = retriveAllRegistration(regiList);
 		System.out.println(output);
 	}
 
-	protected void deleteRegistration() { // Done by Marcus
+	protected static void deleteRegistration(ArrayList<Registration> regiList, int regiID) { // Done by Marcus
 
-		int regiID = Helper.readInt("Please enter the registration ID of the registration to be deleted > "); // Done by															// Marcus
 		boolean check = false;
 		for (Registration x : regiList) {
 			if (x.getRegID() == regiID) {

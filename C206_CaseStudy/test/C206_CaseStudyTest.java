@@ -331,21 +331,21 @@ public class C206_CaseStudyTest {
 			assertNotNull("Test if there is valid Registration arraylist to retrieve item", regiList);
 			
 			//test if the list of Registration retrieved from the C206_CaseStudy is empty - boundary
-			String allCamcorder= C206_CaseStudy.retrieveAllRegistration(regiList);
+			String allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
 			String testOutput = "";
-			assertEquals("Check that ViewAllCamcorderlist", testOutput, allCamcorder);
+			assertEquals("Check that ViewAllCamcorderlist", testOutput, allRegistration);
 			
 			//Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
-			C206_CaseStudy.addCamcorder(regiList, Registration1);
-			C206_CaseStudy.addCamcorder(regiList, Registration2	);
+			C206_CaseStudy.addRegistration(registration1, regiList);
+			C206_CaseStudy.addRegistration(registration2, regiList	);
 			assertEquals("Test that Registration arraylist size is 2", 2, regiList.size());
 			
 			//test if the expected output string same as the list of Registration retrieved from the C206_CaseStudy	
-			allRegistration= C206_CaseStudy.ViewAllRegistration(regiList);
+			allRegistration= C206_CaseStudy.retriveAllRegistration(regiList);
 			testOutput = String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0011", "Nikon HDSLR", "Yes", "", "40");
 			testOutput += String.format("%-10s %-30s %-10s %-10s %-20s\n","CC0012", "Sony DSC-RX100M7", "Yes", "", "20" );
 		
-			assertEquals("Test that ViewAllRegistration", testOutput, allCamcorder);
+			assertEquals("Test that ViewAllRegistration", testOutput, allRegistration);
 			
 		}
 		
@@ -356,8 +356,9 @@ public class C206_CaseStudyTest {
 
 			//Given an empty list, after adding 2 items, test if after adding an item, the item can be deleted
 			//The second element is almost the same as the first one
-			C206_CaseStudy.addRegistration(regiList, rne1);
-			C206_CaseStudy.addRegistration(regiList, rne2);
+			
+			C206_CaseStudy.addRegistration(registration1, regiList);
+			C206_CaseStudy.addRegistration(registration2, regiList);
 			
 			assertEquals("Test that Enquiry arraylist size is 2", 2, regiList.size());
 			assertSame("Test that the first Registration is added", rne1, regiList.get(0));		
