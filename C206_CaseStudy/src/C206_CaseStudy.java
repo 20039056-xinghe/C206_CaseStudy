@@ -172,7 +172,6 @@ public class C206_CaseStudy {
 				output += x.display();
 			}
 		}
-		System.out.println(output);
 		return output; // Done by Marcus
 	}
 	
