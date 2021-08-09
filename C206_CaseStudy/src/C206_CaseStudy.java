@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class C206_CaseStudy {
 
@@ -10,67 +11,110 @@ public class C206_CaseStudy {
 	public static ArrayList<Enquiries> enquiryList = new ArrayList<Enquiries>(); // Done by Sanjeev
 	public static ArrayList<TuitionTimetable> timetableList = new ArrayList<TuitionTimetable>(); // Done by Jerald
 	
-	public static ArrayList<TuitionAdministrator> adminAccList = new ArrayList<TuitionAdministrator>();
-	public static ArrayList<TuitionManager> managerAccList = new ArrayList<TuitionManager>();
+	public static ArrayList<TuitionAdministrator> adminAccList = new ArrayList<TuitionAdministrator>();// Done by Marcus
+	public static ArrayList<TuitionManager> managerAccList = new ArrayList<TuitionManager>();// Done by Jerald
 	
 	public static int accVersion = 0;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		startMain(); 
+	}
+
+	private static void startMain() { // Done by Marcus
 		int logOption = -1;
 		
-		while (logOption != 3) {
+		while (logOption != 3) {// Done by Marcus
 			loginMenu();
 			logOption = Helper.readInt("Enter choice > ");
 
-			if (logOption == 1) {
+			if (logOption == 1) { // Done by Marcus
 				startLoginAcc();
-			} else if (logOption == 2) {
+			} else if (logOption == 2) { // Done by Marcus
 				startRegAcc();
-			} else if (logOption == 3) {
+			} else if (logOption == 3) { // Done by Marcus
 				System.out.println("Good bye!");
 			}
-			
 			
 		}
 	}
 	
 	//---------------------------------Register Marcus---------------------------------//
 	
-	private void RegisterMenu() { // Done by Marcus
+	private static void RegisterMenu() { // Done by Marcus
+		Helper.line(70, "-");
+		System.out.println("REGISTRATION TUITION TIMETABLE MENU");
+		Helper.line(70, "-");
 		System.out.println("1. Register for Tuition Timetable"); // Done by Marcus
 		System.out.println("2. View All Registration"); // Done by Marcus
 		System.out.println("3. Delete Registration"); // Done by Marcus
+		System.out.println("4. Quit"); // Done by Marcus
 	}
 	
 	private static void startRegistration() {
+	int regiOption = -1;
+			
+		while (regiOption != 4) {
+			RegisterMenu();
+			regiOption = Helper.readInt("Enter choice > ");
+	
+			if (regiOption == 1) {
+				Registration regiObject = createRegiObject();
+				addRegistration(regiObject, regiList);
+			} 
+			else if (regiOption == 2) {
+				
+			} 
+			else if (regiOption == 4) {
+				System.out.println("Good bye!");
+			}
+				
+		}
 		
 	}
 
-	protected static void addRegistration(Registration registration1) { // Done by Marcus
+	protected static Registration createRegiObject() {
 		// registration number = Registration id must be unique.
 		// tuition timetable id
 		// student’s email
 		// status which is initially set to “Pending”
 		// registration date/time
-		boolean repeat = true;
+		
+		boolean check = false;
+		Registration regi = null;
 
-		while (repeat = true) {
+		while (check = false) {
 			int regiID = Helper.readInt("Registration ID > "); // Done by Marcus
-			repeat = checkForDupeRegiNum(regiID);
-
-			if (repeat == false) { // Done by Marcus
-				int timeTabelID = Helper.readInt("Time Table ID > "); // Done by Marcus
+			boolean checkID = checkForDupeRegiNum(regiID);
+			int timeTableID = Helper.readInt("Time Table ID > "); // Done by Marcus
+			
+			if (checkID == false) { // Done by Marcus
+				
 				String stuEmail = Helper.readString("Student's Email"); // Done by Marcus
-
-				regiList.add(new Registration(regiID, timeTabelID, stuEmail)); // Done by Marcus
-				System.out.println("Successfully added registration");
+				regi = new Registration(regiID, timeTableID, stuEmail);
+				check = true;
+				
 			} else { // Done by Marcus
 				System.out.println("Please use a unique Registration ID"); // Done by Marcus
 			}
 		}
-
+		
+		return regi;
+	}
+	
+	protected static void addRegistration(Registration regiObject, ArrayList<Registration> regiList) { // Done by Marcus
+		boolean repeat = true;
+		
+		
+		
+		if (repeat == false) {
+			regiList.add(regiObject);
+			System.out.println("Successfully added registration");
+		}
+		else {
+			System.out.println("Invalid input");
+		}
+		
 	}
 
 	private static boolean checkForDupeRegiNum(int regiID) { // Done by Marcus
@@ -81,6 +125,19 @@ public class C206_CaseStudy {
 			}
 		}
 		return repeat;
+	}
+	
+	private static boolean checkForValidTimeTableID(int timeTableID) {
+		boolean valid = false;
+		
+		for (TuitionTimetable x:timetableList) {
+			if (x.getTimetableID() == timeTableID) {
+				valid = true;
+			}
+		}
+		
+		
+		return valid;
 	}
 
 	protected void viewAllRegistration() { // Done by Marcus
@@ -112,6 +169,7 @@ public class C206_CaseStudy {
 			System.out.println("No registration delete, invalid registration ID.");
 		}
 	}
+	
 	
 	//---------------------------------Student Jason---------------------------------//
 
