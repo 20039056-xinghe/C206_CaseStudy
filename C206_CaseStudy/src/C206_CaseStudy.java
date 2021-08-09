@@ -12,9 +12,43 @@ public class C206_CaseStudy {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		int logOption = -1;
+		
+		while (logOption != 3) {
+			loginMenu();
+			logOption = Helper.readInt("Enter choice > ");
 
+			if (logOption == 1) {
+				System.out.println();
+			} else if (logOption == 2) {
+				regAccMenu();
+			} else if (logOption == 3) {
+				System.out.println("Good bye!");
+			}
+			
+			
+		}
 	}
 
+	//---------------------------------LogIn----------------------------------//
+	private static void loginMenu() {
+		Helper.line(70, "-");
+		System.out.println("1. Login");
+		System.out.println("2. Register an Account");
+		System.out.println("3. Quit");
+	}
+	
+	private static void regAccMenu() {
+		Helper.line(70, "-");
+		System.out.println("1. Student");
+		System.out.println("2. Tuition Manager");
+		System.out.println("3. Tuition ");
+		System.out.println("4. Quit");
+	}
+
+	//---------------------------------Register---------------------------------//
+	
 	private void RegisterMenu() { // Done by Marcus
 		System.out.println("1. Register for Tuition Timetable"); // Done by Marcus
 		System.out.println("2. View All Registration"); // Done by Marcus
@@ -85,6 +119,8 @@ public class C206_CaseStudy {
 			System.out.println("No registration delete, invalid registration ID.");
 		}
 	}
+	
+	//---------------------------------Student---------------------------------//
 
 	public void studentRegistrationStart() {// done by Jason
 
@@ -231,6 +267,8 @@ public class C206_CaseStudy {
 		
 		
 	}
+	
+	//---------------------------------Enquiry---------------------------------//
 
 	public static void searchEnquiry() { // Done by Sanjeev2
 		int eID = Helper.readInt("Enter Enquiry ID > ");
@@ -443,6 +481,8 @@ public class C206_CaseStudy {
 
 	}
 
+	//---------------------------------TimeTable---------------------------------//
+	
 	public static void tuitionTimetableStart() { // Done by jerald
 
 		int option = -1;
