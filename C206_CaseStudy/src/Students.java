@@ -94,7 +94,7 @@ public class Students { //Done by Jason
 	public void setStudentFeedback(String studentFeedback) {
 		this.studentFeedback = studentFeedback;
 	}
-	public String getStudentPassword(String studentPassword) {
+	public String getStudentPassword() {
 		return studentPassword;
 	}
 

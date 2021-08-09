@@ -44,9 +44,13 @@ public class C206_CaseStudy {
 		
 		while (logAccOption != 4) {
 			logAccMenu();
+			boolean check = false;
 			logAccOption = Helper.readInt("Enter option > ");
 			if (logAccOption == 1) {
-				addNewStudent(studentList,null);
+				check = checkStuAcc();
+				if (check == true) {
+					
+				}
 			}
 			else if (logAccOption == 2) {
 				regManager();
@@ -55,6 +59,21 @@ public class C206_CaseStudy {
 				regAdmin();
 			}
 		}
+		
+	}
+	
+	private boolean checkStuAcc() {
+		String email = Helper.readString("Enter new Username > ");
+		String password = Helper.readString("Enter new Password > ");
+		boolean check = false;
+		
+		for (Students x:studentList) {
+			if (email.equals(x.getStudentEmail()) && password.equals(x.getStudentPassword())) {
+				
+			}
+		}
+		
+		return check;
 		
 	}
 	
