@@ -281,12 +281,13 @@ public class C206_CaseStudy {
 	private static void viewAllStudents() { // Done by Jason
 
 		//Password cannot be viewed
-		String view = String.format("%-10s %-10s %-10s ", "Student name", "Gender", "Email",
+		String view = String.format("%-20s %-10s %-10s %-10s %-20s %-25s %-10s \n", "Student name", "Gender", "Mobile Number", "Email",
 				"DOB", "Country", "Feedback");
 		for (int i = 0; i < studentList.size(); i++) {
 			Students r = studentList.get(i);
-			view += String.format("%-10d %-20s %-15s %-10s\n", r.getStudentName(), r.getStudentGender(),
-					r.getStudentEmail(),r.getStudentFeedback());
+			view += String.format("%-20s %-10s %-10d %-20s %-25s %-10s %-15s\n", r.getStudentName(),
+					r.getStudentGender(), r.getStudentMobile(), r.getStudentEmail(), r.getStudentDOB(),
+					r.getStudentCountry(), r.getStudentFeedback());
 		}
 		System.out.println(view);
 	}
@@ -368,9 +369,9 @@ public class C206_CaseStudy {
 			Students r = studentList.get(i);
 
 			if (r.getStudentEmail() == studentDelete) {
-				output += String.format("%-10s %-10s %-10s %-30s %-20s %-20s %-40s", "Student name", "Gender", "Email",
+				output += String.format("%-10s %-10s %-10s %-30s %-20s %-40s\n", "Student name", "Gender", "Email",
 						"DOB", "Country", "Feedback");
-				output += String.format("%-10d %-20s %-15s %-10s\n", r.getStudentName(), r.getStudentGender(),
+				output += String.format("%-10s %-20s %-15s %-10s %-5s %5s\n", r.getStudentName(), r.getStudentGender(),
 						r.getStudentEmail(), r.getStudentDOB(), r.getStudentCountry(), r.getStudentFeedback());
 				break;
 			}
