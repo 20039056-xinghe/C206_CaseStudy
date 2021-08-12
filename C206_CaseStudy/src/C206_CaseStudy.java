@@ -1065,7 +1065,7 @@ public class C206_CaseStudy {
 					updateStudentFeedback();
 				}
 				else if (stuOption == 3) { // Done by Marcus
-					// view tuition waiting for xing he
+					viewTuition();
 				}
 				else if (stuOption == 4) { // Done by Marcus
 					viewTimetable();
@@ -1088,7 +1088,7 @@ public class C206_CaseStudy {
 					startEnquiry();
 				}
 				else if (stuOption == 2) { // Done by Marcus
-					//view tuition waiting for xing he
+					viewTuition();
 				}
 				else if (stuOption == 3) { // Done by Marcus
 					viewTimetable();
@@ -1111,7 +1111,7 @@ public class C206_CaseStudy {
 					studentRegistrationStart();
 				}
 				else if (stuOption == 2) { // Done by Marcus
-					//starttuition
+					tuitionStart();
 				}
 				else if (stuOption == 3) { // Done by Marcus
 					tuitionTimetableStart();
